@@ -1,0 +1,174 @@
+---
+// Define the navigation items
+const navItems = [
+  { text: "Home", href: "/" },
+  { text: "About Us", href: "/about-us" },
+  { text: "Staff", href: "/staff" },
+  { text: "Events", href: "/events" },
+  { text: "Join", href: "/join" },
+];
+
+// Get the current URL path to highlight the active link
+const currentPath = Astro.url.pathname;
+---
+
+<!-- Desktop Navigation -->
+<nav class="hidden lg:block">
+  <ul class="flex items-center space-x-6">
+    {
+      navItems.map((item) => {
+        const isActive = currentPath === item.href || 
+                         (item.href !== "/" && currentPath.startsWith(item.href));
+        
+        return (
+          <li>
+            <a
+              href={item.href}
+              class={`text-base font-medium transition-colors hover:text-primary-600 ${
+                isActive ? "text-primary-600" : "text-gray-700"
+              }`}
+              aria-current={isActive ? "page" : undefined}
+            >
+              {item.text}
+            </a>
+          </li>
+        );
+      })
+    }
+
+  </ul>
+</nav>
+
+<!-- Mobile Menu Button -->
+<button
+  id="mobile-menu-button"
+  class="lg:hidden p-2 text-gray-700 hover:text-primary-600 focus:outline-none transition-colors relative"
+  aria-label="Toggle Menu"
+  aria-expanded="false"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+  </svg>
+</button>
+
+<!-- Mobile Menu Dropdown - Compact & Clean -->
+<div
+  id="mobile-menu"
+  class="absolute top-full left-0 right-0 bg-white shadow-lg border-t border-gray-100 transform scale-y-0 origin-top transition-transform duration-200 ease-out lg:hidden z-50"
+  role="menu"
+  aria-labelledby="mobile-menu-button"
+>
+  <!-- Navigation Links in Grid -->
+  <div class="px-4 py-6">
+    <div class="grid grid-cols-2 gap-3">
+      {
+        navItems.map((item) => {
+          const isActive = currentPath === item.href || 
+                           (item.href !== "/" && currentPath.startsWith(item.href));
+          
+          return (
+            <a
+              href={item.href}
+              class={`block px-4 py-3 text-sm font-medium rounded-lg transition-colors text-center ${
+                isActive 
+                  ? "bg-primary-50 text-primary-600 border border-primary-200" 
+                  : "text-gray-700 hover:bg-gray-50 hover:text-primary-600 border border-transparent"
+              }`}
+              role="menuitem"
+              aria-current={isActive ? "page" : undefined}
+            >
+              {item.text}
+            </a>
+          );
+        })
+      }
+    </div>
+
+<style>
+  /* Mobile menu button animation */
+  #mobile-menu-button:hover svg {
+    transform: scale(1.1);
+  }
+  
+  #mobile-menu-button svg {
+    transition: transform 0.2s ease;
+  }
+  
+  /* Mobile menu show/hide states */
+  #mobile-menu.show {
+    transform: scaleY(1);
+  }
+  
+  /* Smooth hover effects */
+  #mobile-menu a {
+    transition: all 0.15s ease;
+  }
+  
+  /* Active state styling */
+  #mobile-menu a[aria-current="page"] {
+    font-weight: 600;
+  }
+</style>
+
+<script>
+  // Mobile menu functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    let isMenuOpen = false;
+    
+    // Function to toggle mobile menu
+    const toggleMobileMenu = () => {
+      isMenuOpen = !isMenuOpen;
+      
+      if (isMenuOpen) {
+        // Show menu
+        mobileMenu?.classList.add('show');
+        mobileMenuButton?.setAttribute('aria-expanded', 'true');
+      } else {
+        // Hide menu
+        mobileMenu?.classList.remove('show');
+        mobileMenuButton?.setAttribute('aria-expanded', 'false');
+      }
+    };
+    
+    // Event listeners
+    mobileMenuButton?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMobileMenu();
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      const target = e.target as Node | null;
+      if (isMenuOpen && !mobileMenu?.contains(target) && !mobileMenuButton?.contains(target)) {
+        toggleMobileMenu();
+      }
+    });
+    
+    // Close menu when clicking a navigation link
+    const navLinks = mobileMenu?.querySelectorAll('a[href^="/"]');
+    navLinks?.forEach(link => {
+      link.addEventListener('click', () => {
+        if (isMenuOpen) {
+          setTimeout(() => toggleMobileMenu(), 100);
+        }
+      });
+    });
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isMenuOpen) {
+        toggleMobileMenu();
+      }
+    });
+    
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 1024 && isMenuOpen) {
+        toggleMobileMenu();
+      }
+    });
+  });
+</script>
