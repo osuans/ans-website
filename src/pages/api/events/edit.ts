@@ -1,13 +1,25 @@
 import type { APIRoute } from 'astro';
-import { promises as fs } from 'fs';
-import path from 'path';
 import { getEntry } from 'astro:content';
+import { commitFileToGitHub, deleteFileFromGitHub } from '../../../utils/githubEvents'; // <-- GitHub helper
+
+function extractImageFolder(imageUrl: string): string {
+  // from "/uploads/events/slug/file.jpg" → "public/uploads/events/slug"
+  return `public${imageUrl.substring(0, imageUrl.lastIndexOf('/'))}`;
+}
+
+function createSlug(title: string): string {
+  return title
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/[\s_-]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
 
 export const POST: APIRoute = async ({ request, redirect }) => {
   try {
     const formData = await request.formData();
 
-    // Safely get form data
     const slug = String(formData.get('slug') ?? '');
     const title = String(formData.get('title') ?? '');
     const date = String(formData.get('date') ?? '');
@@ -21,42 +33,45 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     const draft = formData.get('draft') === 'on';
     const body = String(formData.get('body') ?? '');
     const imageFile = formData.get('image');
-    // Core validation
+
     if (!slug || !title || !date || !location || !summary) {
-      return new Response(JSON.stringify({ error: "Missing required fields" }), { status: 400, headers: { "Content-Type": "application/json" } });
+      return new Response(JSON.stringify({ error: "Missing required fields" }), { status: 400 });
     }
 
     const existingEvent = await getEntry('events', slug);
     if (!existingEvent) {
-      return new Response(JSON.stringify({ error: "Event to edit not found" }), { status: 404, headers: { "Content-Type": "application/json" } });
+      return new Response(JSON.stringify({ error: "Event not found" }), { status: 404 });
     }
 
-    let imageUrl = existingEvent.data.image;
+    let imageUrl = existingEvent.data.image as string;
+    const oldImageUrl = existingEvent.data.image as string;
 
-    // Handle new image upload
+    // If a new image was uploaded, replace the old one
     if (imageFile instanceof File && imageFile.size > 0) {
       if (!imageFile.type.startsWith("image/")) {
-        return new Response(JSON.stringify({ error: "Uploaded file must be an image" }), { status: 400, headers: { "Content-Type": "application/json" } });
+        return new Response(JSON.stringify({ error: "Uploaded file must be an image" }), { status: 400 });
       }
 
-      const uploadsDir = path.join(process.cwd(), 'public/uploads/events', slug);
-      await fs.mkdir(uploadsDir, { recursive: true });
+      // Delete old image from GitHub
+      const oldImageFolder = extractImageFolder(oldImageUrl);
+      const oldFileName = oldImageUrl.split('/').pop();
+      if (oldFileName) {
+        await deleteFileFromGitHub(`${oldImageFolder}/${oldFileName}`);
+      }
 
-      // Optional: Clean up old images before saving the new one
-      // try { await fs.rm(uploadsDir, { recursive: true, force: true }); await fs.mkdir(uploadsDir, { recursive: true }); } catch (e) { console.error("Failed to clean old image directory:", e); }
-
+      // Upload new image
       const extension = imageFile.name.split('.').pop() || 'png';
       const fileName = `event-${Date.now()}.${extension}`;
-      const filePath = path.join(uploadsDir, fileName);
-      const imageBuffer = Buffer.from(await imageFile.arrayBuffer());
-      await fs.writeFile(filePath, imageBuffer);
+      const repoImagePath = `public/uploads/events/${slug}/${fileName}`;
+
+      const buffer = Buffer.from(await imageFile.arrayBuffer());
+      await commitFileToGitHub(repoImagePath, buffer, true);
 
       imageUrl = `/uploads/events/${slug}/${fileName}`;
     }
 
-    const filePath = path.join(process.cwd(), 'src/content/events', `${slug}.md`);
+    const markdownRepoPath = `src/content/events/${slug}.md`;
 
-    // Build the frontmatter cleanly
     const frontmatter = [
       '---',
       `title: "${title.replace(/"/g, '\\"')}"`,
@@ -66,25 +81,22 @@ export const POST: APIRoute = async ({ request, redirect }) => {
       `location: "${location.replace(/"/g, '\\"')}"`,
       `image: "${imageUrl}"`,
       `summary: "${summary.replace(/"/g, '\\"')}"`,
-      tags && `tags:\n${tags.split(',').map(tag => `  - ${tag.trim()}`).join('\n')}`,
+      tags && `tags:\n${tags.split(',').map(t => `  - ${t.trim()}`).join('\n')}`,
       registrationLink && `registrationLink: "${registrationLink}"`,
       `registrationRequired: ${registrationRequired}`,
       `draft: ${draft}`,
       '---'
     ].filter(Boolean).join('\n');
 
-    const content = `${frontmatter}\n\n${body}`;
+    const markdown = `${frontmatter}\n\n${body}`;
 
-    await fs.writeFile(filePath, content, "utf-8");
+    // Commit updated markdown file
+    await commitFileToGitHub(markdownRepoPath, markdown);
 
-    // Redirect back to the events list on success
     return redirect('/admin', 303);
 
   } catch (error) {
     console.error('Failed to edit event:', error);
-    return new Response(JSON.stringify({ error: "An internal server error occurred." }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" }
-    });
+    return new Response(JSON.stringify({ error: "Internal server error" }), { status: 500 });
   }
 };

@@ -1,7 +1,12 @@
 import type { APIRoute } from 'astro';
-import { promises as fs } from 'fs';
-import path from 'path';
 import { getEntry } from 'astro:content';
+import { deleteFileFromGitHub } from '../../../utils/githubEvents'; // ⬅ helper we created earlier
+
+function extractImageFolder(imageUrl: string): string {
+  // from /uploads/events/slug/filename.jpg => uploads/events/slug
+  const parts = imageUrl.split('/');
+  return parts.slice(1, -1).join('/'); // remove leading slash + filename
+}
 
 export const POST: APIRoute = async ({ request, redirect }) => {
   try {
@@ -14,22 +19,27 @@ export const POST: APIRoute = async ({ request, redirect }) => {
 
     const event = await getEntry('events', slug);
     if (!event) {
-      // Event already deleted, which is fine. Redirect gracefully.
-      return redirect('/admin', 303);
+      return redirect('/admin', 303); // Already gone, no problem
     }
 
-    // Delete the markdown file
-    const markdownPath = path.join(process.cwd(), 'src/content/events', `${slug}.md`);
-    await fs.unlink(markdownPath);
+    // Markdown file path in repo
+    const markdownRepoPath = `src/content/events/${slug}.md`;
 
-    // Delete the associated image directory
-    const uploadsDir = path.join(process.cwd(), 'public', event.data.image.substring(0, event.data.image.lastIndexOf('/')));
-    await fs.rm(uploadsDir, { recursive: true, force: true });
+    // Delete markdown file from GitHub
+    await deleteFileFromGitHub(markdownRepoPath);
+
+    // Extract GitHub folder containing event images
+    const imagePath = event.data.image as string;
+    const imageFolder = extractImageFolder(imagePath);
+    const imageRepoDir = `public/${imageFolder}`;
+
+    // Delete entire image folder
+    await deleteFileFromGitHub(imageRepoDir);
 
     return redirect('/admin', 303);
 
   } catch (error) {
     console.error('Failed to delete event:', error);
-    return new Response(JSON.stringify({ error: "An internal server error occurred." }), { status: 500 });
+    return new Response(JSON.stringify({ error: "Internal server error" }), { status: 500 });
   }
 };

@@ -1,15 +1,16 @@
 import type { APIRoute } from 'astro';
 import { promises as fs } from 'fs';
 import path from 'path';
+import { commitFileToGitHub } from '../../../utils/githubEvents'; // <-- added
 
 // Helper: slugify title
 function createSlug(title: string): string {
   return title
     .toLowerCase()
     .trim()
-    .replace(/[^\w\s-]/g, '') // Remove non-word chars
-    .replace(/[\s_-]+/g, '-') // Collapse whitespace and hyphens
-    .replace(/^-+|-+$/g, ''); // Remove leading/trailing hyphens
+    .replace(/[^\w\s-]/g, '') 
+    .replace(/[\s_-]+/g, '-') 
+    .replace(/^-+|-+$/g, '');
 }
 
 export const POST: APIRoute = async ({ request, redirect }) => {
@@ -52,36 +53,24 @@ export const POST: APIRoute = async ({ request, redirect }) => {
       });
     }
 
-    // Directory paths
-    const eventsDir = path.join(process.cwd(), 'src/content/events');
-    const uploadsDir = path.join(process.cwd(), 'public/uploads/events', slug);
+    // Paths
+    const markdownRepoPath = `src/content/events/${slug}.md`;
+    const imageRepoDir = `public/uploads/events/${slug}`;
 
-    // Ensure directories exist before checking for file
-    await fs.mkdir(eventsDir, { recursive: true });
-
-    const markdownFilePath = path.join(eventsDir, `${slug}.md`);
-    try {
-      await fs.access(markdownFilePath);
-      return new Response(JSON.stringify({ error: "Event with this title already exists" }), {
-        status: 409, // Conflict
-        headers: { "Content-Type": "application/json" }
-      });
-    } catch {
-      // File doesn't exist, which is good.
-    }
-
-    await fs.mkdir(uploadsDir, { recursive: true });
-
-    // Save uploaded image
+    // Create repo image filename
     const extension = imageFile.name.split('.').pop() || 'png';
     const fileName = `event-${Date.now()}.${extension}`;
-    const filePath = path.join(uploadsDir, fileName);
+    const imageRepoPath = `${imageRepoDir}/${fileName}`;
+
+    // Convert image
     const imageBuffer = Buffer.from(await imageFile.arrayBuffer());
-    await fs.writeFile(filePath, imageBuffer);
+
+    // Commit image to GitHub (binary)
+    await commitFileToGitHub(imageRepoPath, imageBuffer, true);
 
     const imageUrl = `/uploads/events/${slug}/${fileName}`;
 
-    // Generate clean frontmatter
+    // Construct frontmatter
     const frontmatter = [
       '---',
       `title: "${title.replace(/"/g, '\\"')}"`,
@@ -100,15 +89,14 @@ export const POST: APIRoute = async ({ request, redirect }) => {
 
     const content = `${frontmatter}\n\n${body}`;
 
-    await fs.writeFile(markdownFilePath, content, "utf-8");
+    // Commit markdown to GitHub
+    await commitFileToGitHub(markdownRepoPath, content);
 
-    // Use the modern redirect helper
     return redirect('/admin', 303);
 
   } catch (error) {
     console.error('Failed to create event:', error);
-    // Return a generic error response if something unexpected happens
-    return new Response(JSON.stringify({ error: "An internal server error occurred." }), {
+    return new Response(JSON.stringify({ error: "Internal server error" }), {
       status: 500,
       headers: { "Content-Type": "application/json" }
     });
