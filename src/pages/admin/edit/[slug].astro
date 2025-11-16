@@ -1,0 +1,23 @@
+---
+import { getEntry } from 'astro:content';
+import EventForm from '../../../components/admin/EventForm.astro';
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+
+export const prerender = false;
+
+const { slug } = Astro.params;
+
+if (!slug) {
+  // If no slug is provided in the URL, redirect to the main events list
+  return Astro.redirect('/admin/events');
+}
+
+const event = await getEntry('events', slug);
+
+if (!event) {
+  return new Response(`Event with slug "${slug}" not found.`, { status: 404 });
+}
+---
+<AdminLayout title={`Edit Event: ${event.data.title}`}>
+  <EventForm event={event} />
+</AdminLayout>
