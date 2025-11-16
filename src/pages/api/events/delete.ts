@@ -39,8 +39,9 @@ export const POST: APIRoute = async ({ request, redirect }) => {
       }
     }
 
-    // (Optional) Remove empty folder if using placeholders
-    // await deleteFileFromGitHub(repoDir);
+    // After deleting all files, attempt to delete the now-empty directory.
+    // This helps keep the repository clean.
+    await deleteFileFromGitHub(repoDir).catch(e => console.warn(`Could not delete folder ${repoDir}. It might not be empty or already gone.`));
 
     return redirect('/admin', 303);
 

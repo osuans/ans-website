@@ -7,37 +7,27 @@ const TOKEN = import.meta.env.GITHUB_TOKEN;
 const BASE_URL = `https://api.github.com/repos/${OWNER}/${REPO}/contents`;
 
 /**
- * Fetch SHA of a file from GitHub so we can update or delete it.
- */
-async function getSha(path: string): Promise<string | null> {
-  const res = await fetch(`${BASE_URL}/${encodeURIComponent(path)}?ref=${BRANCH}`, {
-    headers: {
-      Authorization: `Bearer ${TOKEN}`,
-      Accept: "application/vnd.github+json",
-    },
-  });
-
-  if (!res.ok) return null;
-
-  const data = await res.json();
-  return data.sha ?? null;
-}
-
-/**
  * Create or update a file in GitHub (used for event .md files & images).
  */
 export async function commitFileToGitHub(
   repoPath: string,
   content: string | Buffer,
-  isBinary = false
+  isBinary = false,
+  sha?: string, // Accept SHA as a parameter
 ) {
   if (!TOKEN || !OWNER || !REPO) {
     console.warn("GitHub credentials missing. Skipping commit.");
     return;
   }
 
-  const sha = await getSha(repoPath);
   const base64 = Buffer.from(content).toString("base64");
+
+  console.log("Committing to:", `${BASE_URL}/${encodeURIComponent(repoPath)}`, {
+  branch: BRANCH,
+  hasSha: !!sha,
+  sha,
+});
+
 
   const res = await fetch(`${BASE_URL}/${encodeURIComponent(repoPath)}`, {
     method: "PUT",
@@ -71,8 +61,8 @@ export async function deleteFileFromGitHub(repoPath: string) {
     return;
   }
 
-  const sha = await getSha(repoPath);
-  if (!sha) {
+  const fileData = await getFileFromGitHub(repoPath);
+  if (!fileData?.sha) {
     console.warn(`File not found on GitHub: ${repoPath}`);
     return;
   }
@@ -86,7 +76,7 @@ export async function deleteFileFromGitHub(repoPath: string) {
     body: JSON.stringify({
       message: `chore(events): delete ${repoPath}`,
       branch: BRANCH,
-      sha,
+      sha: fileData.sha, // Use the sha from the file data
     }),
   });
 
@@ -111,4 +101,34 @@ export async function getDirectoryFilesFromGitHub(directory: string) {
   if (!res.ok) return [];
   const data = await res.json();
   return Array.isArray(data) ? data : [];
+}
+
+// In src/utils/githubEvents.ts
+
+export async function getFileFromGitHub(path: string): Promise<{ sha: string; content: string; name: string; } | null> {
+  const url = `${BASE_URL}/${encodeURIComponent(path)}?ref=${BRANCH}`;
+
+  try {
+    const response = await fetch(url, {
+      headers: {
+        // Use Bearer for consistency
+        'Authorization': `Bearer ${TOKEN}`,
+        'Accept': 'application/vnd.github+json',
+      },
+    });
+
+    if (!response.ok) {
+      if (response.status === 404) {
+        return null; // File doesn't exist, which is a valid case
+      }
+      throw new Error(`GitHub API responded with ${response.status} for path ${path}`);
+    }
+
+    const data = await response.json();
+    // The content is base64 encoded, but for this use case, we only need the sha.
+    return { sha: data.sha, content: data.content, name: data.name };
+  } catch (error) {
+    console.error(`Failed to get file from GitHub: ${path}`, error);
+    throw error;
+  }
 }

@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import { getEntry } from 'astro:content';
-import { commitFileToGitHub, deleteFileFromGitHub } from '../../../utils/githubEvents'; // <-- GitHub helper
+import { commitFileToGitHub, deleteFileFromGitHub, getFileFromGitHub } from '../../../utils/githubEvents'; // <-- GitHub helper
 
 function extractImageFolder(imageUrl: string): string {
   // from "/uploads/events/slug/file.jpg" → "public/uploads/events/slug"
@@ -20,7 +20,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
   try {
     const formData = await request.formData();
 
-    const slug = String(formData.get('slug') ?? '');
+    const originalSlug = String(formData.get('slug') ?? '');
     const title = String(formData.get('title') ?? '');
     const date = String(formData.get('date') ?? '');
     const endDate = String(formData.get('endDate') ?? '');
@@ -34,17 +34,19 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     const body = String(formData.get('body') ?? '');
     const imageFile = formData.get('image');
 
-    if (!slug || !title || !date || !location || !summary) {
+    if (!originalSlug || !title || !date || !location || !summary) {
       return new Response(JSON.stringify({ error: "Missing required fields" }), { status: 400 });
     }
 
-    const existingEvent = await getEntry('events', slug);
+    const existingEvent = await getEntry('events', originalSlug);
     if (!existingEvent) {
       return new Response(JSON.stringify({ error: "Event not found" }), { status: 404 });
     }
 
     let imageUrl = existingEvent.data.image as string;
     const oldImageUrl = existingEvent.data.image as string;
+
+    const newSlug = createSlug(title);
 
     // If a new image was uploaded, replace the old one
     if (imageFile instanceof File && imageFile.size > 0) {
@@ -61,17 +63,22 @@ export const POST: APIRoute = async ({ request, redirect }) => {
 
       // Upload new image
       const extension = imageFile.name.split('.').pop() || 'png';
-      const fileName = `event-${Date.now()}.${extension}`;
-      const repoImagePath = `public/uploads/events/${slug}/${fileName}`;
+      const newFileName = `event-${Date.now()}.${extension}`;
+      const repoImagePath = `public/uploads/events/${newSlug}/${newFileName}`;
 
       const buffer = Buffer.from(await imageFile.arrayBuffer());
       await commitFileToGitHub(repoImagePath, buffer, true);
 
-      imageUrl = `/uploads/events/${slug}/${fileName}`;
+      imageUrl = `/uploads/events/${newSlug}/${newFileName}`;
     }
 
-    const originalSlug = createSlug(title);
-    const markdownRepoPath = `src/content/events/${originalSlug}.md`;
+    // Handle slug change (rename)
+    if (newSlug !== originalSlug) {
+      // Delete the old markdown file
+      const oldMarkdownPath = `src/content/events/${originalSlug}.md`;
+      await deleteFileFromGitHub(oldMarkdownPath);
+      // Note: We are not renaming the image folder here for simplicity, but you could add that logic.
+    }
 
 
 
@@ -94,7 +101,21 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     const markdown = `${frontmatter}\n\n${body}`;
 
     // Commit updated markdown file
-    await commitFileToGitHub(markdownRepoPath, markdown);
+    let existingFileSha: string | undefined;
+    // Only provide a SHA if we are updating a file, not creating a new one (slug hasn't changed)
+    if (newSlug === originalSlug) {
+      const existingFileData = await getFileFromGitHub(`src/content/events/${originalSlug}.md`);
+      existingFileSha = existingFileData?.sha;
+    }
+
+    const newMarkdownPath = `src/content/events/${newSlug}.md`;
+    await commitFileToGitHub(
+  newMarkdownPath,
+  markdown,
+  false,
+  newSlug === originalSlug ? existingFileSha : undefined // ⬅ ensure sha not included
+);
+
 
     return redirect('/admin', 303);
 
