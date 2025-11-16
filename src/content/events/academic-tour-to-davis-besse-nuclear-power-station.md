@@ -6,13 +6,18 @@ time: "7:00 AM - 7:00 PM"
 location: "Davis-Besse Nuclear Power Station, Oak Harbor, Ohio"
 image: "/uploads/events/npp.jpg"
 summary: "Join ANS at OSU for an exclusive academic tour of the Davis-Besse Nuclear Power Station in partnership with Vistra Corp. Explore reactor technology and meet professionals shaping the future of nuclear energy."
-tags: ["tour", "academic", "industry", "networking", "nuclear"]
-registrationRequired: true
+tags:
+  - tour
+  - academic
+  - industry
+  - networking
+  - nuclear
 registrationLink: "https://example.com/davis-besse-2025"
+registrationRequired: true
 draft: false
 ---
 
-## Explore Ohio’s Nuclear Power Hub
+## Explore Ohio’s Nuclear Power Hub :)
 
 Jumpstart your nuclear engineering career by joining an **exclusive academic tour** of the **Davis-Besse Nuclear Power Station**, organized by **ANS at OSU** in partnership with **Vistra Corp**.  
 Mark your calendars for **November 6th, 2025, from 7:00 AM to 7:00 PM**!
