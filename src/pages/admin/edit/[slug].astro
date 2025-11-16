@@ -9,7 +9,7 @@ const { slug } = Astro.params;
 
 if (!slug) {
   // If no slug is provided in the URL, redirect to the main events list
-  return Astro.redirect('/admin/events');
+  return Astro.redirect('/admin');
 }
 
 const event = await getEntry('events', slug);

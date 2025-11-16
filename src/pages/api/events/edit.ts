@@ -21,7 +21,6 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     const draft = formData.get('draft') === 'on';
     const body = String(formData.get('body') ?? '');
     const imageFile = formData.get('image');
-
     // Core validation
     if (!slug || !title || !date || !location || !summary) {
       return new Response(JSON.stringify({ error: "Missing required fields" }), { status: 400, headers: { "Content-Type": "application/json" } });

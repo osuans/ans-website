@@ -4,6 +4,7 @@ import PostLayout from "../../layouts/PostLayout.astro";
 import Button from "../../components/UI/Button.astro";
 import { getEntry } from "astro:content";
 import { formatDate } from "../../utils/dateUtils";
+import PageHeader from "../../components/Sections/PageHeader.astro";
 
 // In SSR mode, we fetch data on-demand for the requested slug.
 const { slug } = Astro.params;
@@ -30,17 +31,16 @@ const isFutureEvent = new Date(entry.data.date) > new Date();
 
 <BaseLayout
   title={`${entry.data.title} - Events - American Nuclear Society at OSU`}
-  description={entry.data.summary}
   image={{ url: entry.data.image, alt: entry.data.title }}
   type="article"
 >
+  
   <PostLayout
     title={entry.data.title}
-    description={entry.data.summary}
     image={{ url: entry.data.image, alt: entry.data.title }}
+    backgroundImage={ entry.data.image}
     date={entry.data.date}
     tags={entry.data.tags}
-    type="event"
   >
     <!-- Event Details -->
     <div class="bg-gray-50 rounded-lg p-6 mb-8">

@@ -8,7 +8,7 @@ export const prerender = false;
 const { slug } = Astro.params;
 
 if (!slug) {
-  return Astro.redirect('/admin/events');
+  return Astro.redirect('/admin');
 }
 
 const event = await getEntry('events', slug);

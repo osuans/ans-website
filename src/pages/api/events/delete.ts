@@ -26,7 +26,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     const uploadsDir = path.join(process.cwd(), 'public', event.data.image.substring(0, event.data.image.lastIndexOf('/')));
     await fs.rm(uploadsDir, { recursive: true, force: true });
 
-    return redirect('/admin/events', 303);
+    return redirect('/admin', 303);
 
   } catch (error) {
     console.error('Failed to delete event:', error);
