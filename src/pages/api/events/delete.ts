@@ -1,11 +1,11 @@
 import type { APIRoute } from 'astro';
 import { getEntry } from 'astro:content';
-import { deleteFileFromGitHub } from '../../../utils/githubEvents'; // ⬅ helper we created earlier
+import { deleteFileFromGitHub, getDirectoryFilesFromGitHub } from '../../../utils/githubEvents';
 
 function extractImageFolder(imageUrl: string): string {
-  // from /uploads/events/slug/filename.jpg => uploads/events/slug
+  // "/uploads/events/slug/file.jpg" → "uploads/events/slug"
   const parts = imageUrl.split('/');
-  return parts.slice(1, -1).join('/'); // remove leading slash + filename
+  return parts.slice(1, -1).join('/');
 }
 
 export const POST: APIRoute = async ({ request, redirect }) => {
@@ -19,27 +19,35 @@ export const POST: APIRoute = async ({ request, redirect }) => {
 
     const event = await getEntry('events', slug);
     if (!event) {
-      return redirect('/admin', 303); // Already gone, no problem
+      return redirect('/admin', 303); // If already gone, we treat as success
     }
 
-    // Markdown file path in repo
+    // 1️⃣ Delete markdown
     const markdownRepoPath = `src/content/events/${slug}.md`;
-
-    // Delete markdown file from GitHub
     await deleteFileFromGitHub(markdownRepoPath);
 
-    // Extract GitHub folder containing event images
-    const imagePath = event.data.image as string;
-    const imageFolder = extractImageFolder(imagePath);
-    const imageRepoDir = `public/${imageFolder}`;
+    // 2️⃣ Delete associated images
+    const imageUrl = event.data.image as string;
+    const folder = extractImageFolder(imageUrl); // uploads/events/slug
+    const repoDir = `public/${folder}`;
 
-    // Delete entire image folder
-    await deleteFileFromGitHub(imageRepoDir);
+    const files = await getDirectoryFilesFromGitHub(repoDir);
+
+    for (const file of files) {
+      if (file.type === 'file') {
+        await deleteFileFromGitHub(`${repoDir}/${file.name}`);
+      }
+    }
+
+    // (Optional) Remove empty folder if using placeholders
+    // await deleteFileFromGitHub(repoDir);
 
     return redirect('/admin', 303);
 
   } catch (error) {
     console.error('Failed to delete event:', error);
-    return new Response(JSON.stringify({ error: "Internal server error" }), { status: 500 });
+    return new Response(JSON.stringify({ error: "Internal server error" }), {
+      status: 500,
+    });
   }
 };

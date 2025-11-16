@@ -70,7 +70,10 @@ export const POST: APIRoute = async ({ request, redirect }) => {
       imageUrl = `/uploads/events/${slug}/${fileName}`;
     }
 
-    const markdownRepoPath = `src/content/events/${slug}.md`;
+    const originalSlug = createSlug(title);
+    const markdownRepoPath = `src/content/events/${originalSlug}.md`;
+
+
 
     const frontmatter = [
       '---',

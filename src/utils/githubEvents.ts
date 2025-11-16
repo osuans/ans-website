@@ -1,9 +1,8 @@
-// src/lib/github.ts
+const OWNER = import.meta.env.GITHUB_OWNER;
+const REPO = import.meta.env.GITHUB_REPO;
+const BRANCH = import.meta.env.GITHUB_BRANCH || "main";
+const TOKEN = import.meta.env.GITHUB_TOKEN;
 
-const OWNER = process.env.GITHUB_OWNER!;
-const REPO = process.env.GITHUB_REPO!;
-const BRANCH = process.env.GITHUB_BRANCH || "main";
-const TOKEN = process.env.GITHUB_TOKEN!;
 
 const BASE_URL = `https://api.github.com/repos/${OWNER}/${REPO}/contents`;
 
