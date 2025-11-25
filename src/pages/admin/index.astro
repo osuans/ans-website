@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+import AdminLayout from '../../layouts/AdminLayout.astro';
+
+export const prerender = false;
+
+const events = await getCollection('events');
+---
+<AdminLayout title="Admin Dashboard">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold">Events</h1>
+    <a href="/admin/create" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors">
+      Create New Event
+    </a>
+  </div>
+
+  <div class="bg-white shadow-md rounded-lg">
+    <ul class="divide-y divide-gray-200">
+      {events.map(event => (
+        <li class="p-4 flex justify-between items-center">
+          <div>
+            <p class="font-semibold text-gray-900">{event.data.title}</p>
+            <p class="text-sm text-gray-600">
+              {event.data.date.toLocaleDateString()} &middot; {event.data.location}
+            </p>
+          </div>
+          <div class="flex gap-4">
+            <a href={`/admin/edit/${event.slug}`} class="text-blue-600 hover:underline">Edit</a>
+            <a href={`/admin/delete/${event.slug}`} class="text-red-600 hover:underline">Delete</a>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</AdminLayout>

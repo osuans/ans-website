@@ -1,0 +1,10 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import EventForm from '../../components/admin/EventForm.astro';
+
+export const prerender = false;
+---
+<AdminLayout title="Create New Event">
+  <h1 class="text-3xl font-bold tracking-tight text-gray-900 mb-8">Create New Event</h1>
+  <EventForm />
+</AdminLayout>

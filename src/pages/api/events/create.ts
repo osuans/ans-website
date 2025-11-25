@@ -1,0 +1,104 @@
+import type { APIRoute } from 'astro';
+import { promises as fs } from 'fs';
+import path from 'path';
+import { commitFileToGitHub } from '../../../utils/githubEvents'; // <-- added
+
+// Helper: slugify title
+function createSlug(title: string): string {
+  return title
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, '') 
+    .replace(/[\s_-]+/g, '-') 
+    .replace(/^-+|-+$/g, '');
+}
+
+export const POST: APIRoute = async ({ request, redirect }) => {
+  try {
+    const formData = await request.formData();
+
+    const title = String(formData.get('title') ?? '');
+    const date = String(formData.get('date') ?? '');
+    const endDate = String(formData.get('endDate') ?? '');
+    const time = String(formData.get('time') ?? '');
+    const location = String(formData.get('location') ?? '');
+    const summary = String(formData.get('summary') ?? '');
+    const tags = String(formData.get('tags') ?? '');
+    const registrationLink = String(formData.get('registrationLink') ?? '');
+    const registrationRequired = formData.get('registrationRequired') === 'on';
+    const draft = formData.get('draft') === 'on';
+    const body = String(formData.get('body') ?? '');
+    const imageFile = formData.get('image');
+
+    // Required validation
+    if (!title || !date || !location || !summary || !(imageFile instanceof File) || imageFile.size === 0) {
+      return new Response(JSON.stringify({ error: "Missing required fields or empty image file" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" }
+      });
+    }
+
+    if (!imageFile.type.startsWith("image/")) {
+      return new Response(JSON.stringify({ error: "Uploaded file must be an image" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" }
+      });
+    }
+
+    const slug = createSlug(title);
+    if (!slug) {
+      return new Response(JSON.stringify({ error: "Title must contain valid characters to generate a slug" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" }
+      });
+    }
+
+    // Paths
+    const markdownRepoPath = `src/content/events/${slug}.md`;
+    const imageRepoDir = `public/uploads/events/${slug}`;
+
+    // Create repo image filename
+    const extension = imageFile.name.split('.').pop() || 'png';
+    const fileName = `event-${Date.now()}.${extension}`;
+    const imageRepoPath = `${imageRepoDir}/${fileName}`;
+
+    // Convert image
+    const imageBuffer = Buffer.from(await imageFile.arrayBuffer());
+
+    // Commit image to GitHub (binary)
+    await commitFileToGitHub(imageRepoPath, imageBuffer, true);
+
+    const imageUrl = `/uploads/events/${slug}/${fileName}`;
+
+    // Construct frontmatter
+    const frontmatter = [
+      '---',
+      `title: "${title.replace(/"/g, '\\"')}"`,
+      `date: ${date}`,
+      endDate && `endDate: ${endDate}`,
+      time && `time: "${time}"`,
+      `location: "${location.replace(/"/g, '\\"')}"`,
+      `image: "${imageUrl}"`,
+      `summary: "${summary.replace(/"/g, '\\"')}"`,
+      tags && `tags:\n${tags.split(',').map(t => `  - ${t.trim()}`).join('\n')}`,
+      registrationLink && `registrationLink: "${registrationLink}"`,
+      `registrationRequired: ${registrationRequired}`,
+      `draft: ${draft}`,
+      '---'
+    ].filter(Boolean).join('\n');
+
+    const content = `${frontmatter}\n\n${body}`;
+
+    // Commit markdown to GitHub
+    await commitFileToGitHub(markdownRepoPath, content);
+
+    return redirect('/admin', 303);
+
+  } catch (error) {
+    console.error('Failed to create event:', error);
+    return new Response(JSON.stringify({ error: "Internal server error" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" }
+    });
+  }
+};

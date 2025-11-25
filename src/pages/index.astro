@@ -1,0 +1,87 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HeroSection from "../components/Sections/HeroSection.astro";
+import EventList from "../components/Sections/EventList.astro";
+import Button from "../components/UI/Button.astro";
+---
+
+<BaseLayout>
+  <HeroSection
+    title="American Nuclear Society @ OSU"
+    subtitle="Empowering the next generation of nuclear professionals"
+    backgroundImage="/uploads/npp.jpg"
+    ctaText="Join Us"
+    ctaLink="/join"
+    secondaryCtaText="Events"
+    secondaryCtaLink="/events"
+  />
+
+  <!-- About Section -->
+  <section class="py-16 bg-secondary-100">
+    <div class="container">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div>
+          <img
+            src="/uploads/scottlab.jpg"
+            alt=""
+            class="rounded-lg shadow-lg object-cover w-full h-full"
+          />
+        </div>
+
+        <div>
+          <h2 class="text-3xl md:text-4xl font-bold mb-6">Who We Are</h2>
+          <p class="text-gray-700 mb-6 text-lg">
+            The American Nuclear Society Student Section at The Ohio State
+            University is a vibrant community of students passionate about
+            nuclear science and technology.
+          </p>
+          <p class="text-gray-700 mb-8 text-lg">
+            Our members gain hands-on experience, build lasting professional
+            networks, and contribute to groundbreaking research across fission,
+            fusion, and medical applications. Join us in our mission to promote
+            the understanding and application of nuclear science for the benefit
+            of society.
+          </p>
+
+          <Button href="/about-us"> Learn More About Us </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Events Section -->
+  <EventList />
+
+  <!-- Call to Action -->
+  <section
+    class="py-20 bg-cover bg-center text-white"
+    style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(/uploads/npp2.jpg)"
+  >
+    <div class="container ">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">
+          Ready to Help Shape Nuclear Energy?
+        </h2>
+        <p class="text-xl mb-8">
+          Discover the incredible benefits and opportunities that await you as
+          an ANS member.
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-4">
+          <Button href="/join" variant="primary" size="lg">
+            Join Us
+          </Button>
+
+          <Button
+            href="/events"
+            variant="outline"
+            size="lg"
+            class="bg-white/10 text-white border-white hover:bg-white hover:text-gray-900 backdrop-blur-sm"
+          >
+           Events
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
