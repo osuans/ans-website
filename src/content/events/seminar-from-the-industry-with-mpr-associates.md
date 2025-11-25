@@ -4,7 +4,7 @@ date: 2025-09-30
 time: "7:30 PM - 9:00 PM"
 location: "Scott Laboratory, E525"
 image: "/uploads/events/seminar-from-the-industry-with-mpr-associates/event-1764072966215.png"
-summary: "Join us for our Seminar from the Industry series with MPR Associates!"
+summary: "Join us for our Seminar from the Industry series with engineers from MPR Associates!"
 tags:
   - seminar
   - nuclear
