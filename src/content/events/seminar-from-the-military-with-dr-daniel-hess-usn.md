@@ -4,7 +4,7 @@ date: 2025-09-16
 time: "6:00 PM - 7:00 PM"
 location: "Scott Laboratory, E525"
 image: "/uploads/events/seminar-from-the-military-with-dr-daniel-hess/event-1764072411592.png"
-summary: "Join Us for Our Seminar from the Military Series featuring Dr. Daniel Hess, US Navy!"
+summary: "Join Us for Our Seminar from the Military Series featuring Dr. Daniel Hess from the U.S. Navy!"
 tags:
   - seminar
   - nuclear
