@@ -8,6 +8,7 @@ summary: "Join us for our Seminar from the Military series featuring LTC Richard
 tags:
   - seminar
   - nuclear
+  - military
   - army
 registrationRequired: false
 draft: false
