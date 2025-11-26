@@ -17,7 +17,7 @@ registrationRequired: true
 draft: false
 ---
 
-## Explore Ohio’s Nuclear Power Hub!! :)
+## Explore Ohio’s Nuclear Power Hub
 
 Jumpstart your nuclear engineering career by joining an **exclusive academic tour** of the **Davis-Besse Nuclear Power Station**, organized by **ANS at OSU** in partnership with **Vistra Corp**.  
 Mark your calendars for **November 6th, 2025, from 7:00 AM to 7:00 PM**!
