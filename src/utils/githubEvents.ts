@@ -7,7 +7,16 @@ const TOKEN = import.meta.env.GITHUB_TOKEN;
 const BASE_URL = `https://api.github.com/repos/${OWNER}/${REPO}/contents`;
 
 /**
- * Create or update a file in GitHub (used for event .md files & images).
+ * Infer the content type (events/scholarships) from the repo path
+ */
+function inferContentType(repoPath: string): string {
+  if (repoPath.includes('scholarships')) return 'scholarships';
+  if (repoPath.includes('events')) return 'events';
+  return 'content';
+}
+
+/**
+ * Create or update a file in GitHub (used for event/scholarship .md files & images).
  */
 export async function commitFileToGitHub(
   repoPath: string,
@@ -21,6 +30,7 @@ export async function commitFileToGitHub(
   }
 
   const base64 = Buffer.from(content).toString("base64");
+  const contentType = inferContentType(repoPath);
 
   console.log("Committing to:", `${BASE_URL}/${encodeURIComponent(repoPath)}`, {
   branch: BRANCH,
@@ -28,6 +38,16 @@ export async function commitFileToGitHub(
   sha,
 });
 
+  const body: { message: string; content: string; branch: string; sha?: string } = {
+    message: sha
+      ? `chore(${contentType}): update ${repoPath}`
+      : `chore(${contentType}): create ${repoPath}`,
+    content: base64,
+    branch: BRANCH,
+  };
+  if (sha) {
+    body.sha = sha;
+  }
 
   const res = await fetch(`${BASE_URL}/${encodeURIComponent(repoPath)}`, {
     method: "PUT",
@@ -35,14 +55,7 @@ export async function commitFileToGitHub(
       Authorization: `Bearer ${TOKEN}`,
       Accept: "application/vnd.github+json",
     },
-    body: JSON.stringify({
-      message: sha
-        ? `chore(events): update ${repoPath}`
-        : `chore(events): create ${repoPath}`,
-      content: base64,
-      branch: BRANCH,
-      sha: sha ?? undefined,
-    }),
+    body: JSON.stringify(body),
   });
 
   if (!res.ok) {
@@ -67,6 +80,8 @@ export async function deleteFileFromGitHub(repoPath: string) {
     return;
   }
 
+  const contentType = inferContentType(repoPath);
+
   const res = await fetch(`${BASE_URL}/${encodeURIComponent(repoPath)}`, {
     method: "DELETE",
     headers: {
@@ -74,7 +89,7 @@ export async function deleteFileFromGitHub(repoPath: string) {
       Accept: "application/vnd.github+json",
     },
     body: JSON.stringify({
-      message: `chore(events): delete ${repoPath}`,
+      message: `chore(${contentType}): delete ${repoPath}`,
       branch: BRANCH,
       sha: fileData.sha, // Use the sha from the file data
     }),

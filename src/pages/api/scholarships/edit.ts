@@ -24,12 +24,18 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     const eligibility = String(formData.get('eligibility') ?? '');
 
     if (!originalSlug || !name || !amount || !frequency || !deadline || !description || !eligibility) {
-      return new Response(JSON.stringify({ error: "Missing required fields" }), { status: 400 });
+      return new Response(JSON.stringify({ error: "Missing required fields" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" }
+      });
     }
 
     const existingScholarship = await getEntry('scholarships', originalSlug);
     if (!existingScholarship) {
-      return new Response(JSON.stringify({ error: "Scholarship not found" }), { status: 404 });
+      return new Response(JSON.stringify({ error: "Scholarship not found" }), {
+        status: 404,
+        headers: { "Content-Type": "application/json" }
+      });
     }
 
     const newSlug = createSlug(name);
@@ -70,6 +76,9 @@ export const POST: APIRoute = async ({ request, redirect }) => {
 
   } catch (error) {
     console.error('Failed to edit scholarship:', error);
-    return new Response(JSON.stringify({ error: "Internal server error" }), { status: 500 });
+    return new Response(JSON.stringify({ error: "Internal server error" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" }
+    });
   }
 };

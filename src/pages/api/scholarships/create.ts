@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { commitFileToGitHub } from '../../../utils/githubEvents';
+import { commitFileToGitHub, getFileFromGitHub } from '../../../utils/githubEvents';
 
 function createSlug(title: string): string {
   return title
@@ -22,11 +22,49 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     const eligibility = String(formData.get('eligibility') ?? '');
 
     if (!name || !amount || !frequency || !deadline || !description || !eligibility) {
-      return new Response(JSON.stringify({ error: "Missing required fields" }), { status: 400 });
+      return new Response(JSON.stringify({ error: "Missing required fields" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" }
+      });
     }
 
-    const newSlug = createSlug(name);
+    const slug = createSlug(name);
+    if (!slug) {
+      return new Response(JSON.stringify({ error: "Name must contain valid characters to generate a slug" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" }
+      });
+    }
+
+    const markdownRepoPath = `src/content/scholarships/${slug}.md`;
 
     const frontmatter = [
       '---',
-      `name: "${name.replace(/
+      `name: "${name.replace(/"/g, '\\"')}"`,
+      `amount: ${amount}`,
+      `frequency: "${frequency.replace(/"/g, '\\"')}"`,
+      `deadline: ${deadline}`,
+      `description: "${description.replace(/"/g, '\\"')}"`,
+      `eligibility:\n${eligibility.split('\n').map(e => `  - "${e.trim().replace(/"/g, '\\"')}"`).join('\n')}`,
+      '---'
+    ].filter(Boolean).join('\n');
+
+    const content = `${frontmatter}\n`;
+
+    // Check if file already exists and get its SHA if it does
+    const existingFile = await getFileFromGitHub(markdownRepoPath);
+    const existingFileSha = existingFile?.sha;
+
+    // Commit markdown to GitHub
+    await commitFileToGitHub(markdownRepoPath, content, false, existingFileSha);
+
+    return redirect('/admin', 303);
+
+  } catch (error) {
+    console.error('Failed to create scholarship:', error);
+    return new Response(JSON.stringify({ error: "Internal server error" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" }
+    });
+  }
+};
