@@ -1,0 +1,53 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  scholarship?: CollectionEntry<'scholarships'>;
+}
+
+const { scholarship } = Astro.props;
+const isEditMode = scholarship != null;
+
+// Helper to format dates for <input type="date">
+const formatDateForInput = (date: Date | undefined) => {
+  return date ? date.toISOString().slice(0, 10) : '';
+};
+---
+<form method="POST" action={isEditMode ? `/api/scholarships/edit` : `/api/scholarships/create`} class="bg-white p-8 rounded-lg shadow-md space-y-6 max-w-4xl mx-auto">
+  {isEditMode && <input type="hidden" name="slug" value={scholarship.slug} />}
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div>
+      <label for="name" class="block text-sm font-medium text-gray-700">Scholarship Name</label>
+      <input type="text" name="name" id="name" value={scholarship?.data.name ?? ''} required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+    </div>
+    <div>
+      <label for="amount" class="block text-sm font-medium text-gray-700">Amount</label>
+      <input type="number" name="amount" id="amount" value={scholarship?.data.amount ?? ''} required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+    </div>
+    <div>
+      <label for="frequency" class="block text-sm font-medium text-gray-700">Frequency</label>
+      <input type="text" name="frequency" id="frequency" value={scholarship?.data.frequency ?? ''} required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+    </div>
+    <div>
+      <label for="deadline" class="block text-sm font-medium text-gray-700">Deadline</label>
+      <input type="date" name="deadline" id="deadline" value={formatDateForInput(scholarship?.data.deadline)} required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+    </div>
+  </div>
+
+  <div>
+    <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+    <textarea name="description" id="description" rows="5" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">{scholarship?.data.description ?? ''}</textarea>
+  </div>
+  
+  <div>
+    <label for="eligibility" class="block text-sm font-medium text-gray-700">Eligibility (one item per line)</label>
+    <textarea name="eligibility" id="eligibility" rows="8" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">{scholarship?.data.eligibility?.join('\n') ?? ''}</textarea>
+  </div>
+
+  <div class="border-t border-gray-200 pt-6 flex justify-end">
+    <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors text-base font-medium">
+      {isEditMode ? 'Update Scholarship' : 'Create Scholarship'}
+    </button>
+  </div>
+</form>

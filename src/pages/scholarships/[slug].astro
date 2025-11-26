@@ -1,0 +1,51 @@
+---
+import { getCollection } from "astro:content";
+import PostLayout from "../../layouts/PostLayout.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const scholarships = await getCollection("scholarships");
+  return scholarships.map((scholarship) => ({
+    params: { slug: scholarship.slug },
+    props: { scholarship },
+  }));
+}
+
+const { scholarship } = Astro.props;
+const { Content } = await scholarship.render();
+---
+<BaseLayout
+  title={`${scholarship.data.name} - ANS at OSU`}
+  description={scholarship.data.description}
+>
+  <PostLayout
+    title={scholarship.data.name}
+    description={scholarship.data.description}
+  >
+    <div class="prose max-w-none">
+      <div class="mb-8">
+        <h2 class="text-2xl font-bold">Details</h2>
+        <p><strong>Amount:</strong> ${scholarship.data.amount.toLocaleString()}</p>
+        <p><strong>Frequency:</strong> {scholarship.data.frequency}</p>
+        <p><strong>Deadline:</strong> {new Date(scholarship.data.deadline).toLocaleDateString()}</p>
+      </div>
+
+      <div class="mb-8">
+        <h2 class="text-2xl font-bold">Eligibility</h2>
+        <ul class="list-disc pl-5">
+          {scholarship.data.eligibility.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="mb-8">
+          <h2 class="text-2xl font-bold">Description</h2>
+          <p>{scholarship.data.description}</p>
+      </div>
+      
+    </div>
+  </PostLayout>
+</BaseLayout>

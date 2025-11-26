@@ -1,0 +1,34 @@
+---
+import { getEntry } from 'astro:content';
+import AdminLayout from '../../../../layouts/AdminLayout.astro';
+import Button from '../../../../components/UI/Button.astro';
+
+export const prerender = false;
+
+const { slug } = Astro.params;
+
+if (!slug) {
+  return Astro.redirect('/admin');
+}
+
+const scholarship = await getEntry('scholarships', slug);
+
+if (!scholarship) {
+  return new Response(`Scholarship with slug "${slug}" not found.`, { status: 404 });
+}
+---
+<AdminLayout title={`Delete Scholarship: ${scholarship.data.name}`}>
+  <div class="bg-white p-8 rounded-lg shadow-md max-w-2xl mx-auto">
+    <h1 class="text-2xl font-bold text-gray-900 mb-4">Confirm Deletion</h1>
+    <p class="text-gray-700 mb-6">
+      Are you sure you want to delete the scholarship: <strong class="font-semibold">{scholarship.data.name}</strong>? This action cannot be undone.
+    </p>
+    <form method="POST" action={`/api/scholarships/delete`}>
+      <input type="hidden" name="slug" value={scholarship.slug} />
+      <div class="flex justify-end gap-4">
+        <Button href="/admin" variant="outline">Cancel</Button>
+        <button type="submit" class="bg-red-600 text-white px-6 py-2 rounded-md hover:bg-red-700 transition-colors text-base font-medium">Delete Scholarship</button>
+      </div>
+    </form>
+  </div>
+</AdminLayout>

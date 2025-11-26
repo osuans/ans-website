@@ -1,0 +1,22 @@
+---
+import { getEntry } from 'astro:content';
+import ScholarshipForm from '../../../../components/admin/ScholarshipForm.astro';
+import AdminLayout from '../../../../layouts/AdminLayout.astro';
+
+export const prerender = false;
+
+const { slug } = Astro.params;
+
+if (!slug) {
+  return Astro.redirect('/admin');
+}
+
+const scholarship = await getEntry('scholarships', slug);
+
+if (!scholarship) {
+  return new Response(`Scholarship with slug "${slug}" not found.`, { status: 404 });
+}
+---
+<AdminLayout title={`Edit Scholarship: ${scholarship.data.name}`}>
+  <ScholarshipForm scholarship={scholarship} />
+</AdminLayout>

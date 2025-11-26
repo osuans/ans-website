@@ -1,0 +1,52 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHeader from "../../components/Sections/PageHeader.astro";
+import Card from "../../components/UI/Card.astro";
+import { getCollection } from "astro:content";
+import { formatDate } from "../../utils/dateUtils";
+
+// Get all scholarships
+const allScholarships = await getCollection("scholarships", ({ data }) => {
+  return import.meta.env.PROD ? !data.draft : true;
+});
+
+// Sort scholarships by deadline
+const sortedScholarships = allScholarships.sort((a, b) => new Date(a.data.deadline).getTime() - new Date(b.data.deadline).getTime());
+---
+
+<BaseLayout
+  title="Scholarships & Resources - American Nuclear Society at OSU"
+  description="Explore scholarships, fellowships, and other resources available to students."
+>
+  <PageHeader 
+    title="Scholarships & Resources" 
+    subtitle="Financial opportunities for students in nuclear science and engineering"
+    backgroundImage="/uploads/connect.jpg"
+  />
+  
+  <section class="py-16">
+    <div class="container">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {sortedScholarships.map((scholarship) => (
+          <Card
+            title={scholarship.data.name}
+            href={`/scholarships/${scholarship.slug}`}
+          >
+            <div class="mb-3 flex items-center text-gray-600">
+              <span class="font-bold">Amount:</span>
+              <span class="ml-2">${scholarship.data.amount.toLocaleString()}</span>
+            </div>
+            <div class="mb-3 flex items-center text-gray-600">
+              <span class="font-bold">Deadline:</span>
+              <span class="ml-2">{formatDate(scholarship.data.deadline)}</span>
+            </div>
+            <p class="text-gray-700 mb-4">{scholarship.data.description.substring(0, 100)}...</p>
+            <p class="text-primary-600 font-medium group-hover:underline group-hover:text-primary-700">
+              Learn More →
+            </p>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
