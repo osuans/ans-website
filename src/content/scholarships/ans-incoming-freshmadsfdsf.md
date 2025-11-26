@@ -8,5 +8,5 @@ eligibility:
   - "fdasd"
   - "ffd"
   - "fd"
-  - ""
+  - "huh?"
 ---
