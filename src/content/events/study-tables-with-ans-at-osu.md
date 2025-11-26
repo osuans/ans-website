@@ -15,3 +15,4 @@ registrationRequired: false
 draft: false
 ---
 
+Join us for a collaborative Study Date Event, where you can enhance your study sessions, share resources, and connect with fellow students. Bring your study materials and snacks for an engaging afternoon of learning and motivation!
