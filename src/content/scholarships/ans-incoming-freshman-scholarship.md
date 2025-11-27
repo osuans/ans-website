@@ -1,6 +1,6 @@
 ---
 name: "ANS Incoming Freshman Scholarship"
-type: "fellowship"
+type: "scholarship"
 amount: 1000
 frequency: "Annually"
 deadline: 2026-04-26
