@@ -1,5 +1,6 @@
 ---
 name: "Robert E. Uhrig Graduate Scholarship"
+type: "scholarship"
 amount: 4000
 frequency: "Annually"
 deadline: 2026-02-01

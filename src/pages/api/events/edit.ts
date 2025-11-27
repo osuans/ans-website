@@ -1,19 +1,12 @@
 import type { APIRoute } from 'astro';
 import { getEntry } from 'astro:content';
-import { commitFileToGitHub, deleteFileFromGitHub, getFileFromGitHub } from '../../../utils/githubEvents'; // <-- GitHub helper
+import { commitFileToGitHub, deleteFileFromGitHub, getFileFromGitHub } from '../../../utils/githubEvents';
+import { slugify } from '../../../utils/slugify';
+import { createValidationError, createNotFoundError, createServerError } from '../../../utils/apiHelpers';
 
 function extractImageFolder(imageUrl: string): string {
   // from "/uploads/events/slug/file.jpg" → "public/uploads/events/slug"
   return `public${imageUrl.substring(0, imageUrl.lastIndexOf('/'))}`;
-}
-
-function createSlug(title: string): string {
-  return title
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, '')
-    .replace(/[\s_-]+/g, '-')
-    .replace(/^-+|-+$/g, '');
 }
 
 export const POST: APIRoute = async ({ request, redirect }) => {
@@ -35,23 +28,23 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     const imageFile = formData.get('image');
 
     if (!originalSlug || !title || !date || !location || !summary) {
-      return new Response(JSON.stringify({ error: "Missing required fields" }), { status: 400 });
+      return createValidationError();
     }
 
     const existingEvent = await getEntry('events', originalSlug);
     if (!existingEvent) {
-      return new Response(JSON.stringify({ error: "Event not found" }), { status: 404 });
+      return createNotFoundError("Event not found");
     }
 
     let imageUrl = existingEvent.data.image as string;
     const oldImageUrl = existingEvent.data.image as string;
 
-    const newSlug = createSlug(title);
+    const newSlug = slugify(title);
 
     // If a new image was uploaded, replace the old one
     if (imageFile instanceof File && imageFile.size > 0) {
       if (!imageFile.type.startsWith("image/")) {
-        return new Response(JSON.stringify({ error: "Uploaded file must be an image" }), { status: 400 });
+        return createValidationError("Uploaded file must be an image");
       }
 
       // Delete old image from GitHub
@@ -121,6 +114,6 @@ export const POST: APIRoute = async ({ request, redirect }) => {
 
   } catch (error) {
     console.error('Failed to edit event:', error);
-    return new Response(JSON.stringify({ error: "Internal server error" }), { status: 500 });
+    return createServerError();
   }
 };

@@ -14,6 +14,7 @@ import { slugify, isValidSlug } from '../../utils/slugify';
  */
 export interface ScholarshipData {
   name: string;
+  type: 'scholarship' | 'fellowship' | 'internship';
   amount: number;
   frequency: 'One-time' | 'Annual' | 'Semester' | 'Monthly';
   deadline: Date;

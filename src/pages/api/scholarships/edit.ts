@@ -1,15 +1,8 @@
 import type { APIRoute } from 'astro';
 import { getEntry } from 'astro:content';
 import { commitFileToGitHub, deleteFileFromGitHub, getFileFromGitHub } from '../../../utils/githubEvents';
-
-function createSlug(title: string): string {
-  return title
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, '')
-    .replace(/[\s_-]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-}
+import { slugify } from '../../../utils/slugify';
+import { createValidationError, createNotFoundError, createServerError } from '../../../utils/apiHelpers';
 
 export const POST: APIRoute = async ({ request, redirect }) => {
   try {
@@ -17,28 +10,23 @@ export const POST: APIRoute = async ({ request, redirect }) => {
 
     const originalSlug = String(formData.get('slug') ?? '');
     const name = String(formData.get('name') ?? '');
+    const type = String(formData.get('type') ?? '');
     const amount = Number(formData.get('amount') ?? 0);
     const frequency = String(formData.get('frequency') ?? '');
     const deadline = String(formData.get('deadline') ?? '');
     const description = String(formData.get('description') ?? '');
     const eligibility = String(formData.get('eligibility') ?? '');
 
-    if (!originalSlug || !name || !amount || !frequency || !deadline || !description || !eligibility) {
-      return new Response(JSON.stringify({ error: "Missing required fields" }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" }
-      });
+    if (!originalSlug || !name || !type || !amount || !frequency || !deadline || !description || !eligibility) {
+      return createValidationError();
     }
 
     const existingScholarship = await getEntry('scholarships', originalSlug);
     if (!existingScholarship) {
-      return new Response(JSON.stringify({ error: "Scholarship not found" }), {
-        status: 404,
-        headers: { "Content-Type": "application/json" }
-      });
+      return createNotFoundError("Scholarship not found");
     }
 
-    const newSlug = createSlug(name);
+    const newSlug = slugify(name);
 
     if (newSlug !== originalSlug) {
       const oldMarkdownPath = `src/content/scholarships/${originalSlug}.md`;
@@ -48,6 +36,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     const frontmatter = [
       '---',
       `name: "${name.replace(/"/g, '\\"')}"`,
+      `type: "${type}"`,
       `amount: ${amount}`,
       `frequency: "${frequency.replace(/"/g, '\\"')}"`,
       `deadline: ${deadline}`,
@@ -76,9 +65,6 @@ export const POST: APIRoute = async ({ request, redirect }) => {
 
   } catch (error) {
     console.error('Failed to edit scholarship:', error);
-    return new Response(JSON.stringify({ error: "Internal server error" }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" }
-    });
+    return createServerError();
   }
 };

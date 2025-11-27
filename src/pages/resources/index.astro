@@ -1,17 +1,20 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageHeader from "../../components/Sections/PageHeader.astro";
-import Card from "../../components/UI/Card.astro";
+import ScholarshipCard from "../../components/UI/ScholarshipCard.astro";
 import { getCollection } from "astro:content";
-import { formatDate } from "../../utils/dateUtils";
+import { CONFIG } from "../../constants";
 
 // Get all scholarships
-const allScholarships = await getCollection("scholarships", ({ data }) => {
-  return import.meta.env.PROD ? !data.draft : true;
-});
+const allScholarships = await getCollection("scholarships");
 
 // Sort scholarships by deadline
 const sortedScholarships = allScholarships.sort((a, b) => new Date(a.data.deadline).getTime() - new Date(b.data.deadline).getTime());
+
+// Group by type
+const scholarships = sortedScholarships.filter(s => s.data.type === 'scholarship');
+const fellowships = sortedScholarships.filter(s => s.data.type === 'fellowship');
+const internships = sortedScholarships.filter(s => s.data.type === 'internship');
 ---
 
 <BaseLayout
@@ -26,27 +29,201 @@ const sortedScholarships = allScholarships.sort((a, b) => new Date(a.data.deadli
   
   <section class="py-16">
     <div class="container">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {sortedScholarships.map((scholarship) => (
-          <Card
-            title={scholarship.data.name}
-            href={`/scholarships/${scholarship.slug}`}
-          >
-            <div class="mb-3 flex items-center text-gray-600">
-              <span class="font-bold">Amount:</span>
-              <span class="ml-2">${scholarship.data.amount.toLocaleString()}</span>
+      <!-- Tabs -->
+      <div class="flex justify-center mb-8 border-b border-gray-200">
+        <button class="tab-button px-6 py-3 font-medium text-gray-700 hover:text-primary-600 border-b-2 border-primary-600" data-tab="all">
+          All ({sortedScholarships.length})
+        </button>
+        <button class="tab-button px-6 py-3 font-medium text-gray-700 hover:text-primary-600 border-b-2 border-transparent" data-tab="scholarship">
+          Scholarships ({scholarships.length})
+        </button>
+        <button class="tab-button px-6 py-3 font-medium text-gray-700 hover:text-primary-600 border-b-2 border-transparent" data-tab="fellowship">
+          Fellowships ({fellowships.length})
+        </button>
+        <button class="tab-button px-6 py-3 font-medium text-gray-700 hover:text-primary-600 border-b-2 border-transparent" data-tab="internship">
+          Internships ({internships.length})
+        </button>
+      </div>
+
+      <!-- All Resources -->
+      <div class="tab-content" data-content="all">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="all-items-grid">
+          {sortedScholarships.map((item, index) => (
+            <div class="all-item" data-index={index}>
+              <ScholarshipCard
+                name={item.data.name}
+                type={item.data.type}
+                amount={item.data.amount}
+                deadline={item.data.deadline}
+                description={item.data.description}
+                slug={item.slug}
+                showTypeBadge={true}
+              />
             </div>
-            <div class="mb-3 flex items-center text-gray-600">
-              <span class="font-bold">Deadline:</span>
-              <span class="ml-2">{formatDate(scholarship.data.deadline)}</span>
-            </div>
-            <p class="text-gray-700 mb-4">{scholarship.data.description.substring(0, 100)}...</p>
-            <p class="text-primary-600 font-medium group-hover:underline group-hover:text-primary-700">
-              Learn More →
-            </p>
-          </Card>
+          ))}
+        </div>
+
+        <!-- Pagination Controls -->
+        <div class="flex justify-center items-center gap-2 mt-8" id="pagination-controls">
+          <button id="prev-page" class="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+            Previous
+          </button>
+          <div id="page-numbers" class="flex gap-2"></div>
+          <button id="next-page" class="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
+            Next
+          </button>
+        </div>
+      </div>
+
+      <!-- Scholarships Only -->
+      <div class="tab-content hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-content="scholarship">
+        {scholarships.map((item) => (
+          <ScholarshipCard
+            name={item.data.name}
+            type={item.data.type}
+            amount={item.data.amount}
+            deadline={item.data.deadline}
+            description={item.data.description}
+            slug={item.slug}
+          />
+        ))}
+      </div>
+
+      <!-- Fellowships Only -->
+      <div class="tab-content hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-content="fellowship">
+        {fellowships.map((item) => (
+          <ScholarshipCard
+            name={item.data.name}
+            type={item.data.type}
+            amount={item.data.amount}
+            deadline={item.data.deadline}
+            description={item.data.description}
+            slug={item.slug}
+          />
+        ))}
+      </div>
+
+      <!-- Internships Only -->
+      <div class="tab-content hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-content="internship">
+        {internships.map((item) => (
+          <ScholarshipCard
+            name={item.data.name}
+            type={item.data.type}
+            amount={item.data.amount}
+            deadline={item.data.deadline}
+            description={item.data.description}
+            slug={item.slug}
+          />
         ))}
       </div>
     </div>
   </section>
+
+  <script define:vars={{ itemsPerPage: CONFIG.PAGINATION.ITEMS_PER_PAGE }}>
+    // Pagination variables
+    const ITEMS_PER_PAGE = itemsPerPage;
+    let currentPage = 1;
+    let totalPages = 1;
+
+    // Initialize pagination
+    function initPagination() {
+      const allItems = document.querySelectorAll('.all-item');
+      totalPages = Math.ceil(allItems.length / ITEMS_PER_PAGE);
+
+      if (totalPages <= 1) {
+        document.getElementById('pagination-controls').style.display = 'none';
+        return;
+      }
+
+      renderPagination();
+      showPage(1);
+    }
+
+    // Show specific page
+    function showPage(page) {
+      currentPage = page;
+      const allItems = document.querySelectorAll('.all-item');
+      const start = (page - 1) * ITEMS_PER_PAGE;
+      const end = start + ITEMS_PER_PAGE;
+
+      allItems.forEach((item, index) => {
+        if (index >= start && index < end) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+
+      renderPagination();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Render pagination controls
+    function renderPagination() {
+      const pageNumbersContainer = document.getElementById('page-numbers');
+      const prevButton = document.getElementById('prev-page');
+      const nextButton = document.getElementById('next-page');
+
+      // Clear existing page numbers
+      pageNumbersContainer.innerHTML = '';
+
+      // Add page number buttons
+      for (let i = 1; i <= totalPages; i++) {
+        const button = document.createElement('button');
+        button.textContent = i;
+        button.className = `px-4 py-2 border rounded-md ${
+          i === currentPage
+            ? 'bg-primary-600 text-white border-primary-600'
+            : 'border-gray-300 hover:bg-gray-50'
+        }`;
+        button.addEventListener('click', () => showPage(i));
+        pageNumbersContainer.appendChild(button);
+      }
+
+      // Update prev/next buttons
+      prevButton.disabled = currentPage === 1;
+      nextButton.disabled = currentPage === totalPages;
+    }
+
+    // Prev/Next button handlers
+    document.getElementById('prev-page').addEventListener('click', () => {
+      if (currentPage > 1) showPage(currentPage - 1);
+    });
+
+    document.getElementById('next-page').addEventListener('click', () => {
+      if (currentPage < totalPages) showPage(currentPage + 1);
+    });
+
+    // Tab switching
+    document.querySelectorAll('.tab-button').forEach(button => {
+      button.addEventListener('click', () => {
+        const tab = button.getAttribute('data-tab');
+
+        // Update button styles
+        document.querySelectorAll('.tab-button').forEach(btn => {
+          btn.classList.remove('border-primary-600', 'text-primary-600');
+          btn.classList.add('border-transparent', 'text-gray-700');
+        });
+        button.classList.remove('border-transparent', 'text-gray-700');
+        button.classList.add('border-primary-600', 'text-primary-600');
+
+        // Update content visibility
+        document.querySelectorAll('.tab-content').forEach(content => {
+          content.classList.add('hidden');
+        });
+        document.querySelector(`[data-content="${tab}"]`)?.classList.remove('hidden');
+
+        // Show/hide pagination controls
+        const paginationControls = document.getElementById('pagination-controls');
+        if (tab === 'all') {
+          paginationControls.style.display = totalPages > 1 ? 'flex' : 'none';
+        } else {
+          paginationControls.style.display = 'none';
+        }
+      });
+    });
+
+    // Initialize on page load
+    initPagination();
+  </script>
 </BaseLayout>

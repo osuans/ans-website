@@ -1,39 +1,27 @@
 import type { APIRoute } from 'astro';
 import { commitFileToGitHub, getFileFromGitHub } from '../../../utils/githubEvents';
-
-function createSlug(title: string): string {
-  return title
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, '')
-    .replace(/[\s_-]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-}
+import { slugify } from '../../../utils/slugify';
+import { createValidationError, createServerError } from '../../../utils/apiHelpers';
 
 export const POST: APIRoute = async ({ request, redirect }) => {
   try {
     const formData = await request.formData();
 
     const name = String(formData.get('name') ?? '');
+    const type = String(formData.get('type') ?? '');
     const amount = Number(formData.get('amount') ?? 0);
     const frequency = String(formData.get('frequency') ?? '');
     const deadline = String(formData.get('deadline') ?? '');
     const description = String(formData.get('description') ?? '');
     const eligibility = String(formData.get('eligibility') ?? '');
 
-    if (!name || !amount || !frequency || !deadline || !description || !eligibility) {
-      return new Response(JSON.stringify({ error: "Missing required fields" }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" }
-      });
+    if (!name || !type || !amount || !frequency || !deadline || !description || !eligibility) {
+      return createValidationError();
     }
 
-    const slug = createSlug(name);
+    const slug = slugify(name);
     if (!slug) {
-      return new Response(JSON.stringify({ error: "Name must contain valid characters to generate a slug" }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" }
-      });
+      return createValidationError("Name must contain valid characters to generate a slug");
     }
 
     const markdownRepoPath = `src/content/scholarships/${slug}.md`;
@@ -41,6 +29,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     const frontmatter = [
       '---',
       `name: "${name.replace(/"/g, '\\"')}"`,
+      `type: "${type}"`,
       `amount: ${amount}`,
       `frequency: "${frequency.replace(/"/g, '\\"')}"`,
       `deadline: ${deadline}`,
@@ -62,9 +51,6 @@ export const POST: APIRoute = async ({ request, redirect }) => {
 
   } catch (error) {
     console.error('Failed to create scholarship:', error);
-    return new Response(JSON.stringify({ error: "Internal server error" }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" }
-    });
+    return createServerError();
   }
 };

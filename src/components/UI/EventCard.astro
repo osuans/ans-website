@@ -1,0 +1,71 @@
+---
+import Card from './Card.astro';
+import { formatDate } from '../../utils/dateUtils';
+
+interface Props {
+  title: string;
+  image: string;
+  date: Date;
+  time?: string;
+  location: string;
+  summary: string;
+  slug: string;
+  variant?: 'upcoming' | 'past';
+  summaryLength?: number;
+}
+
+const {
+  title,
+  image,
+  date,
+  time,
+  location,
+  summary,
+  slug,
+  variant = 'upcoming',
+  summaryLength
+} = Astro.props;
+
+const isPast = variant === 'past';
+const truncatedSummary = summaryLength ? `${summary.substring(0, summaryLength)}...` : summary;
+const iconSize = isPast ? 'h-4 w-4' : 'h-5 w-5';
+const textSize = isPast ? 'text-sm' : '';
+const marginBottom = isPast ? 'mb-2' : 'mb-3';
+---
+
+<Card
+  title={title}
+  image={{ src: image, alt: title }}
+  href={`/events/${slug}`}
+  className={isPast ? 'opacity-90 hover:opacity-100' : ''}
+>
+  <div class={`${marginBottom} flex items-center text-gray-600 ${textSize}`}>
+    <svg xmlns="http://www.w3.org/2000/svg" class={`${iconSize} mr-2`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+    </svg>
+    <span>{formatDate(date)}</span>
+  </div>
+
+  {time && (
+    <div class={`${marginBottom} flex items-center text-gray-600 ${textSize}`}>
+      <svg xmlns="http://www.w3.org/2000/svg" class={`${iconSize} mr-2`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <span>{time}</span>
+    </div>
+  )}
+
+  <div class={`${marginBottom} flex items-center text-gray-600 ${textSize}`}>
+    <svg xmlns="http://www.w3.org/2000/svg" class={`${iconSize} mr-2`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+    </svg>
+    <span>{location}</span>
+  </div>
+
+  <p class={`text-gray-700 ${textSize} ${isPast ? 'mb-3' : 'mb-4'}`}>{truncatedSummary}</p>
+
+  <p class={`text-primary-600 font-medium group-hover:underline group-hover:text-primary-700 ${textSize}`}>
+    {isPast ? 'View Details' : 'Learn More'} →
+  </p>
+</Card>

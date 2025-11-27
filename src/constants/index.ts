@@ -29,6 +29,17 @@ export const CONFIG = {
     MIN_DESCRIPTION_LENGTH: 10,
     MAX_DESCRIPTION_LENGTH: 5000,
   },
+
+  PAGINATION: {
+    ITEMS_PER_PAGE: 9,
+    DESCRIPTION_PREVIEW_LENGTH: 150,
+  },
+
+  TYPE_BADGES: {
+    scholarship: 'bg-blue-600',
+    fellowship: 'bg-green-600',
+    internship: 'bg-purple-600',
+  },
 } as const;
 
 /**

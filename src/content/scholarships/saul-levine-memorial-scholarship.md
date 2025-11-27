@@ -1,5 +1,6 @@
 ---
 name: "Saul Levine Memorial Scholarship"
+type: "scholarship"
 amount: 3000
 frequency: "Annually"
 deadline: 2026-02-01

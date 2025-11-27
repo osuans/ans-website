@@ -35,10 +35,11 @@ const scholarshipsCollection = defineCollection({
   type: 'content',
   schema: z.object({
     name: z.string(),
+    type: z.enum(['scholarship', 'fellowship', 'internship']),
     amount: z.number(),
     frequency: z.string(),
-    eligibility: z.array(z.string()), 
-    description: z.string(), 
+    eligibility: z.array(z.string()),
+    description: z.string(),
     deadline: z.date(),
     order: z.number().default(0),
 

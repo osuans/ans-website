@@ -1,17 +1,9 @@
 import type { APIRoute } from 'astro';
 import { promises as fs } from 'fs';
 import path from 'path';
-import { commitFileToGitHub } from '../../../utils/githubEvents'; // <-- added
-
-// Helper: slugify title
-function createSlug(title: string): string {
-  return title
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, '') 
-    .replace(/[\s_-]+/g, '-') 
-    .replace(/^-+|-+$/g, '');
-}
+import { commitFileToGitHub } from '../../../utils/githubEvents';
+import { slugify } from '../../../utils/slugify';
+import { createValidationError, createServerError } from '../../../utils/apiHelpers';
 
 export const POST: APIRoute = async ({ request, redirect }) => {
   try {
@@ -32,25 +24,16 @@ export const POST: APIRoute = async ({ request, redirect }) => {
 
     // Required validation
     if (!title || !date || !location || !summary || !(imageFile instanceof File) || imageFile.size === 0) {
-      return new Response(JSON.stringify({ error: "Missing required fields or empty image file" }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" }
-      });
+      return createValidationError("Missing required fields or empty image file");
     }
 
     if (!imageFile.type.startsWith("image/")) {
-      return new Response(JSON.stringify({ error: "Uploaded file must be an image" }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" }
-      });
+      return createValidationError("Uploaded file must be an image");
     }
 
-    const slug = createSlug(title);
+    const slug = slugify(title);
     if (!slug) {
-      return new Response(JSON.stringify({ error: "Title must contain valid characters to generate a slug" }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" }
-      });
+      return createValidationError("Title must contain valid characters to generate a slug");
     }
 
     // Paths
@@ -96,9 +79,6 @@ export const POST: APIRoute = async ({ request, redirect }) => {
 
   } catch (error) {
     console.error('Failed to create event:', error);
-    return new Response(JSON.stringify({ error: "Internal server error" }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" }
-    });
+    return createServerError();
   }
 };

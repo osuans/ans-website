@@ -1,6 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import AdminLayout from '../../layouts/AdminLayout.astro';
+import { capitalize } from '../../utils/stringHelpers';
+import { CONFIG } from '../../constants';
 
 export const prerender = false;
 
@@ -41,9 +43,9 @@ const scholarships = await getCollection('scholarships');
     <!-- Scholarships Section -->
     <div>
       <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold">Scholarships</h1>
+        <h1 class="text-2xl font-bold">Resources (Scholarships, Fellowships, Internships)</h1>
         <a href="/admin/scholarships/create" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors">
-          Create New Scholarship
+          Create New Resource
         </a>
       </div>
 
@@ -51,10 +53,15 @@ const scholarships = await getCollection('scholarships');
         <ul class="divide-y divide-gray-200">
           {scholarships.map(scholarship => (
             <li class="p-4 flex justify-between items-center">
-              <div>
-                <p class="font-semibold text-gray-900">{scholarship.data.name}</p>
+              <div class="flex-1">
+                <div class="flex items-center gap-2 mb-1">
+                  <p class="font-semibold text-gray-900">{scholarship.data.name}</p>
+                  <span class={`inline-block px-2 py-1 text-xs font-semibold text-white rounded ${CONFIG.TYPE_BADGES[scholarship.data.type]}`}>
+                    {capitalize(scholarship.data.type)}
+                  </span>
+                </div>
                 <p class="text-sm text-gray-600">
-                  Deadline: {scholarship.data.deadline.toLocaleDateString()}
+                  Deadline: {scholarship.data.deadline.toLocaleDateString()} | Amount: ${scholarship.data.amount.toLocaleString()}
                 </p>
               </div>
               <div class="flex gap-4">

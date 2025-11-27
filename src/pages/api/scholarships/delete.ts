@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getEntry } from 'astro:content';
 import { deleteFileFromGitHub } from '../../../utils/githubEvents';
+import { createValidationError, createServerError } from '../../../utils/apiHelpers';
 
 export const POST: APIRoute = async ({ request, redirect }) => {
   try {
@@ -8,10 +9,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     const slug = String(formData.get('slug') ?? '');
 
     if (!slug) {
-      return new Response(JSON.stringify({ error: "Missing slug" }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" }
-      });
+      return createValidationError("Missing slug");
     }
 
     const scholarship = await getEntry('scholarships', slug);
@@ -26,9 +24,6 @@ export const POST: APIRoute = async ({ request, redirect }) => {
 
   } catch (error) {
     console.error('Failed to delete scholarship:', error);
-    return new Response(JSON.stringify({ error: "Internal server error" }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" }
-    });
+    return createServerError();
   }
 };

@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getEntry } from 'astro:content';
 import { deleteFileFromGitHub, getDirectoryFilesFromGitHub } from '../../../utils/githubEvents';
+import { createValidationError, createServerError } from '../../../utils/apiHelpers';
 
 function extractImageFolder(imageUrl: string): string {
   // "/uploads/events/slug/file.jpg" → "uploads/events/slug"
@@ -14,7 +15,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     const slug = String(formData.get('slug') ?? '');
 
     if (!slug) {
-      return new Response(JSON.stringify({ error: "Missing slug" }), { status: 400 });
+      return createValidationError("Missing slug");
     }
 
     const event = await getEntry('events', slug);
@@ -47,8 +48,6 @@ export const POST: APIRoute = async ({ request, redirect }) => {
 
   } catch (error) {
     console.error('Failed to delete event:', error);
-    return new Response(JSON.stringify({ error: "Internal server error" }), {
-      status: 500,
-    });
+    return createServerError();
   }
 };

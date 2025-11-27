@@ -22,6 +22,14 @@ const formatDateForInput = (date: Date | undefined) => {
       <input type="text" name="name" id="name" value={scholarship?.data.name ?? ''} required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
     </div>
     <div>
+      <label for="type" class="block text-sm font-medium text-gray-700">Type</label>
+      <select name="type" id="type" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+        <option value="scholarship" selected={scholarship?.data.type === 'scholarship'}>Scholarship</option>
+        <option value="fellowship" selected={scholarship?.data.type === 'fellowship'}>Fellowship</option>
+        <option value="internship" selected={scholarship?.data.type === 'internship'}>Internship</option>
+      </select>
+    </div>
+    <div>
       <label for="amount" class="block text-sm font-medium text-gray-700">Amount</label>
       <input type="number" name="amount" id="amount" value={scholarship?.data.amount ?? ''} required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
     </div>

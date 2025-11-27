@@ -19,6 +19,13 @@ const DeadlineDateSchema = z.coerce.date({
 });
 
 /**
+ * Scholarship type enum
+ */
+const TypeEnum = z.enum(['scholarship', 'fellowship', 'internship'], {
+  errorMap: () => ({ message: 'Type must be scholarship, fellowship, or internship' }),
+});
+
+/**
  * Scholarship frequency enum
  */
 const FrequencyEnum = z.enum(['One-time', 'Annual', 'Semester', 'Monthly'], {
@@ -34,6 +41,8 @@ export const CreateScholarshipSchema = z.object({
     .min(CONFIG.VALIDATION.MIN_TITLE_LENGTH, `Name must be at least ${CONFIG.VALIDATION.MIN_TITLE_LENGTH} characters`)
     .max(CONFIG.VALIDATION.MAX_TITLE_LENGTH, `Name must not exceed ${CONFIG.VALIDATION.MAX_TITLE_LENGTH} characters`)
     .trim(),
+
+  type: TypeEnum,
 
   amount: z
     .number()
@@ -80,6 +89,8 @@ export const UpdateScholarshipSchema = z.object({
     .min(CONFIG.VALIDATION.MIN_TITLE_LENGTH)
     .max(CONFIG.VALIDATION.MAX_TITLE_LENGTH)
     .trim(),
+
+  type: TypeEnum,
 
   amount: z
     .number()
