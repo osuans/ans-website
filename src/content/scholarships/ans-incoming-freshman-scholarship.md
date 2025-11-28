@@ -3,7 +3,7 @@ name: "ANS Incoming Freshman Scholarship"
 type: "scholarship"
 amount: 1000
 frequency: "Annually"
-deadline: 2026-04-26
+deadline: 2026-04-01
 description: "ANS Incoming Freshman Scholarship was established by the ANS Board in November 2003 for incoming college freshmen pursuing science, technology, engineering, or mathematics (STEM) courses with an interest in working in nuclear science and technology."
 eligibility:
   - "Undergraduate Freshmen or graduating high school seniors Academic achievement in high school of more than 3.5 or equivalent"
@@ -14,4 +14,6 @@ eligibility:
   - "Two (2) Letters of recommendation from a counselor, employer or teacher from a Science, Technology, Engineering, Mathematics-STEM course."
   - "Recipients must become an ANS student member upon beginning their undergraduate studies."
   - "Once ANS verifies these awardees have joined the Society, they will be sent the award funds."
+  - ""
+  - "Apply Here: https://www.ans.org/scholarships/freshman/"
 ---
