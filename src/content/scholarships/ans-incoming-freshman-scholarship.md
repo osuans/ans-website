@@ -15,7 +15,6 @@ eligibility:
   - "Recipients must become an ANS student member upon beginning their undergraduate studies."
   - "Once ANS verifies these awardees have joined the Society, they will be sent the award funds."
   - ""
-  - "<a href=\"https://www.ans.org/scholarships/freshman/\" target=\"_blank\">"
-  - "Apply Here"
-  - "</a>"
+  - "Apply Here: https://www.ans.org/scholarships/freshman/"
+  - ""
 ---
