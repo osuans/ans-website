@@ -14,7 +14,5 @@ eligibility:
   - "Two (2) Letters of recommendation from a counselor, employer or teacher from a Science, Technology, Engineering, Mathematics-STEM course."
   - "Recipients must become an ANS student member upon beginning their undergraduate studies."
   - "Once ANS verifies these awardees have joined the Society, they will be sent the award funds."
-  - ""
   - "Apply Here: https://www.ans.org/scholarships/freshman/"
-  - ""
 ---
