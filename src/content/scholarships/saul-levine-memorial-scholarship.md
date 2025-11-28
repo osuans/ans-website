@@ -8,4 +8,5 @@ description: "The Saul Levine Memorial Scholarship was established by the Nuclea
 eligibility:
   - "Be a member of the ANS Nuclear Installations Safety Division (NISD)"
   - "Academic Level: Graduate (Masters or Ph.D.)"
+  - "Apply Here: https://www.ans.org/scholarships/levine/"
 ---
