@@ -24,6 +24,15 @@ const { Content } = await scholarship.render();
     title={scholarship.data.name}
     description={scholarship.data.description}
   >
+    <div class="mb-6">
+      <a href="/resources" class="inline-flex items-center text-primary-600 hover:text-primary-700 font-medium">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        Back to Resources
+      </a>
+    </div>
+
     <div class="prose max-w-none">
       <div class="mb-8">
         <h2 class="text-2xl font-bold">Details</h2>
@@ -45,7 +54,14 @@ const { Content } = await scholarship.render();
           <h2 class="text-2xl font-bold">Description</h2>
           <p>{scholarship.data.description}</p>
       </div>
-      
+
+      {scholarship.data.applicationUrl && (
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold">Apply</h2>
+          <p><a href={scholarship.data.applicationUrl} target="_blank" rel="noopener noreferrer" class="text-primary-600 hover:text-primary-700 underline">Apply Here →</a></p>
+        </div>
+      )}
+
     </div>
   </PostLayout>
 </BaseLayout>

@@ -41,6 +41,7 @@ const scholarshipsCollection = defineCollection({
     eligibility: z.array(z.string()),
     description: z.string(),
     deadline: z.date(),
+    applicationUrl: z.string().url().optional(),
     order: z.number().default(0),
 
   }),
