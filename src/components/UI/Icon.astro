@@ -1,0 +1,61 @@
+---
+import { ICON_PATHS, DEFAULT_SVG_ATTRS, type IconName } from '../../constants/icons';
+import { ICON_SIZES } from '../../constants/styles';
+
+interface Props {
+  /**
+   * The name of the icon to display
+   */
+  name: IconName;
+
+  /**
+   * Size preset (sm, md, lg, xl) or custom class
+   */
+  size?: keyof typeof ICON_SIZES | string;
+
+  /**
+   * Additional CSS classes
+   */
+  class?: string;
+
+  /**
+   * Custom stroke width (default: 1.5)
+   */
+  strokeWidth?: string | number;
+}
+
+const { name, size = 'md', class: className = '', strokeWidth } = Astro.props;
+
+// Determine size class
+const sizeClass = size in ICON_SIZES
+  ? ICON_SIZES[size as keyof typeof ICON_SIZES]
+  : size;
+
+// Get icon path
+const iconPath = ICON_PATHS[name];
+
+if (!iconPath) {
+  throw new Error(`Icon "${name}" not found. Available icons: ${Object.keys(ICON_PATHS).join(', ')}`);
+}
+
+// Combine classes
+const classes = `${sizeClass} ${className}`.trim();
+
+// Handle stroke width
+const finalStrokeWidth = strokeWidth ?? DEFAULT_SVG_ATTRS.strokeWidth;
+---
+
+<svg
+  xmlns={DEFAULT_SVG_ATTRS.xmlns}
+  fill={DEFAULT_SVG_ATTRS.fill}
+  viewBox={DEFAULT_SVG_ATTRS.viewBox}
+  stroke-width={finalStrokeWidth}
+  stroke={DEFAULT_SVG_ATTRS.stroke}
+  class={classes}
+>
+  <path
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    d={iconPath}
+  />
+</svg>
