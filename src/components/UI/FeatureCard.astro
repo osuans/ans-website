@@ -31,8 +31,17 @@ const {
   bgColor = 'primary'
 } = Astro.props;
 
-// Construct the background color class
-const bgColorClass = `bg-${bgColor}-100`;
+// Map bgColor to actual Tailwind classes (required for JIT compiler)
+const bgColorMap: Record<string, string> = {
+  primary: 'bg-primary-100',
+  secondary: 'bg-secondary-100',
+  blue: 'bg-blue-100',
+  green: 'bg-green-100',
+  purple: 'bg-purple-100',
+  yellow: 'bg-yellow-100',
+};
+
+const bgColorClass = bgColorMap[bgColor] || bgColorMap.primary;
 ---
 
 <div class="bg-white p-8 rounded-lg shadow-sm">
