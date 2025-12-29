@@ -51,7 +51,7 @@ export const CreateEventSchema = z.object({
 
   location: z.string().min(1, 'Location is required').trim(),
 
-  image: EventImageSchema,
+  image: EventImageSchema.optional(),
 
   summary: z
     .string()

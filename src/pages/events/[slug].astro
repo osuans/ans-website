@@ -5,6 +5,7 @@ import Button from "../../components/UI/Button.astro";
 import { getEntry } from "astro:content";
 import { formatDate } from "../../utils/dateUtils";
 import PageHeader from "../../components/Sections/PageHeader.astro";
+import { CONFIG } from "../../constants";
 
 // In SSR mode, we fetch data on-demand for the requested slug.
 const { slug } = Astro.params;
@@ -27,18 +28,21 @@ const formattedEndDate = entry.data.endDate ? formatDate(entry.data.endDate) : n
 
 // Determine if event is in the future
 const isFutureEvent = new Date(entry.data.date) > new Date();
+
+// Use default image if no image is provided
+const eventImage = entry.data.image || CONFIG.DEFAULTS.EVENT_IMAGE;
 ---
 
 <BaseLayout
   title={`${entry.data.title} - Events - American Nuclear Society at OSU`}
-  image={{ url: entry.data.image, alt: entry.data.title }}
+  image={{ url: eventImage, alt: entry.data.title }}
   type="article"
 >
-  
+
   <PostLayout
     title={entry.data.title}
-    image={{ url: entry.data.image, alt: entry.data.title }}
-    backgroundImage={ entry.data.image}
+    image={{ url: eventImage, alt: entry.data.title }}
+    backgroundImage={eventImage}
     date={entry.data.date}
     tags={entry.data.tags}
   >

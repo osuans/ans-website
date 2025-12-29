@@ -4,6 +4,7 @@ import PageHeader from "../../components/Sections/PageHeader.astro";
 import EventCard from "../../components/UI/EventCard.astro";
 import { getCollection } from "astro:content";
 import { isFutureDate, isPastDate, groupEventsBySemester } from "../../utils/dateUtils";
+import { CONFIG } from "../../constants";
 
 // Get all events
 const allEvents = await getCollection("events", ({ data }) => {
@@ -44,7 +45,7 @@ const groupedPastEvents = groupEventsBySemester(pastEvents);
         {upcomingEvents.map((event) => (
           <EventCard
             title={event.data.title}
-            image={event.data.image}
+            image={event.data.image || CONFIG.DEFAULTS.EVENT_IMAGE}
             date={event.data.date}
             time={event.data.time}
             location={event.data.location}
@@ -79,7 +80,7 @@ const groupedPastEvents = groupEventsBySemester(pastEvents);
                   {events.map((event) => (
                     <EventCard
                       title={event.data.title}
-                      image={event.data.image}
+                      image={event.data.image || CONFIG.DEFAULTS.EVENT_IMAGE}
                       date={event.data.date}
                       time={event.data.time}
                       location={event.data.location}

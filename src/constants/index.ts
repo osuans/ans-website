@@ -40,6 +40,10 @@ export const CONFIG = {
     fellowship: 'bg-green-600',
     internship: 'bg-purple-600',
   },
+
+  DEFAULTS: {
+    EVENT_IMAGE: '/uploads/events/autumn-2025-welcome-event/event-1764071958808.jpg',
+  },
 } as const;
 
 /**

@@ -4,6 +4,7 @@ import path from 'path';
 import { commitFileToGitHub } from '../../../utils/githubEvents';
 import { slugify } from '../../../utils/slugify';
 import { createValidationError, createServerError } from '../../../utils/apiHelpers';
+import { CONFIG } from '../../../constants';
 
 export const POST: APIRoute = async ({ request, redirect }) => {
   try {
@@ -22,13 +23,9 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     const body = String(formData.get('body') ?? '');
     const imageFile = formData.get('image');
 
-    // Required validation
-    if (!title || !date || !location || !summary || !(imageFile instanceof File) || imageFile.size === 0) {
-      return createValidationError("Missing required fields or empty image file");
-    }
-
-    if (!imageFile.type.startsWith("image/")) {
-      return createValidationError("Uploaded file must be an image");
+    // Required validation (image is now optional)
+    if (!title || !date || !location || !summary) {
+      return createValidationError("Missing required fields");
     }
 
     const slug = slugify(title);
@@ -36,22 +33,34 @@ export const POST: APIRoute = async ({ request, redirect }) => {
       return createValidationError("Title must contain valid characters to generate a slug");
     }
 
+    // Handle image upload if provided
+    let imageUrl: string = CONFIG.DEFAULTS.EVENT_IMAGE; // Use default image
+
+    if (imageFile instanceof File && imageFile.size > 0) {
+      // Validate image type
+      if (!imageFile.type.startsWith("image/")) {
+        return createValidationError("Uploaded file must be an image");
+      }
+
+      // Paths
+      const imageRepoDir = `public/uploads/events/${slug}`;
+
+      // Create repo image filename
+      const extension = imageFile.name.split('.').pop() || 'png';
+      const fileName = `event-${Date.now()}.${extension}`;
+      const imageRepoPath = `${imageRepoDir}/${fileName}`;
+
+      // Convert image
+      const imageBuffer = Buffer.from(await imageFile.arrayBuffer());
+
+      // Commit image to GitHub (binary)
+      await commitFileToGitHub(imageRepoPath, imageBuffer, true);
+
+      imageUrl = `/uploads/events/${slug}/${fileName}`;
+    }
+
     // Paths
     const markdownRepoPath = `src/content/events/${slug}.md`;
-    const imageRepoDir = `public/uploads/events/${slug}`;
-
-    // Create repo image filename
-    const extension = imageFile.name.split('.').pop() || 'png';
-    const fileName = `event-${Date.now()}.${extension}`;
-    const imageRepoPath = `${imageRepoDir}/${fileName}`;
-
-    // Convert image
-    const imageBuffer = Buffer.from(await imageFile.arrayBuffer());
-
-    // Commit image to GitHub (binary)
-    await commitFileToGitHub(imageRepoPath, imageBuffer, true);
-
-    const imageUrl = `/uploads/events/${slug}/${fileName}`;
 
     // Construct frontmatter
     const frontmatter = [

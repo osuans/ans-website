@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import Card from "../UI/Card.astro";
 import Button from "../UI/Button.astro";
 import { formatDate } from "../../utils/dateUtils";
+import { CONFIG } from "../../constants";
 
 export interface Props {
   count?: number;
@@ -37,7 +38,7 @@ const events = allEvents
         <Card
           title={event.data.title}
           image={{
-            src: event.data.image,
+            src: event.data.image || CONFIG.DEFAULTS.EVENT_IMAGE,
             alt: event.data.title
           }}
           href={`/events/${event.slug}`}
