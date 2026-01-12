@@ -17,7 +17,3 @@ draft: false
 Join us for another event with ANS at OSU where you can enjoy a cup of coffee while discussing the fascinating world of neutrons with Dr. Vasques. 
 
 We can't wait to see you there!
-
-
-
-
