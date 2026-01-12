@@ -3,11 +3,21 @@ import { getCollection } from 'astro:content';
 import AdminLayout from '../../layouts/AdminLayout.astro';
 import { capitalize } from '../../utils/stringHelpers';
 import { CONFIG } from '../../constants';
+import { isFutureDate, isPastDate } from '../../utils/dateUtils';
 
 export const prerender = false;
 
-const events = await getCollection('events');
+const allEvents = await getCollection('events');
 const scholarships = await getCollection('scholarships');
+
+// Separate upcoming and past events
+const upcomingEvents = allEvents
+  .filter(event => isFutureDate(event.data.date))
+  .sort((a, b) => new Date(a.data.date).getTime() - new Date(b.data.date).getTime());
+
+const pastEvents = allEvents
+  .filter(event => isPastDate(event.data.date))
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 ---
 <AdminLayout title="Admin Dashboard">
   <div class="space-y-12">
@@ -20,23 +30,74 @@ const scholarships = await getCollection('scholarships');
         </a>
       </div>
 
-      <div class="bg-white shadow-md rounded-lg">
-        <ul class="divide-y divide-gray-200">
-          {events.map(event => (
-            <li class="p-4 flex justify-between items-center">
-              <div>
-                <p class="font-semibold text-gray-900">{event.data.title}</p>
-                <p class="text-sm text-gray-600">
-                  {event.data.date.toLocaleDateString()} &middot; {event.data.location}
-                </p>
-              </div>
-              <div class="flex gap-4">
-                <a href={`/admin/edit/${event.slug}`} class="text-blue-600 hover:underline">Edit</a>
-                <a href={`/admin/delete/${event.slug}`} class="text-red-600 hover:underline">Delete</a>
-              </div>
-            </li>
-          ))}
-        </ul>
+      <!-- Upcoming Events -->
+      <div class="mb-8">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">Upcoming Events ({upcomingEvents.length})</h2>
+        {upcomingEvents.length > 0 ? (
+          <div class="bg-white shadow-md rounded-lg">
+            <ul class="divide-y divide-gray-200">
+              {upcomingEvents.map(event => (
+                <li class="p-4 flex justify-between items-center hover:bg-gray-50">
+                  <div>
+                    <p class="font-semibold text-gray-900">{event.data.title}</p>
+                    <p class="text-sm text-gray-600">
+                      {event.data.date.toLocaleDateString()} &middot; {event.data.location}
+                    </p>
+                    {event.data.draft && (
+                      <span class="inline-block mt-1 px-2 py-1 text-xs font-semibold text-yellow-800 bg-yellow-100 rounded">
+                        Draft
+                      </span>
+                    )}
+                  </div>
+                  <div class="flex gap-4">
+                    <a href={`/events/${event.slug}`} class="text-gray-600 hover:underline" target="_blank">View</a>
+                    <a href={`/admin/edit/${event.slug}`} class="text-blue-600 hover:underline">Edit</a>
+                    <a href={`/admin/delete/${event.slug}`} class="text-red-600 hover:underline">Delete</a>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          <div class="bg-white shadow-md rounded-lg p-6 text-center text-gray-500">
+            No upcoming events
+          </div>
+        )}
+      </div>
+
+      <!-- Past Events -->
+      <div>
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">Past Events ({pastEvents.length})</h2>
+        {pastEvents.length > 0 ? (
+          <div class="bg-white shadow-md rounded-lg">
+            <ul class="divide-y divide-gray-200">
+              {pastEvents.map(event => (
+                <li class="p-4 flex justify-between items-center hover:bg-gray-50 opacity-75">
+                  <div>
+                    <p class="font-semibold text-gray-900">{event.data.title}</p>
+                    <p class="text-sm text-gray-600">
+                      {event.data.date.toLocaleDateString()} &middot; {event.data.location}
+                    </p>
+                    {event.data.draft && (
+                      <span class="inline-block mt-1 px-2 py-1 text-xs font-semibold text-yellow-800 bg-yellow-100 rounded">
+                        Draft
+                      </span>
+                    )}
+                  </div>
+                  <div class="flex gap-4">
+                    <a href={`/events/${event.slug}`} class="text-gray-600 hover:underline" target="_blank">View</a>
+                    <a href={`/admin/edit/${event.slug}`} class="text-blue-600 hover:underline">Edit</a>
+                    <a href={`/admin/delete/${event.slug}`} class="text-red-600 hover:underline">Delete</a>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          <div class="bg-white shadow-md rounded-lg p-6 text-center text-gray-500">
+            No past events
+          </div>
+        )}
       </div>
     </div>
 
