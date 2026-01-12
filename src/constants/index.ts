@@ -42,7 +42,7 @@ export const CONFIG = {
   },
 
   DEFAULTS: {
-    EVENT_IMAGE: '/uploads/events/autumn-2025-welcome-event/event-1764071958808.jpg',
+    EVENT_IMAGE: 'public/uploads/events/seminar-from-academia-with-dr-taiyang-zhang-tosu/event-1764073387870.png',
   },
 } as const;
 
