@@ -42,7 +42,7 @@ export const CONFIG = {
   },
 
   DEFAULTS: {
-    EVENT_IMAGE: 'public/uploads/events/seminar-from-academia-with-dr-taiyang-zhang-tosu/event-1764073387870.png',
+    EVENT_IMAGE: '/uploads/events/seminar-from-academia-with-dr-taiyang-zhang-tosu/event-1764073387870.png',
   },
 } as const;
 
