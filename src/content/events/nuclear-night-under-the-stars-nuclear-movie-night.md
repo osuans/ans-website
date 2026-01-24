@@ -2,7 +2,7 @@
 title: "Nuclear Night Under the Stars / Nuclear Movie Night"
 date: 2026-04-14
 time: "TBA"
-location: "TBA"
+location: "Arne Slettebak Planetarium / TBD (Suggested: E100)"
 image: "/uploads/events/npp.jpg"
 summary: "Join us for Nuclear Night Under the Stars, an evening of films, fun, and meaningful discussions about nuclear science. Bring your friends and enjoy captivating movies that explore the impact of nuclear technology while engaging with experts and fellow enthusiasts. Don’t miss this unique opportunity for entertainment and education—mark your calendars and prepare for a memorable night!"
 tags:
