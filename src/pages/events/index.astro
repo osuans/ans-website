@@ -6,10 +6,8 @@ import { getCollection } from "astro:content";
 import { isFutureDate, isPastDate, groupEventsBySemester } from "../../utils/dateUtils";
 import { CONFIG } from "../../constants";
 
-// Get all events
-const allEvents = await getCollection("events", ({ data }) => {
-  return import.meta.env.PROD ? !data.draft : true;
-});
+// Get all non-draft events
+const allEvents = await getCollection("events", ({ data }) => !data.draft);
 
 // Separate upcoming and past events
 const upcomingEvents = allEvents.filter(event => isFutureDate(event.data.date))

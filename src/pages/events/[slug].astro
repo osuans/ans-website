@@ -20,6 +20,11 @@ if (!entry) {
   return new Response("Event not found", { status: 404 });
 }
 
+// Don't show draft events to end users
+if (entry.data.draft) {
+  return new Response("Event not found", { status: 404 });
+}
+
 const { Content } = await entry.render();
 
 // Format the dates for display

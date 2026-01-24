@@ -12,10 +12,8 @@ export interface Props {
 
 const { count = 3, showViewAll = true } = Astro.props;
 
-// Get events sorted by date (newest first)
-const allEvents = await getCollection("events", ({ data }) => {
-  return import.meta.env.PROD ? !data.draft : true;
-});
+// Get non-draft events sorted by date (newest first)
+const allEvents = await getCollection("events", ({ data }) => !data.draft);
 
 // Sort by date (upcoming first)
 const events = allEvents
