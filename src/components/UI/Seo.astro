@@ -8,42 +8,120 @@ export interface Props {
   };
   type?: "website" | "article";
   canonicalUrl?: string;
+  keywords?: string[];
 }
 
 const {
   title,
   description,
   image = {
-    url: "../../../uploads/ANS-badge-white.png",
-    alt: "The American Nuclear Society at OSU",
+    url: "/uploads/ANS-badge-red.png",
+    alt: "American Nuclear Society at Ohio State University",
   },
   type = "website",
   canonicalUrl,
+  keywords = [
+    "ANS OSU",
+    "ANS at OSU",
+    "American Nuclear Society Ohio State",
+    "Ohio State ANS",
+    "nuclear engineering OSU",
+    "nuclear science Ohio State",
+    "OSU nuclear engineering club",
+    "Ohio State nuclear society",
+    "ANS student chapter OSU",
+    "nuclear engineering students Ohio State",
+  ],
 } = Astro.props;
 
 // Get the canonical URL
 const canonicalURL = canonicalUrl || new URL(Astro.url.pathname, Astro.site);
 
-// Get ANS address and contact info (would come from site config in a real implementation)
-const ANSInfo = {
-  name: "ANS at OSU",
-  address: {
-    streetAddress: "123 Main Street",
-    addressLocality: "Anytown",
-    addressRegion: "ST",
-    postalCode: "12345",
-    addressCountry: "US",
+// Site URL for absolute paths
+const siteUrl = Astro.site?.toString() || "https://ohiostateans.com";
+
+// Organization info for structured data
+const organizationData = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": `${siteUrl}/#organization`,
+  "name": "American Nuclear Society at Ohio State University",
+  "alternateName": ["ANS at OSU", "ANS OSU", "Ohio State ANS", "ANS at Ohio State"],
+  "url": siteUrl,
+  "logo": {
+    "@type": "ImageObject",
+    "url": `${siteUrl}/uploads/ANS-badge-red.png`,
+    "width": 512,
+    "height": 512
   },
-  telephone: "+1-555-123-4567",
-  email: "ENG-ansstudentchapter@osu.edu",
-  url: Astro.site?.toString() || "https://example.com",
+  "image": `${siteUrl}/uploads/ANS-badge-red.png`,
+  "description": "The American Nuclear Society (ANS) student chapter at The Ohio State University promotes nuclear science education, professional development, and research opportunities for students.",
+  "email": "ENG-ansstudentchapter@osu.edu",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Columbus",
+    "addressRegion": "OH",
+    "postalCode": "43210",
+    "addressCountry": "US"
+  },
+  "parentOrganization": {
+    "@type": "Organization",
+    "name": "American Nuclear Society",
+    "url": "https://www.ans.org"
+  },
+  "memberOf": {
+    "@type": "CollegeOrUniversity",
+    "name": "The Ohio State University",
+    "url": "https://www.osu.edu"
+  },
+  "sameAs": [
+    "https://www.linkedin.com/company/ans-at-osu/",
+    "https://activities.osu.edu/involvement/student_organizations/find_a_student_org?i=4f936d8d-7c95-4ef9-8f54-ffc1bfd2e1fd"
+  ]
 };
+
+// Website schema
+const websiteData = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${siteUrl}/#website`,
+  "url": siteUrl,
+  "name": "ANS at OSU | American Nuclear Society at Ohio State",
+  "description": description,
+  "publisher": {
+    "@id": `${siteUrl}/#organization`
+  }
+};
+
+// Article schema (for event pages, etc.)
+const articleData = type === "article" ? {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": title,
+  "image": new URL(image.url, Astro.site).toString(),
+  "description": description,
+  "publisher": {
+    "@id": `${siteUrl}/#organization`
+  },
+  "url": canonicalURL.toString(),
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": canonicalURL.toString()
+  }
+} : null;
 ---
 
 <!-- Basic SEO -->
 <title>{title}</title>
 <meta name="description" content={description} />
+<meta name="keywords" content={keywords.join(", ")} />
 <link rel="canonical" href={canonicalURL} />
+
+<!-- Additional SEO meta tags -->
+<meta name="robots" content="index, follow" />
+<meta name="author" content="American Nuclear Society at Ohio State University" />
+<meta name="geo.region" content="US-OH" />
+<meta name="geo.placename" content="Columbus" />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content={type} />
@@ -52,58 +130,20 @@ const ANSInfo = {
 <meta property="og:description" content={description} />
 <meta property="og:image" content={new URL(image.url, Astro.site)} />
 <meta property="og:image:alt" content={image.alt} />
+<meta property="og:site_name" content="ANS at OSU" />
+<meta property="og:locale" content="en_US" />
 
 <!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={canonicalURL} />
-<meta property="twitter:title" content={title} />
-<meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(image.url, Astro.site)} />
-<meta property="twitter:image:alt" content={image.alt} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={canonicalURL} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={new URL(image.url, Astro.site)} />
+<meta name="twitter:image:alt" content={image.alt} />
 
-<!-- JSON-LD Schema for ANS -->
-<script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ANS",
-    "name": "${ANSInfo.name}",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "${ANSInfo.address.streetAddress}",
-      "addressLocality": "${ANSInfo.address.addressLocality}",
-      "addressRegion": "${ANSInfo.address.addressRegion}",
-      "postalCode": "${ANSInfo.address.postalCode}",
-      "addressCountry": "${ANSInfo.address.addressCountry}"
-    },
-    "telephone": "${ANSInfo.telephone}",
-    "email": "${ANSInfo.email}",
-    "url": "${ANSInfo.url}"
-  }
-</script>
-
-{
-  type === "article" && (
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "${title}",
-        "image": "${new URL(image.url, Astro.site)}",
-        "description": "${description}",
-        "publisher": {
-          "@type": "Organization",
-          "name": "${ANSInfo.name}",
-          "logo": {
-            "@type": "ImageObject",
-            "url": "${new URL("/uploads/logo.png", Astro.site)}"
-          }
-        },
-        "url": "${canonicalURL}",
-        "mainEntityOfPage": {
-          "@type": "WebPage",
-          "@id": "${canonicalURL}"
-        }
-      }
-    </script>
-  )
-}
+<!-- JSON-LD Structured Data -->
+<script is:inline type="application/ld+json" set:html={JSON.stringify(organizationData)} />
+<script is:inline type="application/ld+json" set:html={JSON.stringify(websiteData)} />
+{articleData && (
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleData)} />
+)}

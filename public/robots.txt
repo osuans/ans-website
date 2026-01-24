@@ -2,5 +2,8 @@
 User-agent: *
 Allow: /
 
+# Disallow admin pages from indexing
+Disallow: /admin/
+
 # Sitemap location
-Sitemap: https://example.com/sitemap-index.xml
+Sitemap: https://ohiostateans.com/sitemap-index.xml
