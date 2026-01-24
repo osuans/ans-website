@@ -3,7 +3,7 @@ title: "ANS OpenMC Workshop"
 date: 2026-03-25
 time: "TBD"
 location: "TBD"
-image: "/uploads/TheOhioStateUniversity.jpg"
+image: "/uploads/events/npp.jpg"
 summary: "TBA"
 tags:
   - workshop

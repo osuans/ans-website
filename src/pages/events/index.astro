@@ -22,22 +22,43 @@ const groupedPastEvents = groupEventsBySemester(pastEvents);
 ---
 
 <BaseLayout
-  title="American Nuclear Society at OSU"
-  description="Stay updated with upcoming events and activities at ANS at OSU."
+  title="Events - American Nuclear Society at Ohio State"
+  description="Explore upcoming technical seminars, facility tours, and professional development events hosted by ANS at Ohio State."
 >
-  <PageHeader 
-    title="Events" 
-    subtitle="Join us for these upcoming activities"
+  <PageHeader
+    title="Events"
+    subtitle="Technical Seminars, Facility Tours, and Professional Development"
     backgroundImage="/uploads/events.jpg"
   />
-  
+
+  <!-- Calendar Subscription Banner -->
+  <section class="py-6 bg-primary-600">
+    <div class="container">
+      <div class="flex flex-col md:flex-row items-center justify-center gap-4 text-center md:text-left">
+        <div class="text-white">
+          <p class="font-semibold text-lg">Stay up to date with our events</p>
+          <p class="text-primary-100 text-sm">Subscribe to our calendar and never miss an event</p>
+        </div>
+        <a
+          href={CONFIG.CALENDAR.ICS_URL}
+          class="inline-flex items-center gap-2 bg-white text-primary-600 px-6 py-3 rounded-lg font-semibold hover:bg-primary-50 transition-colors shadow-md"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+          Subscribe to Calendar
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- Upcoming Events -->
   <section class="py-16">
     <div class="container">
       <div class="text-center mb-12">
         <h2 class="text-3xl md:text-4xl font-bold mb-4">Upcoming Events</h2>
         <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Mark your calendar and join us for these upcoming events
+          Explore our upcoming technical seminars, networking events, and professional development opportunities
         </p>
       </div>
       
@@ -62,9 +83,9 @@ const groupedPastEvents = groupEventsBySemester(pastEvents);
   <section class="py-16 bg-gray-50">
     <div class="container">
       <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">Past Events</h2>
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Event Archive</h2>
         <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Browse our past events
+          Browse our previous seminars, tours, and chapter activities
         </p>
       </div>
 
@@ -106,13 +127,14 @@ const groupedPastEvents = groupEventsBySemester(pastEvents);
 </BaseLayout>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
+  document.addEventListener('DOMContentLoaded', () => {
     const accordion = document.getElementById('accordion');
     if (accordion) {
       const buttons = accordion.querySelectorAll('.accordion-button');
-      buttons.forEach(function (button) {
-        button.addEventListener('click', function () {
-          const content = this.nextElementSibling;
+      buttons.forEach((button) => {
+        button.addEventListener('click', (e) => {
+          const target = e.currentTarget as HTMLElement;
+          const content = target.nextElementSibling;
           if (content) {
             content.classList.toggle('hidden');
           }

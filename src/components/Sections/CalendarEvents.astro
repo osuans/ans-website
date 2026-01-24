@@ -1,0 +1,113 @@
+---
+/**
+ * CalendarEvents Component
+ *
+ * Fetches and displays upcoming events from the Outlook ICS calendar feed.
+ * Falls back gracefully if the calendar cannot be fetched.
+ */
+import { fetchCalendarEvents, type CalendarEvent } from '../../utils/icsParser';
+import { CONFIG } from '../../constants';
+import Button from '../UI/Button.astro';
+
+export interface Props {
+  count?: number;
+  showSubscribeButton?: boolean;
+}
+
+const { count = 3, showSubscribeButton = true } = Astro.props;
+
+// Fetch calendar events server-side
+let calendarEvents: CalendarEvent[] = [];
+try {
+  calendarEvents = await fetchCalendarEvents(CONFIG.CALENDAR.ICS_URL, {
+    limit: count,
+    futureOnly: true,
+  });
+} catch (error) {
+  console.error('Failed to load calendar events:', error);
+}
+
+// Format date for display
+function formatEventDate(date: Date): string {
+  return date.toLocaleDateString('en-US', {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  });
+}
+
+// Format time for display
+function formatEventTime(date: Date): string {
+  return date.toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true,
+  });
+}
+---
+
+{calendarEvents.length > 0 && (
+  <section class="py-16 bg-gray-50">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Chapter Calendar</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Stay informed about upcoming chapter meetings, seminars, and events
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        {calendarEvents.map((event) => (
+          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+            <div class="bg-primary-600 text-white p-4 text-center">
+              <p class="text-sm font-medium uppercase tracking-wide">
+                {event.startDate.toLocaleDateString('en-US', { weekday: 'long' })}
+              </p>
+              <p class="text-3xl font-bold">
+                {event.startDate.getDate()}
+              </p>
+              <p class="text-sm">
+                {event.startDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+              </p>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-gray-900 mb-2 line-clamp-2">{event.title}</h3>
+              <div class="space-y-2 text-sm text-gray-600">
+                <div class="flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>{formatEventTime(event.startDate)}</span>
+                </div>
+                {event.location && (
+                  <div class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    <span class="line-clamp-1">{event.location}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {showSubscribeButton && (
+        <div class="mt-10 text-center">
+          <a
+            href={CONFIG.CALENDAR.ICS_URL}
+            class="inline-flex items-center gap-2 bg-primary-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            Subscribe to Full Calendar
+          </a>
+        </div>
+      )}
+    </div>
+  </section>
+)}
