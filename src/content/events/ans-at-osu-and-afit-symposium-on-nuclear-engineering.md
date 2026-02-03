@@ -13,6 +13,7 @@ tags:
   - AFIT
 registrationLink: "https://forms.gle/wD9wuq6uzQqM6zyB9"
 registrationRequired: false
+featured: true
 draft: false
 ---
 
