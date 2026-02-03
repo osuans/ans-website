@@ -13,6 +13,7 @@ tags:
   - nuclear
 registrationLink: "https://forms.gle/8AeZnGpkcZwYgseo9"
 registrationRequired: true
+featured: true
 draft: false
 ---
 
