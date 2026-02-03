@@ -40,8 +40,9 @@ const sectionDescription = hasFeatured
       </p>
     </div>
     
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="flex flex-wrap justify-center gap-8">
       {events.map((event) => (
+        <div class="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.34rem)] max-w-md">
         <Card
           title={event.data.title}
           image={{
@@ -71,6 +72,7 @@ const sectionDescription = hasFeatured
             Learn More →
           </p>
         </Card>
+        </div>
       ))}
     </div>
     
