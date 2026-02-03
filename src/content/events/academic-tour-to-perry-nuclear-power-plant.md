@@ -11,8 +11,9 @@ tags:
   - industry
   - networking
   - nuclear
+registrationLink: "https://forms.gle/8AeZnGpkcZwYgseo9"
 registrationRequired: true
-draft: true
+draft: false
 ---
 
 ## Explore Ohio’s Nuclear Power Hub

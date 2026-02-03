@@ -12,6 +12,7 @@ tags:
   - oklo
 registrationLink: "https://forms.office.com/r/XgMcT7WLEq"
 registrationRequired: true
+featured: true
 draft: false
 ---
 
