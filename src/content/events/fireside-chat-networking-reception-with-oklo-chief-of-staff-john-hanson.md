@@ -12,7 +12,8 @@ tags:
   - oklo
 registrationLink: "https://forms.office.com/r/XgMcT7WLEq"
 registrationRequired: true
-draft: true
+featured: true
+draft: false
 ---
 
 You are invited to join us for a Fireside Chat and Networking Reception featuring John Hanson, Chief of Staff at Oklo. This is a great opportunity to learn from a leader in advanced nuclear technology and connect with peers interested in energy innovation. Free Food will be provided!
