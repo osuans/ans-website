@@ -80,6 +80,15 @@ const formatDateForInput = (date: Date | undefined) => {
     </div>
     <div class="relative flex items-start">
       <div class="flex h-6 items-center">
+        <input id="featured" name="featured" type="checkbox" checked={event?.data.featured} class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+      </div>
+      <div class="ml-3 text-sm leading-6">
+        <label for="featured" class="font-medium text-gray-900">Featured Event</label>
+        <p class="text-gray-500 text-xs">Display on homepage</p>
+      </div>
+    </div>
+    <div class="relative flex items-start">
+      <div class="flex h-6 items-center">
         <input id="draft" name="draft" type="checkbox" checked={event?.data.draft} class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
       </div>
       <div class="ml-3 text-sm leading-6">

@@ -23,6 +23,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     const tags = String(formData.get('tags') ?? '');
     const registrationLink = String(formData.get('registrationLink') ?? '');
     const registrationRequired = formData.get('registrationRequired') === 'on';
+    const featured = formData.get('featured') === 'on';
     const draft = formData.get('draft') === 'on';
     const body = String(formData.get('body') ?? '');
     const imageFile = formData.get('image');
@@ -87,6 +88,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
       tags && `tags:\n${tags.split(',').map(t => `  - ${t.trim()}`).join('\n')}`,
       registrationLink && `registrationLink: "${registrationLink}"`,
       `registrationRequired: ${registrationRequired}`,
+      `featured: ${featured}`,
       `draft: ${draft}`,
       '---'
     ].filter(Boolean).join('\n');

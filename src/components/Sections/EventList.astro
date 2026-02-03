@@ -12,22 +12,31 @@ export interface Props {
 
 const { count = 3, showViewAll = true } = Astro.props;
 
-// Get non-draft events sorted by date (newest first)
+// Get all non-draft events
 const allEvents = await getCollection("events", ({ data }) => !data.draft);
 
-// Sort by date (upcoming first)
-const events = allEvents
-  .sort((a, b) => new Date(a.data.date).getTime() - new Date(b.data.date).getTime())
-  .filter(event => new Date(event.data.date) >= new Date()) // Only future events
-  .slice(0, count);
+// Filter to upcoming events only, sorted by date
+const upcomingEvents = allEvents
+  .filter(event => new Date(event.data.date) >= new Date())
+  .sort((a, b) => new Date(a.data.date).getTime() - new Date(b.data.date).getTime());
+
+// Try featured events first, fall back to upcoming events
+const featuredEvents = upcomingEvents.filter(event => event.data.featured);
+const hasFeatured = featuredEvents.length > 0;
+const events = (hasFeatured ? featuredEvents : upcomingEvents).slice(0, count);
+
+const sectionTitle = hasFeatured ? "Featured Events" : "Upcoming Events";
+const sectionDescription = hasFeatured
+  ? "Explore our featured technical seminars, networking events, and professional development opportunities"
+  : "Explore our upcoming technical seminars, networking events, and professional development opportunities";
 ---
 
 <section class="py-16 bg-secondary-50 ">
   <div class="container">
     <div class="text-center mb-12">
-      <h2 class="text-3xl md:text-4xl font-bold mb-4">Upcoming Events</h2>
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">{sectionTitle}</h2>
       <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-        Explore our upcoming technical seminars, networking events, and professional development opportunities
+        {sectionDescription}
       </p>
     </div>
     

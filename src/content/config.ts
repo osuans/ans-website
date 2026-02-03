@@ -27,6 +27,7 @@ const eventsCollection = defineCollection({
     tags: z.array(z.string()).optional(),
     registrationLink: z.string().url().optional(),
     registrationRequired: z.boolean().default(false),
+    featured: z.boolean().default(false),
     draft: z.boolean().default(false),
   }),
 });
