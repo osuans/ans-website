@@ -3,7 +3,7 @@ title: "Fireside Chat & Networking Reception with Oklo Chief of Staff John Hanso
 date: 2026-02-11
 time: "5:00 PM - 7:00 PM"
 location: "Scott Laboratory, Room TBA"
-image: "/uploads/events/fireside-chat-networking-reception-with-oklo-chief-of-staff-john-hanson/event-1769200202830.jpg"
+image: "/uploads/events/fireside-chat-networking-reception-with-oklo-chief-of-staff-john-hanson-organized-by-the-mae-department/event-1770157226008.jpg"
 summary: "Nuclear networking with Oklo."
 tags:
   - nuclear
@@ -12,6 +12,7 @@ tags:
   - oklo
 registrationLink: "https://forms.office.com/r/XgMcT7WLEq"
 registrationRequired: true
+featured: false
 draft: false
 ---
 
