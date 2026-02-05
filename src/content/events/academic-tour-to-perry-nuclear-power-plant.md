@@ -47,4 +47,4 @@ This immersive tour offers participants a first-hand look at **Boiling Water Rea
 ### Registration
 
 Reserve your spot by **February 10th, 2026** using the link below.  
-Only confirmed registrants will receive transportation details and meeting instructions.
+Only confirmed registrants will receive **transportation details and meeting instructions**.
