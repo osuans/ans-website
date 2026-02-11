@@ -22,25 +22,43 @@ export function formatDate(date, formatStr = "MMMM d, yyyy") {
  */
 export function isFutureDate(date) {
   if (!date) return false;
-  
-  // If date is a string, parse it
+
   const dateObj = typeof date === "string" ? parseISO(date) : date;
-  
-  return dateObj > new Date();
+
+  const tomorrow = new Date();
+  tomorrow.setHours(0, 0, 0, 0);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  return dateObj >= tomorrow;
 }
 
 /**
- * Check if a date is in the past
+ * Check if a date is today or in the future
  * @param {Date|string} date The date to check
- * @returns {boolean} True if the date is in the past
+ * @returns {boolean} True if the date is today or later
+ */
+export function isTodayOrFuture(date) {
+  if (!date) return false;
+
+  const dateObj = typeof date === "string" ? parseISO(date) : date;
+
+  const startOfToday = new Date();
+  startOfToday.setHours(0, 0, 0, 0);
+  return dateObj >= startOfToday;
+}
+
+/**
+ * Check if a date is in the past (before today)
+ * @param {Date|string} date The date to check
+ * @returns {boolean} True if the date is before today
  */
 export function isPastDate(date) {
   if (!date) return false;
-  
-  // If date is a string, parse it
+
   const dateObj = typeof date === "string" ? parseISO(date) : date;
-  
-  return dateObj < new Date();
+
+  const startOfToday = new Date();
+  startOfToday.setHours(0, 0, 0, 0);
+  return dateObj < startOfToday;
 }
 
 /**
