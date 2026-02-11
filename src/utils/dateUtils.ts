@@ -95,20 +95,40 @@ export function isFutureDate(date: DateInput | null | undefined): boolean {
   const dateObj = toDateObject(date);
   if (!dateObj) return false;
 
-  return dateObj > new Date();
+  const tomorrow = new Date();
+  tomorrow.setHours(0, 0, 0, 0);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  return dateObj >= tomorrow;
 }
 
 /**
- * Checks if a date is in the past
+ * Checks if a date is today or in the future (not yet archived)
  *
  * @param date - The date to check
- * @returns True if the date is in the past, false otherwise
+ * @returns True if the date is today or later
+ */
+export function isTodayOrFuture(date: DateInput | null | undefined): boolean {
+  const dateObj = toDateObject(date);
+  if (!dateObj) return false;
+
+  const startOfToday = new Date();
+  startOfToday.setHours(0, 0, 0, 0);
+  return dateObj >= startOfToday;
+}
+
+/**
+ * Checks if a date is in the past (before today)
+ *
+ * @param date - The date to check
+ * @returns True if the date is before today, false otherwise
  */
 export function isPastDate(date: DateInput | null | undefined): boolean {
   const dateObj = toDateObject(date);
   if (!dateObj) return false;
 
-  return dateObj < new Date();
+  const startOfToday = new Date();
+  startOfToday.setHours(0, 0, 0, 0);
+  return dateObj < startOfToday;
 }
 
 /**

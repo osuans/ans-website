@@ -3,16 +3,16 @@ import { getCollection } from 'astro:content';
 import AdminLayout from '../../layouts/AdminLayout.astro';
 import { capitalize } from '../../utils/stringHelpers';
 import { CONFIG } from '../../constants';
-import { isFutureDate, isPastDate } from '../../utils/dateUtils';
+import { isTodayOrFuture, isPastDate } from '../../utils/dateUtils';
 
 export const prerender = false;
 
 const allEvents = await getCollection('events');
 const scholarships = await getCollection('scholarships');
 
-// Separate upcoming and past events
+// Separate upcoming and past events (events stay upcoming through the day of the event)
 const upcomingEvents = allEvents
-  .filter(event => isFutureDate(event.data.date))
+  .filter(event => isTodayOrFuture(event.data.date))
   .sort((a, b) => new Date(a.data.date).getTime() - new Date(b.data.date).getTime());
 
 const pastEvents = allEvents

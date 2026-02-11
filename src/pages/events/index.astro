@@ -3,14 +3,14 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageHeader from "../../components/Sections/PageHeader.astro";
 import EventCard from "../../components/UI/EventCard.astro";
 import { getCollection } from "astro:content";
-import { isFutureDate, isPastDate, groupEventsBySemester } from "../../utils/dateUtils";
+import { isTodayOrFuture, isPastDate, groupEventsBySemester } from "../../utils/dateUtils";
 import { CONFIG } from "../../constants";
 
 // Get all non-draft events
 const allEvents = await getCollection("events", ({ data }) => !data.draft);
 
-// Separate upcoming and past events
-const upcomingEvents = allEvents.filter(event => isFutureDate(event.data.date))
+// Separate upcoming and past events (events stay upcoming through the day of the event)
+const upcomingEvents = allEvents.filter(event => isTodayOrFuture(event.data.date))
                             .sort((a, b) => new Date(a.data.date).getTime() - new Date(b.data.date).getTime());
 
 const pastEvents = allEvents.filter(event => isPastDate(event.data.date))

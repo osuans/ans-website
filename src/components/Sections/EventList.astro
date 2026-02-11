@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content";
 import Card from "../UI/Card.astro";
 import Button from "../UI/Button.astro";
-import { formatDate } from "../../utils/dateUtils";
+import { formatDate, isTodayOrFuture } from "../../utils/dateUtils";
 import { CONFIG } from "../../constants";
 
 export interface Props {
@@ -15,9 +15,9 @@ const { count = 3, showViewAll = true } = Astro.props;
 // Get all non-draft events
 const allEvents = await getCollection("events", ({ data }) => !data.draft);
 
-// Filter to upcoming events only, sorted by date
+// Filter to upcoming events only (events stay upcoming through the day of the event)
 const upcomingEvents = allEvents
-  .filter(event => new Date(event.data.date) >= new Date())
+  .filter(event => isTodayOrFuture(event.data.date))
   .sort((a, b) => new Date(a.data.date).getTime() - new Date(b.data.date).getTime());
 
 // Try featured events first, fall back to upcoming events
