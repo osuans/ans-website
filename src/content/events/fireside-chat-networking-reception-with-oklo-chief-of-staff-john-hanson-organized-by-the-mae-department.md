@@ -2,7 +2,7 @@
 title: "Fireside Chat & Networking Reception with Oklo Chief of Staff John Hanson (Organized by the MAE Department)"
 date: 2026-02-11
 time: "5:00 PM - 7:00 PM"
-location: "Scott Laboratory, Room TBA"
+location: "McPherson Chemical Lab 1015"
 image: "/uploads/events/fireside-chat-networking-reception-with-oklo-chief-of-staff-john-hanson-organized-by-the-mae-department/event-1770157226008.jpg"
 summary: "Nuclear networking with Oklo."
 tags:
