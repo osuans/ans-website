@@ -17,112 +17,18 @@ featured: true
 draft: false
 ---
 
-## 2nd ANS at OSU & AFIT Research Symposium  
-**February 19 | 9:00 AM – 3:00 PM**  
-**Location:** Houston House – The 1874 Room  
+We are pleased to invite you to the 2nd Symposium organized by the ANS chapters at OSU and AFIT! This event presents an excellent opportunity for those interested in nuclear energy and engineering to share insights, network, and collaborate.
 
-We are pleased to invite you to the 2nd Symposium organized by the ANS chapters at OSU and AFIT. This event brings together students, researchers, and professionals to share research, explore nuclear technologies, and build connections across institutions.
+Event Details:
+- Date: February 19th
+- Time: 9 AM to 3 PM
+- Location: Houston House, The 1874 Room
+Tentative Agenda:
+- 9:00 AM - Opening remarks featuring speeches from representatives of OSU and AFIT
+- 9:20 AM - Research presentations (15 minutes for presentation followed by a 5-minute Q&A session)
+- 11:00 AM - 1:00 PM – Networking lunch and Poster session, where participants can enjoy lunch, relax, connect with peers, and view research posters
+- 1:00 PM - 2:40 PM - Nuclear workshops (details are being finalized, and we aim to run two workshops in parallel)
+- 2:45 PM - 3:00 PM - Closing remarks and gratitude from OSU and AFIT
+If you plan to attend this event (either presenting or not), you must fill up the interest form attached.
 
----
-
-## Event Schedule
-
-**9:00 – 9:20 AM**  
-**Opening Remarks**  
-- Welcome from ANS at OSU  
-- Welcome from AFIT representatives  
-
-**9:20 – 11:00 AM**  
-**Oral Research Presentations**  
-*(15 min presentation + 5 min Q&A each)*
-
-**11:00 AM – 1:00 PM**  
-**Networking Lunch & Poster Session**
-
-**1:00 – 2:40 PM**  
-**Technical Workshops** *(parallel sessions)*
-
-**2:45 – 3:00 PM**  
-**Closing Remarks**
-
----
-
-## Oral Presentation Program
-
-**Session: Student Research Presentations**
-
-### [Presenter Name]
-- **Affiliation:**  
-- **Title:**  
-- **Abstract:**  
-- **Time Slot:**  
-
-### [Presenter Name]
-- **Affiliation:**  
-- **Title:**  
-- **Abstract:**  
-- **Time Slot:**  
-
-### [Presenter Name]
-- **Affiliation:**  
-- **Title:**  
-- **Abstract:**  
-- **Time Slot:**  
-
-*(Add additional presenter sections as needed)*
-
----
-
-## Poster Session
-
-**Location:** Houston House – Poster Area  
-**Time:** 11:00 AM – 1:00 PM  
-
-### Poster Presenters
-
-**[Presenter Name]**  
-- **Affiliation:**  
-- **Poster Title:**  
-- **Research Area/Topic:**  
-
-**[Presenter Name]**  
-- **Affiliation:**  
-- **Poster Title:**  
-- **Research Area/Topic:**  
-
-*(List alphabetically or by topic area)*
-
----
-
-## Workshop Sessions
-
-Two workshops will run in parallel during the afternoon block.
-
-### Workshop A
-- **Speaker:**  
-- **Affiliation:**  
-- **Title:**  
-- **Abstract:**  
-- **Room/Area:**  
-
-### Workshop B
-- **Speaker:**  
-- **Affiliation:**  
-- **Title:**  
-- **Abstract:**  
-- **Room/Area:**  
-
-*(Add more workshop sections if additional sessions are confirmed)*
-
----
-
-## Attendance
-
-If you plan to attend (presenting or not), please complete the interest form to help us plan seating, catering, and materials.
-
----
-
-## Contact
-
-**ANS Student Section at The Ohio State University**  
-ENG-ansstudentchapter@osu.edu
+We are looking forward to an engaging and informative event where we can exchange knowledge and explore the future of nuclear energy. We hope to see you there!
