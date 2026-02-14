@@ -59,7 +59,8 @@ draft: false
 Two parallel presentation tracks will run simultaneously from 9:20 AM to 11:00 AM. Each presentation is 15 minutes followed by a 5-minute Q&A session.
 
 ### Track 1: Materials, Microstructure, and Modeling
-**Location:** 1874 Room
+**Location:** Grove Room
+**Moderator:** Matt Mileski (Air Force Institute of Technology)
 
 #### 9:20 AM - 9:40 AM
 **Presenter:** Colin McLagan & Mark Mysonhimer  
@@ -163,7 +164,8 @@ Maj. Myers is a master’s student at Air Force Institute of Technology, Wright-
 ---
 
 ### Track 2: Nuclear Systems, Fuels, and Radiation Detection
-**Location:** Grove Room
+**Location:** 1874 Room
+**Moderator:** Daniel Layer (The Ohio State University)
 
 #### 9:20 AM - 9:40 AM
 **Presenter:** Vinicius Zanardo Rodrigues  
@@ -272,15 +274,17 @@ Enjoy lunch, relax, connect with peers, and view research posters from students 
 
 ### Poster Presentations
 
-| # | Presenter | Affiliation | Title |
-|---|-----------|-------------|-------|
-| 1 | Daniel Layer | The Ohio State University | Preliminary Safety Analysis of a TRISO-Coating Chemical Vapor Deposition System |
-| 2 | LTC Matthew Gettings  | Air Force Institute of Technology | *Coming Soon...* |
-| 3 | Ella Fischer | The Ohio State University | Optimization of an Electrochemical Cell Designed to Separate Hydrogen Isotopes in Alkaline Aqueous Electrolyte |
-| 4 | Joseph Schucker | Air Force Institute of Technology | *Coming Soon...* |
-| 5 | Colin Voorhis | The Ohio State University | A Coarse Mesh Finite Difference Predictor-Corrector Algorithm for Reactor Kinetics |
-| 6 | LTC Luke Tyree | Air Force Institute of Technology | *Coming Soon...* |
-| 7 | Hanshu Kotta | The Ohio State University | Analysis of Thermophysical Properties of Fuels for Nuclear Thermal Propulsion |
+| Presenter | Affiliation | Title |
+|-----------|-------------|-------|
+| Daniel Layer | The Ohio State University | Preliminary Safety Analysis of a TRISO-Coating Chemical Vapor Deposition System |
+| LTC Matthew Gettings  | Air Force Institute of Technology | *Coming Soon...* |
+| Ella Fischer | The Ohio State University | Optimization of an Electrochemical Cell Designed to Separate Hydrogen Isotopes in Alkaline Aqueous Electrolyte |
+| Joseph Schucker | Air Force Institute of Technology | *Coming Soon...* |
+| Colin Voorhis | The Ohio State University | A Coarse Mesh Finite Difference Predictor-Corrector Algorithm for Reactor Kinetics |
+| LTC Luke Tyree | Air Force Institute of Technology | *Coming Soon...* |
+Hanshu Kotta | The Ohio State University | Analysis of Thermophysical Properties of Fuels for Nuclear Thermal Propulsion |
+| Matt Mileski | Air Force Institute of Technology | The use of machine learning models for predicting breakdown strength in gases |
+
 
 ---
 
