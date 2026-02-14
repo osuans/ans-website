@@ -59,7 +59,7 @@ draft: false
 Two parallel presentation tracks will run simultaneously from 9:20 AM to 11:00 AM. Each presentation is 15 minutes followed by a 5-minute Q&A session.
 
 ### Track 1: Materials, Microstructure, and Modeling
-**Location:** 1874 Room
+**Location:** Grove Room
 
 #### 9:20 AM - 9:40 AM
 **Presenter:** Colin McLagan & Mark Mysonhimer  
@@ -163,7 +163,7 @@ Maj. Myers is a master’s student at Air Force Institute of Technology, Wright-
 ---
 
 ### Track 2: Nuclear Systems, Fuels, and Radiation Detection
-**Location:** Grove Room
+**Location:** 1874 Room
 
 #### 9:20 AM - 9:40 AM
 **Presenter:** Vinicius Zanardo Rodrigues  
