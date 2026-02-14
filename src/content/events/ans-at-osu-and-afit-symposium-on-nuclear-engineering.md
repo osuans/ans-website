@@ -312,7 +312,7 @@ Two interactive workshops will run in parallel from 1:00 PM to 2:40 PM.
 ---
 
 ### Workshop 2
-**Time:** 1:00 PM - 2:40 PM  
+**Time:** 1:30 PM - 2:30 PM  
 **Location:** 1874 Room  
 **Speaker:** Dr. Praneeth Kandlakunta  
 **Affiliation:** The Ohio State University  
