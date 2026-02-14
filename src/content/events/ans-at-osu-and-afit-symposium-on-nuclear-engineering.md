@@ -84,7 +84,7 @@ Mr. Mysonhimer is currently a nuclear engineering student in the Engineering Phy
 ---
 
 #### 9:40 AM - 10:00 AM
-**Presenter:** Mutaz Alshannaq
+**Presenter:** Mutaz Alshannaq  
 **Affiliation:** The Ohio State University  
 **Title:** Optimization of Fission Gas Release Model through the Microstructural Validation
 
