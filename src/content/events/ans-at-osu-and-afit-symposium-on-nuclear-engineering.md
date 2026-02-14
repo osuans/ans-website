@@ -68,7 +68,7 @@ Two parallel presentation tracks will run simultaneously from 9:20 AM to 11:00 A
 **Title:** On the Role of Grain Boundaries in Metal Oxidation
 
 <details>
-<summary><strong>Show Abstract</strong></summary>
+<summary style="cursor: pointer;"><strong>Show Abstract</strong></summary>
 <p>
 Oxidation is an important factor limiting the operational lifetime of metals. In this work, density functional theory (DFT) computations were utilized to study the role of grain boundaries (GBs) in the oxidation of a body-centered cubic (bcc) metal. Two tilt symmetric GBs were generated, and the thermodynamics and kinetics of interstitial oxygen in the system were examined, indicating a propensity for O to segregate to these GBs. Structure-property relationships correlating GB oxygen coverage with the GB strength were also established. Finally, a kinetic Monte Carlo (kMC) model was developed to study the influence of microstructure on the oxidation kinetics. Specifically, the effects of grain size, grain morphology, and grain orientation on the oxidation kinetics were noted. This work may offer some insights into the design of next-generation oxidation-resistant structural materials.
 </p>
@@ -280,7 +280,7 @@ Enjoy lunch, relax, connect with peers, and view research posters from students 
 | LTC Matthew Gettings  | Air Force Institute of Technology | *Coming Soon...* |
 | Ella Fischer | The Ohio State University | Optimization of an Electrochemical Cell Designed to Separate Hydrogen Isotopes in Alkaline Aqueous Electrolyte |
 | Joseph Schucker | Air Force Institute of Technology | *Coming Soon...* |
-| Colin Voorhis | The Ohio State University | A Coarse Mesh Finite Difference Predictor-Corrector Algorithm for Reactor Kinetics |
+| Colin Voorhis | The Ohio State University | Time-Dependent Neutron Transport Methods for Transient Fixed-Source Reactor Kinetics |
 | LTC Luke Tyree | Air Force Institute of Technology | *Coming Soon...* |
 Hanshu Kotta | The Ohio State University | Analysis of Thermophysical Properties of Fuels for Nuclear Thermal Propulsion |
 | Matt Mileski | Air Force Institute of Technology | *Coming Soon...* |
@@ -295,17 +295,17 @@ Two interactive workshops will run in parallel from 1:00 PM to 2:40 PM.
 ### Workshop 1
 **Time:** 1:00 PM - 2:40 PM  
 **Location:** Grove Room  
-**Speaker:** [Name]  
-**Affiliation:** [Institution]  
-**Title:** [Workshop Title]
+**Speaker:** *Coming Soon...*  
+**Affiliation:** *Coming Soon...*  
+**Title:** *Coming Soon...*
 
 **Summary:**  
-[Workshop summary - describe objectives, key topics, and what participants will learn or gain from attending. 2-4 sentences.]
+*Coming Soon...*
 
 <details>
 <summary><strong>Show Speaker Bio</strong></summary>
 <p>
-[Speaker bio - 75-150 words]
+*Coming Soon...*
 </p>
 </details>
 
