@@ -84,7 +84,7 @@ Mr. Mysonhimer is currently a nuclear engineering student in the Engineering Phy
 ---
 
 #### 9:40 AM - 10:00 AM
-**Presenter:** Mutaz Alshannaq  
+**Presenter:** Mutaz Alshannaq
 **Affiliation:** The Ohio State University  
 **Title:** Optimization of Fission Gas Release Model through the Microstructural Validation
 
@@ -272,15 +272,15 @@ Enjoy lunch, relax, connect with peers, and view research posters from students 
 
 ### Poster Presentations
 
-| # | Presenter | Affiliation | Title |
-|---|-----------|-------------|-------|
-| 1 | Daniel Layer | The Ohio State University | Preliminary Safety Analysis of a TRISO-Coating Chemical Vapor Deposition System |
-| 2 | LTC Matthew Gettings  | Air Force Institute of Technology | *Coming Soon...* |
-| 3 | Ella Fischer | The Ohio State University | Optimization of an Electrochemical Cell Designed to Separate Hydrogen Isotopes in Alkaline Aqueous Electrolyte |
-| 4 | Joseph Schucker | Air Force Institute of Technology | *Coming Soon...* |
-| 5 | Colin Voorhis | The Ohio State University | A Coarse Mesh Finite Difference Predictor-Corrector Algorithm for Reactor Kinetics |
-| 6 | LTC Luke Tyree | Air Force Institute of Technology | *Coming Soon...* |
-| 7 | Hanshu Kotta | The Ohio State University | Analysis of Thermophysical Properties of Fuels for Nuclear Thermal Propulsion |
+| Presenter | Affiliation | Title |
+|-----------|-------------|-------|
+| Daniel Layer | The Ohio State University | Preliminary Safety Analysis of a TRISO-Coating Chemical Vapor Deposition System |
+| LTC Matthew Gettings  | Air Force Institute of Technology | *Coming Soon...* |
+| Ella Fischer | The Ohio State University | Optimization of an Electrochemical Cell Designed to Separate Hydrogen Isotopes in Alkaline Aqueous Electrolyte |
+| Joseph Schucker | Air Force Institute of Technology | *Coming Soon...* |
+| Colin Voorhis | The Ohio State University | A Coarse Mesh Finite Difference Predictor-Corrector Algorithm for Reactor Kinetics |
+| LTC Luke Tyree | Air Force Institute of Technology | *Coming Soon...* |
+| Hanshu Kotta | The Ohio State University | Analysis of Thermophysical Properties of Fuels for Nuclear Thermal Propulsion |
 
 ---
 
