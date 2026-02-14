@@ -49,7 +49,7 @@ draft: false
 
 ### Opening Remarks
 **Time:** 9:00 AM - 9:20 AM  
-**Location:** Grove Room  
+**Location:** 1874 Room  
 **Speakers:** Representatives from The Ohio State University and Air Force Institute of Technology
 
 ---
@@ -251,14 +251,14 @@ Ms. Moore is a PhD candidate in Nuclear Engineering at the Air Force Institute o
 ---
 
 #### 10:40 AM - 11:00 AM
-**Presenter:** [Name]  
-**Affiliation:** [Institution]  
-**Title:** [Presentation Title]
+**Presenter:** Andrew Maier  
+**Affiliation:** The Ohio State University  
+**Title:** Low energy X-ray emissions of U-10Mo alloy HALEU fuel
 
 <details>
 <summary><strong>Show Bio</strong></summary>
 <p>
-[Bio text - 75-150 words]
+Mr. Maier is a fourth-year PhD candidate in the OSU Nuclear Engineering Program. His research primarily focuses on developing and refining non-destructive characterization and assay methods for HALEU fuels.
 </p>
 </details>
 
@@ -280,7 +280,7 @@ Enjoy lunch, relax, connect with peers, and view research posters from students 
 | 4 | Joseph Schucker | Air Force Institute of Technology | *Coming Soon...* |
 | 5 | Colin Voorhis | The Ohio State University | A Coarse Mesh Finite Difference Predictor-Corrector Algorithm for Reactor Kinetics |
 | 6 | LTC Luke Tyree | Air Force Institute of Technology | *Coming Soon...* |
-| 7 | Hanshu Kotta | The Ohio State University | *Coming Soon...* |
+| 7 | Hanshu Kotta | The Ohio State University | [Poster Title] |
 | 8 | [Name] | [Institution] | Analysis of Thermophysical Properties of Fuels for Nuclear Thermal Propulsion |
 
 ---
@@ -291,7 +291,7 @@ Two interactive workshops will run in parallel from 1:00 PM to 2:40 PM.
 
 ### Workshop 1
 **Time:** 1:00 PM - 2:40 PM  
-**Location:** 1874 Room  
+**Location:** Grove Room  
 **Speaker:** [Name]  
 **Affiliation:** [Institution]  
 **Title:** [Workshop Title]
@@ -310,7 +310,7 @@ Two interactive workshops will run in parallel from 1:00 PM to 2:40 PM.
 
 ### Workshop 2
 **Time:** 1:00 PM - 2:40 PM  
-**Location:** Grove Room  
+**Location:** 1874 Room  
 **Speaker:** Dr. Praneeth Kandlakunta  
 **Affiliation:** The Ohio State University  
 **Title:** Monte Carlo Radiation Transport Modeling: Concepts, Practice, and Emerging Trends
