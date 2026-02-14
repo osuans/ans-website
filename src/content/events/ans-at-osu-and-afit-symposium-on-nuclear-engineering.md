@@ -49,7 +49,7 @@ draft: true
 
 ### Opening Remarks
 **Time:** 9:00 AM - 9:20 AM  
-**Location:** [Room TBD]  
+**Location:** Grove Room  
 **Speakers:** Representatives from The Ohio State University and Air Force Institute of Technology
 
 ---
@@ -58,18 +58,22 @@ draft: true
 
 Two parallel presentation tracks will run simultaneously from 9:20 AM to 11:00 AM. Each presentation is 15 minutes followed by a 5-minute Q&A session.
 
-### Track 1: [Theme TBD]
+### Track 1: Materials, Microstructure, and Modeling
 **Location:** 1874 Room
 
 #### 9:20 AM - 9:40 AM
-**Presenter:** [Name]  
-**Affiliation:** [Institution]  
-**Title:** [Presentation Title]
+**Presenter:** Colin McLagan & Mark Mysonhimer  
+**Affiliation:** Air Force Institute of Technology
+**Title:** On the Role of Grain Boundaries in Metal Oxidation
+
+**Abstract:**  
+Oxidation is an important factor limiting the operational lifetime of metals. In this work, density functional theory (DFT) computations were utilized to study the role of grain boundaries (GBs) in the oxidation of a body-centered cubic (bcc) metal. Two tilt symmetric GBs were generated, and the thermodynamics and kinetics of interstitial oxygen in the system were examined, indicating a propensity for O to segregate to these GBs. Structure-property relationships correlating GB oxygen coverage with the GB strength were also established. Finally, a kinetic Monte Carlo (kMC) model was developed to study the influence of microstructure on the oxidation kinetics. Specifically, the effects of grain size, grain morphology, and grain orientation on the oxidation kinetics were noted. This work may offer some insights into the design of next-generation oxidation-resistant structural materials.
 
 <details>
 <summary><strong>Show Bio</strong></summary>
 <p>
-[Bio text - 75-150 words]
+Mr. McLagan is an astronautical engineering student at the Air Force Institute of Technology. His research consists of materials science topics, including density functional theory analysis on the effect of oxygen in refractory metal grain boundaries. Colin graduated from Embry-Riddle Aeronautical University with a Bachelor of Science in Aerospace Engineering. He plans to graduate in March 2026 and work in the aerospace industry.
+Mr. Mysonhimer is currently a nuclear engineering student in the Engineering Physics department at the Air Force Institute of Technology. Prior to attending AFIT, Matt got his bachelor's in chemical engineering with a minor in nuclear engineering from The Ohio State University. He is currently the President of the AFIT ANS chapter, and will graduate from AFIT in June of this year. 
 </p>
 </details>
 
@@ -131,7 +135,7 @@ Two parallel presentation tracks will run simultaneously from 9:20 AM to 11:00 A
 
 ---
 
-### Track 2: [Theme TBD]
+### Track 2: Nuclear Systems, Fuels, and Radiation Detection
 **Location:** Grove Room
 
 #### 9:20 AM - 9:40 AM
