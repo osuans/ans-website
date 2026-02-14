@@ -14,7 +14,7 @@ tags:
 registrationLink: "https://forms.gle/wD9wuq6uzQqM6zyB9"
 registrationRequired: false
 featured: true
-draft: false
+draft: true
 ---
 
 # 2nd ANS Research Symposium
