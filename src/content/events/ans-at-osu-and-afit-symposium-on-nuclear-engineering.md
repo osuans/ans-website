@@ -280,7 +280,7 @@ Enjoy lunch, relax, connect with peers, and view research posters from students 
 | 4 | Joseph Schucker | Air Force Institute of Technology | *Coming Soon...* |
 | 5 | Colin Voorhis | The Ohio State University | A Coarse Mesh Finite Difference Predictor-Corrector Algorithm for Reactor Kinetics |
 | 6 | LTC Luke Tyree | Air Force Institute of Technology | *Coming Soon...* |
-| 7 | Hanshu Kotta | The Ohio State University | [Poster Title] |
+| 7 | Hanshu Kotta | The Ohio State University | *Coming Soon...* |
 | 8 | [Name] | [Institution] | Analysis of Thermophysical Properties of Fuels for Nuclear Thermal Propulsion |
 
 ---
