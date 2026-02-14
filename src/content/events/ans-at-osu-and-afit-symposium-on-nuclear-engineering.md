@@ -283,7 +283,7 @@ Enjoy lunch, relax, connect with peers, and view research posters from students 
 | Colin Voorhis | The Ohio State University | A Coarse Mesh Finite Difference Predictor-Corrector Algorithm for Reactor Kinetics |
 | LTC Luke Tyree | Air Force Institute of Technology | *Coming Soon...* |
 Hanshu Kotta | The Ohio State University | Analysis of Thermophysical Properties of Fuels for Nuclear Thermal Propulsion |
-| Matt Mileski | Air Force Institute of Technology | The use of machine learning models for predicting breakdown strength in gases |
+| Matt Mileski | Air Force Institute of Technology | *Coming Soon...* |
 
 
 ---
