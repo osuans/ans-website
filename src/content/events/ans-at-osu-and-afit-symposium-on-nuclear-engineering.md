@@ -62,8 +62,8 @@ Two parallel presentation tracks will run simultaneously from 9:20 AM to 11:00 A
 **Location:** 1874 Room
 
 #### 9:20 AM - 9:40 AM
-**Presenter:** Colin McLagan & Mark Mysonhimer
-**Affiliation:** Air Force Institute of Technology
+**Presenter:** Colin McLagan & Mark Mysonhimer  
+**Affiliation:** Air Force Institute of Technology  
 **Title:** On the Role of Grain Boundaries in Metal Oxidation
 
 <details>
