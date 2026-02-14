@@ -59,10 +59,10 @@ draft: false
 Two parallel presentation tracks will run simultaneously from 9:20 AM to 11:00 AM. Each presentation is 15 minutes followed by a 5-minute Q&A session.
 
 ### Track 1: Materials, Microstructure, and Modeling
-**Location:** Grove Room
+**Location:** 1874 Room
 
 #### 9:20 AM - 9:40 AM
-**Presenter:** Colin McLagan & Mark Mysonhimer  
+**Presenter:** Colin McLagan & Mark Mysonhimer
 **Affiliation:** Air Force Institute of Technology
 **Title:** On the Role of Grain Boundaries in Metal Oxidation
 
@@ -84,7 +84,7 @@ Mr. Mysonhimer is currently a nuclear engineering student in the Engineering Phy
 ---
 
 #### 9:40 AM - 10:00 AM
-**Presenter:** Mutaz Alshannaq  
+**Presenter:** Mutaz Alshannaq
 **Affiliation:** The Ohio State University  
 **Title:** Optimization of Fission Gas Release Model through the Microstructural Validation
 
@@ -163,7 +163,7 @@ Maj. Myers is a master’s student at Air Force Institute of Technology, Wright-
 ---
 
 ### Track 2: Nuclear Systems, Fuels, and Radiation Detection
-**Location:** 1874 Room
+**Location:** Grove Room
 
 #### 9:20 AM - 9:40 AM
 **Presenter:** Vinicius Zanardo Rodrigues  
