@@ -68,7 +68,7 @@ Two parallel presentation tracks will run simultaneously from 9:20 AM to 11:00 A
 **Title:** On the Role of Grain Boundaries in Metal Oxidation
 
 <details>
-<summary><strong>Abstract</strong></summary>
+<summary><strong>Show Abstract</strong></summary>
 <p>
 Oxidation is an important factor limiting the operational lifetime of metals. In this work, density functional theory (DFT) computations were utilized to study the role of grain boundaries (GBs) in the oxidation of a body-centered cubic (bcc) metal. Two tilt symmetric GBs were generated, and the thermodynamics and kinetics of interstitial oxygen in the system were examined, indicating a propensity for O to segregate to these GBs. Structure-property relationships correlating GB oxygen coverage with the GB strength were also established. Finally, a kinetic Monte Carlo (kMC) model was developed to study the influence of microstructure on the oxidation kinetics. Specifically, the effects of grain size, grain morphology, and grain orientation on the oxidation kinetics were noted. This work may offer some insights into the design of next-generation oxidation-resistant structural materials.
 </p>
@@ -104,7 +104,7 @@ Mr. Alshannaq is a Ph.D. student in Nuclear Engineering, with a specialization i
 **Title:** Phase Complexity and Structural Evolution of the Al-Ni System under Shock Loading: A Molecular Dynamics Study
 
 <details>
-<summary><strong>Abstract</strong></summary>
+<summary><strong>Show Abstract</strong></summary>
 <p>
 This study explores the response of Al-Ni alloys and compounds under shock loading with the use of molecular dynamics (MD) simulations. First, the study examines the effects of shocking FCC nickel aluminum solid solutions with 1, 4, and 6.5 at% aluminum. The study also explores the effect of crystallographic orientation on shocking intermetallic compounds AlNi3 along the [001], [011], and [111] directions. The analysis then continues onto superalloys, shocking Ni matrices with AlNi3 precipitates. Superalloy-based simulations are conducted with precipitates of varying volume and position to better observe their effect on shock propagation. The Hugioniot and equations of state are derived for each simulation, and metastable melting is analyzed. 
 </p>
@@ -125,7 +125,7 @@ Mr. Nagy is an applied physics student in the Engineering Physics department at 
 **Title:** *Coming Soon...*
 
 <details>
-<summary><strong>Abstract</strong></summary>
+<summary><strong>Show Abstract</strong></summary>
 <p>
 This work presents a new interatomic potential for tungsten trioxide (WO₃), fit to structural and mechanical data across multiple phases. The resulting potential is used to compute equations of state and assess phase stability. The potential was further utilized to construct an array of tilt grain boundary (GB) configurations and test their mechanical properties, thermal conductivity, and vacancy diffusion behaviors. The results revealed a strong dependence of ductility and ultimate tensile stress on grain boundary character. Enhanced thermal conductivity and diffusion along the grain boundary tilt axis was observed. Diffusion studies in the tilt GBs led to three classes of migration barriers: the lowest were associated with hops within the GB (and especially along the tilt axis), bulk-like hopping sufficiently far from the GBs, and high migration barriers associated with escaping the GB region.
 </p>
@@ -148,7 +148,7 @@ This work presents a new interatomic potential for tungsten trioxide (WO₃), fi
 **Title:** Atomic Force Microscope Measurements of Surface Material Properties and Adhesion Force Components
 
 <details>
-<summary><strong>Abstract</strong></summary>
+<summary><strong>Show Abstract</strong></summary>
 <p>
 Surface-mediated contamination remains a persistent challenge in laboratory and defense environments. This research investigates whether atomic force microscopy (AFM) measurements of surface interaction forces can predict how contamination particles transfer and adhere across common laboratory materials. By characterizing electrostatic and total adhesion forces under controlled humidity conditions, this work establishes a quantitative link between surface properties and particle behavior. The results support improved material selection and contamination mitigation strategies in sensitive operational settings.
 </p>
@@ -173,7 +173,7 @@ Maj. Myers is a master’s student at Air Force Institute of Technology, Wright-
 **Title:** Fault Tree Analysis of an Innovative Thermal Power Dispatch System for Nuclear Power Plants
 
 <details>
-<summary><strong>Abstract</strong></summary>
+<summary><strong>Show Abstract</strong></summary>
 <p>
 This presentation focuses on the development of a Fault Tree Analysis (FTA) of an innovative Thermal Power Dispatch (TPD) system for Nuclear Power Plants (NPPs) within the Flexible Plant Operation and Generation (FPOG) Program. It underscores the importance of Probabilistic Risk Assessment (PRA) in evaluating risks and safety associated with utilizing NPPs for hydrogen production via high-temperature steam electrolysis (HTSE). By proposing a TPD system that allows thermal power extraction, the study addresses potential hazards and emphasizes the need for stringent safety assessments to maintain safety standards, reinforcing the role of nuclear power in the evolving energy landscape.
 </p>
@@ -194,7 +194,7 @@ Mr. Rodrigues earned his bachelor's degree in Energy Engineering from the Federa
 **Title:** An Indication of Axion Electrodynamics in Scaled Quantum Anomalous Hall Effect
 
 <details>
-<summary><strong>Abstract</strong></summary>
+<summary><strong>Show Abstract</strong></summary>
 <p>
 Axions are hypothetical pseudo-Goldstone bosons arising from the Peccei–Quinn mechanism proposed to resolve the strong CP problem in quantum chromodynamics (QCD). The introduction of an axion field modifies the effective QCD theta parameter and can induce small corrections to hadronic interactions through mechanisms such as axion–pion mixing and axion–nucleon coupling. Condensed matter systems with nontrivial band topology provide experimentally accessible realizations of analogous topological electromagnetic responses. By analyzing axion-induced modifications to the effective field description exhibiting Quantum Anomalous Hall Effect and resulting observable responses, interactions between external axion fields and topological condensed matter systems may produce detectable deviations from conventional topological electromagnetic behavior.
 </p>
@@ -215,7 +215,7 @@ Major Brian McLaughlin is currently a nuclear engineering student in the Enginee
 **Title:** Fluorescence Response of Nitrogen-Vacancy Centers in Diamond for Neutron Dosimetry
 
 <details>
-<summary><strong>Abstract</strong></summary>
+<summary><strong>Show Abstract</strong></summary>
 <p>
 Nitrogen-Vacancy (NV) color centers, common point defects in a diamond lattice whose fluorescence properties enable highly sensitive quantification of radiation damage. Incident radiation, including neutrons, induce atomic displacements within the carbon matrix, creating vacancies that can combine with substitutional nitrogen to form new NV centers upon subsequent annealing. Substitutional nitrogen-rich High Pressure High Temperature (HPHT) diamonds, denoted as a Type Ib crystal, have typical concentrations of approximately 10-300 ppm and serve as the host material for this study. This study aims to establish diamond-based optical sensors as a new class of neutron dosimetry that exploits radiation damage itself as the measurement signal rather than treating it as a failure mode.  We demonstrate that these sensors can be used as radiation-hardened, miniature neutron dosimeters suitable for deployment in the extreme radiation, temperature, and accessibility-limited environments of existing and advanced reactor systems. This work aims to quantify neutron fluence to NV formation by correlating controlled neutron exposures with the NV center density through photoluminescence (PL) intensity and spectra, across fluences relevant to reactor monitoring. In the Ohio State University 500-kW Research Reactor (OSURR) Auxiliary Irradiation Facility (AIF), diamond samples were irradiated at various neutron fluences up to 1 × 1017 n/cm2 to draw correlation between dose and PL intensity. Post-annealing dose dependent fluorescence response exhibits a linear relationship and a maximum fluorescence increase of 40,328.57%. Future efforts will focus on evaluating sensor linearity at higher neutron fluences (≥10¹⁸ n/cm²) and examining the lower limits of detection.
 </p>
@@ -236,7 +236,7 @@ Mr. Shoen is a 3rd year PhD student in the Nuclear Analysis and Radiation Sensor
 **Title:** Rapid Photocured Plastic Scintillators for Radiation Detection and Additive Manufacturing Applications 
 
 <details>
-<summary><strong>Abstract</strong></summary>
+<summary><strong>Show Abstract</strong></summary>
 <p>
 Fast neutron imaging offers an attractive alternative to thermal neutron imaging due to the portable nature of DD and DT neutron generators and the ability to penetrate materials that thermal neutrons are unable to. The current technology for fast neutron detection for imaging is limited in achieving high spatial resolution, strong neutron discrimination, and the practical ability to make complex geometries. Traditional fast neutron detector fabrication methods require days to weeks of thermal polymerization and significant additional labor to produce sufficient dimensional resolution plastic scintillator arrays. The present work helps to reduce this limitation by developing additive manufacturing techniques to faster construct detectors with similar performance in dual particle applications. 
 In this work, custom-designed rapid light-curing resins produced with commercial manufacturing machinery have shown feature resolution at or below the mm scale while maintaining a curing speed on par with standard vat polymerization techniques and light output comparable to industry standard scintillators. The developed automated assembly machine, designed around a set of programmable robot arms, is shown to be capable of dual alternating layering of individual light-cured resin layers and optical segmentation with a self-bonded enhanced specular reflector. This allows the production of high-precision two-dimensional scintillator arrays in short fabrication times.
