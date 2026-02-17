@@ -37,7 +37,7 @@ draft: false
 
 | Time | Activity |
 |------|----------|
-| 9:00 AM - 9:20 AM | Opening remarks featuring speeches from representatives of OSU and AFIT |
+| 9:00 AM - 9:20 AM | Opening remarks featuring speeches from representatives of OSU and AFIT (Vinicius and Matt welcoming everyone present, followed by Prof. Khafizov (OSU) and Prof. McClory discussing OSU and AFIT historical partnership |
 | 9:20 AM - 11:00 AM | Research presentations (15 minutes for presentation + 5-minute Q&A session) |
 | 11:00 AM - 1:00 PM | Networking lunch and poster session |
 | 1:00 PM - 2:40 PM | Nuclear workshops (two parallel sessions) |
@@ -77,7 +77,7 @@ Oxidation is an important factor limiting the operational lifetime of metals. In
 <details>
 <summary style="cursor: pointer;"><strong>Show Bio</strong></summary>
 <p>
-Mr. McLagan is an astronautical engineering student at the Air Force Institute of Technology. His research consists of materials science topics, including density functional theory analysis on the effect of oxygen in refractory metal grain boundaries. Colin graduated from Embry-Riddle Aeronautical University with a Bachelor of Science in Aerospace Engineering. He plans to graduate in March 2026 and work in the aerospace industry.
+Mr. McLagan is an astronautical engineering student at the Air Force Institute of Technology. His research consists of materials science topics, including density functional theory analysis on the effect of oxygen in refractory metal grain boundaries. Colin graduated from Embry-Riddle Aeronautical University with a Bachelor of Science in Aerospace Engineering. He plans to graduate in March 2026 and work in the aerospace industry.  
 Mr. Mysonhimer is currently a nuclear engineering student in the Engineering Physics department at the Air Force Institute of Technology. Prior to attending AFIT, Matt got his bachelor's in chemical engineering with a minor in nuclear engineering from The Ohio State University. He is currently the President of the AFIT ANS chapter, and will graduate from AFIT in June of this year. 
 </p>
 </details>
@@ -293,25 +293,75 @@ Hanshu Kotta | The Ohio State University | Analysis of Thermophysical Properties
 Two interactive workshops will run in parallel from 1:00 PM to 2:40 PM.
 
 ### Workshop 1
-**Time:** 1:00 PM - 2:40 PM  
+**Time:** 1:00 PM - 1:30 PM  
 **Location:** Grove Room  
-**Speaker:** *Coming Soon...*  
-**Affiliation:** *Coming Soon...*  
-**Title:** *Coming Soon...*
+**Speaker:** Dr. John McClory  
+**Affiliation:** Air Force Institute of Technology  
+**Title:** Nuclear Weapons Effects Education and Research at AFIT  
 
 **Summary:**  
-*Coming Soon...*
+An overview of the unique physical outputs and subsequent effects of nuclear weapon detonations. AFIT graduate courses that cover the physics of nuclear weapons and their effects, as well as some of the ongoing AFIT graduate research efforts in this field, will be described. This presentation will be at the unclassified level.  
 
 <details>
 <summary style="cursor: pointer;"><strong>Show Speaker Bio</strong></summary>
 <p>
-*Coming Soon...*
+John McClory has been a Professor of Nuclear Engineering at the Air Force Institute of Technology (AFIT) since 2008. He is the Director of the Nuclear Expertise for Advancing Technology (NEAT) Center and Curriculum Chair of the Nuclear Engineering Program. He graduated from the Air Force Institute of Technology with a PhD. in nuclear engineering, Texas A&M University with an M.S. in physics, and Rensselaer Polytechnic Institute with a B.S. in physics. Dr. McClory’s research interests include the effects of radiation on military equipment and electronics, nuclear forensics techniques, nuclear weapon effects, and nuclear data production. He has advised 22 PhD students (two current) and 43 M.S. students (two current), and published over 100 journal articles during his time on the AFIT faculty. Prior to joining the AFIT faculty, Dr. McClory was a US Army officer and served in various assignments, including as an assistant professor of physics at the United States Military Academy.  
+</p>
+</details>
+
+**Time:** 1:35 PM - 2:05 PM  
+**Location:** Grove Room  
+**Speaker:** Dr. Zach Meisel    
+**Affiliation:** Air Force Institute of Technology    
+**Title:** (alpha,n) Reactions are the Forrest Gump of Nuclear Science  
+
+**Summary:**  
+If you look closely at most nuclear environments, you will find that alpha-capture neutron-emission, (alpha,n), reactions play some role. From special nuclear material characterization, to the origin of the elements, to dark matter detection, (alpha,n) reaction probabilities are critical inputs. However, these probabilities, or more accurately cross sections, are difficult to predict and often more difficult to measure. This presentation will briefly explain why, cover recent progress, and scope-out future opportunities.  
+
+<details>
+<summary style="cursor: pointer;"><strong>Show Speaker Bio</strong></summary>
+<p>
+Dr. Zach Meisel is an Associate Professor in the Department of Engineering Physics (ENP) at the Air Force Institute of Technology (AFIT). He was previously a Data Scientist in the CBRNE Defense Unit of the National Security Division at Battelle Memorial Institute and, prior to that, an Associate Professor in the Department of Physics and Astronomy and Director of the Edwards Accelerator Laboratory at Ohio University. Dr. Meisel was a Postdoctoral Research Associate at the University of Notre Dame after earning his BS in Astrophysics and PhD in Physics at Michigan State University. His primary research interests involve nuclear physics for applications and astrophysics, including nuclear physics experiments and modeling of astrophysical and terrestrial environments.  
+</p>
+</details>
+
+**Time:** 2:10 PM - 2:40 PM  
+**Location:** Grove Room  
+**Speaker:** Major Michael Ford  
+**Affiliation:** Air Force Institute of Technology    
+**Title:** Neutron-Induced Performance Degradation of ResNet-50 on Xilinx UltraScale+ MPSoCs  
+
+**Summary:**  
+Artificial intelligence and machine learning (AI/ML) workloads are increasingly deployed on edge platforms using advanced multiprocessor system-on-chip (MPSoC) devices that are susceptible to neutron-induced single-event effects (SEEs). While previous testing emphasized wide-spectrum neutron environments, recent standards and measurements indicate modern small-feature technologies exhibit increased vulnerability to low-energy neutrons, which constitute a significant portion of environmental flux. This work evaluates the performance of a ResNet-50 convolutional neural network deployed on a Xilinx UltraScale+ MPSoC exposed to a reactor neutron beam spanning thermal energies to 10 MeV at a total fluence of 3.6 × 10¹¹ n/cm². Results demonstrate neutron-induced SEEs degrade inference accuracy, introduce intermittent workflow failures, and cause system-level interruptions, highlighting reliability risks for deploying commercial AI accelerators in radiation environments and motivating development of radiation-resilient AI/ML hardware and software mitigation strategies.  
+
+<details>
+<summary style="cursor: pointer;"><strong>Show Speaker Bio</strong></summary>
+<p>
+Major Michael Ford is an Assistant Professor at the Air Force Institute of Technology (AFIT). He earned his undergraduate degree in Physics from Michigan State University while working at the National Superconducting Cyclotron Laboratory, and later received his Ph.D. in Nuclear Engineering from AFIT, with a focus on radiation detectors and nuclear effects. From 2017 to 2024, Major Ford served as a nuclear effects and environments subject matter expert at the Air Force Nuclear Weapons Center, and later managed a technical branch and served as a Section Commander at the Air Force Research Laboratory. His work spans radiation effects on electronics, nuclear environments, and applied radiation measurements.  
 </p>
 </details>
 
 ---
 
 ### Workshop 2
+**Time:** 1:00 PM - 1:30 PM  
+**Location:** 1874 Room  
+**Speaker:** Dr. Manfredi  
+**Affiliation:** Air Force Institute of Technology    
+**Title:** The Neutron Target Demonstrator - Towards a New Paradigm for Neutron-Induced Reaction Measurement
+
+**Summary:**  
+Neutron-induced reactions play central roles in the study of both astrophysics and national security. The study of these reactions on rare isotopes has been hindered by short lifetimes, which rule out the standard approach of neutrons impinging on a fixed target. Los Alamos National Laboratory is leading a new effort to directly study neutron-induced reactions in inverse kinematics. Neutrons will be produced at the Los Alamos Neutron Science Center (LANSCE) using a proton beam on a tungsten spallation target. This target will be surrounded by a graphite moderator, which moderates enough of the spallation neutrons to produce a standing field, or "neutron target". A rare-isotope beam will be injected into a storage ring, which passes through the neutron target. The first phase of this project is the Neutron Target Demonstrator (NTD), which will provide a proof-of-concept for the neutron target technique using a stable isotope beam. The NTD will use spallation at LANSCE to produce a neutron target, but the target will be impinged on by an ion source producing a stable isotope of krypton rather than a storage ring. Progress will be presented on experimental characterization of the moderator, modeling of the reaction kinematics, and commissioning of the ion source.
+
+<!--
+<details>
+<summary style="cursor: pointer;"><strong>Show Speaker Bio</strong></summary>
+<p>
+XXX  
+</p>
+</details>
+-->
+
 **Time:** 1:30 PM - 2:30 PM  
 **Location:** 1874 Room  
 **Speaker:** Dr. Praneeth Kandlakunta  
