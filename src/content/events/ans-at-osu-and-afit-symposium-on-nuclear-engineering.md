@@ -359,14 +359,13 @@ Major Michael Ford is an Assistant Professor at the Air Force Institute of Techn
 **Summary:**  
 Neutron-induced reactions play central roles in the study of both astrophysics and national security. The study of these reactions on rare isotopes has been hindered by short lifetimes, which rule out the standard approach of neutrons impinging on a fixed target. Los Alamos National Laboratory is leading a new effort to directly study neutron-induced reactions in inverse kinematics. Neutrons will be produced at the Los Alamos Neutron Science Center (LANSCE) using a proton beam on a tungsten spallation target. This target will be surrounded by a graphite moderator, which moderates enough of the spallation neutrons to produce a standing field, or "neutron target". A rare-isotope beam will be injected into a storage ring, which passes through the neutron target. The first phase of this project is the Neutron Target Demonstrator (NTD), which will provide a proof-of-concept for the neutron target technique using a stable isotope beam. The NTD will use spallation at LANSCE to produce a neutron target, but the target will be impinged on by an ion source producing a stable isotope of krypton rather than a storage ring. Progress will be presented on experimental characterization of the moderator, modeling of the reaction kinematics, and commissioning of the ion source.
 
-<!--
 <details>
 <summary style="cursor: pointer;"><strong>Show Speaker Bio</strong></summary>
 <p>
-XXX  
+Dr. Juan J. Manfredi Jr. is an Assistant Professor of Nuclear Engineering in the Department of Engineering Physics at the Air Force Institute of Technology (AFIT). His primary research interests relate to nuclear physics, radiation detection, and atmospheric radiation. Sponsors that have supported Dr. Manfredi’s work include the NNSA, AFRL, and DTRA. He serves as the AFIT PI for the Nuclear Science and Security Consortium (NSSC), an NA-22 funded university consortium led by UC Berkeley. Dr. Manfredi graduated from Washington University in St. Louis in 2012 with majors in math and physics. There, he worked with Prof. Lee Sobotka on measurements related to nuclear structure and nuclear astrophysics. Afterwards, he earned his PhD in Physics (2018) under Prof. Betty Tsang at Michigan State University studying nuclear reactions on exotic isotopes. In graduate school, Dr. Manfredi was awarded the Stewardship Science Graduate Fellowship. Before starting at AFIT, Dr. Manfredi was a Postdoctoral Scholar (and then NSSC Postdoctoral Fellow) at the University of California, Berkeley, where he worked with Dr. Bethany Goldblum on scintillator characterization and neutron imaging.   
 </p>
 </details>
--->
+
 
 &nbsp;
 
