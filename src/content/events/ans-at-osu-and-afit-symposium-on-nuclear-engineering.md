@@ -131,14 +131,12 @@ This work presents a new interatomic potential for tungsten trioxide (WO₃), fi
 </p>
 </details>
 
-<!--
 <details>
 <summary style="cursor: pointer;"><strong>Show Bio</strong></summary>
 <p>
-[HERE]
+*Coming Soon...*  
 </p>
 </details>
--->
 
 ---
 
@@ -277,13 +275,13 @@ Enjoy lunch, relax, connect with peers, and view research posters from students 
 | Presenter | Affiliation | Title |
 |-----------|-------------|-------|
 | Daniel Layer | The Ohio State University | Preliminary Safety Analysis of a TRISO-Coating Chemical Vapor Deposition System |
-| LTC Matthew Gettings  | Air Force Institute of Technology | *Coming Soon...* |
+| LTC Matthew Gettings  | Air Force Institute of Technology | Synthesis of Novel Energetic Stabilizers |
 | Ella Fischer | The Ohio State University | Optimization of an Electrochemical Cell Designed to Separate Hydrogen Isotopes in Alkaline Aqueous Electrolyte |
-| Joseph Schucker | Air Force Institute of Technology | *Coming Soon...* |
+| Joseph Schucker | Air Force Institute of Technology | SEM Characterization of Reactive Structural Materials |
 | Colin Voorhis | The Ohio State University | Time-Dependent Neutron Transport Methods for Transient Fixed-Source Reactor Kinetics |
-| LTC Luke Tyree | Air Force Institute of Technology | *Coming Soon...* |
+| LTC Luke Tyree | Air Force Institute of Technology | Particle-in-Cell Modeling of Magnetic Null Dynamics in Cylindrical Pinched-Beam Diodes |
 Hanshu Kotta | The Ohio State University | Analysis of Thermophysical Properties of Fuels for Nuclear Thermal Propulsion |
-| Matt Mileski | Air Force Institute of Technology | *Coming Soon...* |
+| Matt Mileski | Air Force Institute of Technology | The use of machine learning models for predicting the dielectric strength of gases |
 
 
 ---
