@@ -290,7 +290,7 @@ Hanshu Kotta | The Ohio State University | Analysis of Thermophysical Properties
 
 ## Workshop Sessions
 
-Workshop 1 features three sequential presentations in the Grove Room, while Workshop 2 runs in parallel in the 1874 Room.
+Workshop 1 features three sequential presentations in the Grove Room, while Workshop 2 features two sequential presentations in the 1874 Room.
 
 ### Workshop 1: Nuclear Science and Technology Applications
 **Time:** 1:00 PM - 2:40 PM  
