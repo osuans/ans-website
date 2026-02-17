@@ -352,11 +352,11 @@ Major Michael Ford is an Assistant Professor at the Air Force Institute of Techn
 ---
 
 ### Workshop 2
+#### Lecture 1: The Neutron Target Demonstrator - Towards a New Paradigm for Neutron-Induced Reaction Measurement  
 **Time:** 1:00 PM - 1:30 PM  
 **Location:** 1874 Room  
 **Speaker:** Dr. Manfredi  
 **Affiliation:** Air Force Institute of Technology    
-**Title:** The Neutron Target Demonstrator - Towards a New Paradigm for Neutron-Induced Reaction Measurement
 
 **Summary:**  
 Neutron-induced reactions play central roles in the study of both astrophysics and national security. The study of these reactions on rare isotopes has been hindered by short lifetimes, which rule out the standard approach of neutrons impinging on a fixed target. Los Alamos National Laboratory is leading a new effort to directly study neutron-induced reactions in inverse kinematics. Neutrons will be produced at the Los Alamos Neutron Science Center (LANSCE) using a proton beam on a tungsten spallation target. This target will be surrounded by a graphite moderator, which moderates enough of the spallation neutrons to produce a standing field, or "neutron target". A rare-isotope beam will be injected into a storage ring, which passes through the neutron target. The first phase of this project is the Neutron Target Demonstrator (NTD), which will provide a proof-of-concept for the neutron target technique using a stable isotope beam. The NTD will use spallation at LANSCE to produce a neutron target, but the target will be impinged on by an ion source producing a stable isotope of krypton rather than a storage ring. Progress will be presented on experimental characterization of the moderator, modeling of the reaction kinematics, and commissioning of the ion source.
@@ -372,19 +372,19 @@ XXX
 
 &nbsp;
 
+#### Lecture 2: Monte Carlo Radiation Transport Modeling: Concepts, Practice, and Emerging Trends  
 **Time:** 1:30 PM - 2:30 PM  
 **Location:** 1874 Room  
 **Speaker:** Dr. Praneeth Kandlakunta  
 **Affiliation:** The Ohio State University  
-**Title:** Monte Carlo Radiation Transport Modeling: Concepts, Practice, and Emerging Trends
 
 **Summary:**  
-Monte Carlo (MC) methods have become the gold standard for modeling radiation interactions in matter across applications ranging from detector design and shielding analysis to reactor physics, medical dosimetry, and radiation protection. This workshop provides a concept-driven introduction to Monte Carlo radiation transport modeling, with an emphasis on practical implementation and critical evaluation. Rather than focusing on a specific software package, the workshop emphasizes the underlying methodology of Monte Carlo simulation, including particle-history tracking, probabilistic sampling of physical interactions, tally design, statistical convergence, and uncertainty quantification. Practical considerations such as variance reduction, verification and validation, and interpretation of simulation outputs are discussed in the context of real-world problems. The session also highlights current research directions in Monte Carlo modeling, including GPU acceleration, hybrid deterministic–Monte Carlo approaches, and emerging AI/ML-assisted surrogate techniques. Participants gain a principled understanding of when Monte Carlo methods are appropriate, how to structure a robust simulation study, and how to critically evaluate Monte Carlo results in research and design environments.
+Monte Carlo (MC) methods have become the gold standard for modeling radiation interactions in matter across applications ranging from detector design and shielding analysis to reactor physics, medical dosimetry, and radiation protection. This workshop provides a concept-driven introduction to Monte Carlo radiation transport modeling, with an emphasis on practical implementation and critical evaluation. Rather than focusing on a specific software package, the workshop emphasizes the underlying methodology of Monte Carlo simulation, including particle-history tracking, probabilistic sampling of physical interactions, tally design, statistical convergence, and uncertainty quantification. Practical considerations such as variance reduction, verification and validation, and interpretation of simulation outputs are discussed in the context of real-world problems. The session also highlights current research directions in Monte Carlo modeling, including GPU acceleration, hybrid deterministic–Monte Carlo approaches, and emerging AI/ML-assisted surrogate techniques. Participants gain a principled understanding of when Monte Carlo methods are appropriate, how to structure a robust simulation study, and how to critically evaluate Monte Carlo results in research and design environments.  
 
 <details>
 <summary style="cursor: pointer;"><strong>Show Speaker Bio</strong></summary>
 <p>
-Dr. Praneeth Kandlakunta is a Research Assistant Professor of Nuclear Engineering at The Ohio State University. His work focuses on applications of nuclear science and radiation physics across nuclear non-proliferation, nuclear energy, and healthcare. His research encompasses radiation detection and measurement techniques, nuclear instrumentation and sensor development, radiation source development and optimization, and the evaluation of radiation effects in electronic materials and devices. He integrates Monte Carlo radiation transport simulations with experimental measurements to investigate radiation interactions in materials and devices under complex environments, and to develop predictive models of detector performance and radiation-induced phenomena.
+Dr. Praneeth Kandlakunta is a Research Assistant Professor of Nuclear Engineering at The Ohio State University. His work focuses on applications of nuclear science and radiation physics across nuclear non-proliferation, nuclear energy, and healthcare. His research encompasses radiation detection and measurement techniques, nuclear instrumentation and sensor development, radiation source development and optimization, and the evaluation of radiation effects in electronic materials and devices. He integrates Monte Carlo radiation transport simulations with experimental measurements to investigate radiation interactions in materials and devices under complex environments, and to develop predictive models of detector performance and radiation-induced phenomena.  
 </p>
 </details>
 
