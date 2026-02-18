@@ -122,7 +122,7 @@ Mr. Nagy is an applied physics student in the Engineering Physics department at 
 #### 10:20 AM - 10:40 AM
 **Presenter:** Samuel Wagers  
 **Affiliation:** Air Force Institute of Technology  
-**Title:** *Coming Soon...*
+**Title:** Investigating Grain Boundaries of Cubic Tungsten Trioxide through MD with an EAM-Buckingham-Coulomb Potential  
 
 <details>
 <summary style="cursor: pointer;"><strong>Show Abstract</strong></summary>
@@ -134,7 +134,7 @@ This work presents a new interatomic potential for tungsten trioxide (WO₃), fi
 <details>
 <summary style="cursor: pointer;"><strong>Show Bio</strong></summary>
 <p>
-*Coming Soon...*  
+Samuel Wagers is a second year PhD student at the Air Force Institute of Technology.  Sam has a bachelor of science in physics from The Ohio State University and a mjaster of science in physics from the University of Cincinnati.    
 </p>
 </details>
 
