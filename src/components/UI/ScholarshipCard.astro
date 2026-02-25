@@ -11,11 +11,10 @@ interface Props {
   deadline: Date;
   description: string;
   slug: string;
-  applicationUrl?: string;
   showTypeBadge?: boolean;
 }
 
-const { name, type, amount, deadline, description, slug, applicationUrl, showTypeBadge = false } = Astro.props;
+const { name, type, amount, deadline, description, slug, showTypeBadge = false } = Astro.props;
 
 const typeLabel = capitalize(type);
 ---

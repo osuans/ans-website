@@ -57,7 +57,7 @@ const internships = sortedScholarships.filter(s => s.data.type === 'internship')
                 deadline={item.data.deadline}
                 description={item.data.description}
                 slug={item.slug}
-                applicationUrl={item.data.applicationUrl}
+
                 showTypeBadge={true}
               />
             </div>
@@ -123,7 +123,7 @@ const internships = sortedScholarships.filter(s => s.data.type === 'internship')
     </div>
   </section>
 
-  <script define:vars={{ itemsPerPage: CONFIG.PAGINATION.ITEMS_PER_PAGE }}>
+  <script is:inline define:vars={{ itemsPerPage: CONFIG.PAGINATION.ITEMS_PER_PAGE }}>
     // Pagination variables
     const ITEMS_PER_PAGE = itemsPerPage;
     let currentPage = 1;

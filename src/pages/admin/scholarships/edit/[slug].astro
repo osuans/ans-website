@@ -17,6 +17,6 @@ if (!scholarship) {
   return new Response(`Scholarship with slug "${slug}" not found.`, { status: 404 });
 }
 ---
-<AdminLayout title={`Edit Scholarship: ${scholarship.data.name}`}>
+<AdminLayout title={`Edit Resource: ${scholarship.data.name}`}>
   <ScholarshipForm scholarship={scholarship} />
 </AdminLayout>
