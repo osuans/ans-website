@@ -42,7 +42,7 @@ export const CONFIG = {
   },
 
   DEFAULTS: {
-    EVENT_IMAGE: 'uploads/events/TheOhioStateUniversity.jpg',
+    EVENT_IMAGE: '/uploads/events/TheOhioStateUniversity.jpg',
   },
 
   CALENDAR: {
