@@ -10,6 +10,7 @@ tags:
   - monte carlo research
   - nuclear
   - OSU
+registrationLink: "https://forms.gle/xDxToobe6dhTe325A"
 registrationRequired: true
 featured: true
 draft: false
