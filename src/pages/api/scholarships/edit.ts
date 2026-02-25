@@ -16,6 +16,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     const deadline = String(formData.get('deadline') ?? '');
     const description = String(formData.get('description') ?? '');
     const eligibility = String(formData.get('eligibility') ?? '');
+    const applicationUrl = String(formData.get('applicationUrl') ?? '');
 
     if (!originalSlug || !name || !type || !amount || !frequency || !deadline || !description || !eligibility) {
       return createValidationError();
@@ -40,6 +41,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
       `amount: ${amount}`,
       `frequency: "${frequency.replace(/"/g, '\\"')}"`,
       `deadline: ${deadline}`,
+      applicationUrl && `applicationUrl: "${applicationUrl}"`,
       `description: "${description.replace(/"/g, '\\"')}"`,
       `eligibility:\n${eligibility.split('\n').map(e => `  - "${e.trim().replace(/"/g, '\\"')}"`).join('\n')}`,
       '---'
