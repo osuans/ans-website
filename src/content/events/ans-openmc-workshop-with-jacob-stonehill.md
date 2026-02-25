@@ -12,7 +12,7 @@ tags:
   - OSU
 registrationRequired: true
 featured: true
-draft: true
+draft: false
 ---
 
 # ANS OpenMC Workshop with Jacob Stonehill
