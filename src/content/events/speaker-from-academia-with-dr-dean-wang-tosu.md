@@ -11,7 +11,8 @@ tags:
   - academia
   - research
 registrationRequired: false
-draft: true
+featured: false
+draft: false
 ---
 
 Join us for an engaging seminar featuring Dr. Dean Wang, who will share current groundbreaking research being conducted at Ohio State.
