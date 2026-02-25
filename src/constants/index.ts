@@ -42,7 +42,7 @@ export const CONFIG = {
   },
 
   DEFAULTS: {
-    EVENT_IMAGE: '/uploads/events/ANS-badge-red.png',
+    EVENT_IMAGE: 'uploads/events/TheOhioStateUniversity.jpg',
   },
 
   CALENDAR: {
