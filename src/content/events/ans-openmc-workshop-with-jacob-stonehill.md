@@ -33,6 +33,6 @@ Join us for an engaging workshop on OpenMC, led by Jacob Stonehill, Ph.D. studen
 This workshop is suitable for students, professionals, and anyone interested in advancing their knowledge of computational methods in nuclear engineering.
 
 ### How to Register:
-Stay tuned for registration details and updates about the event location. 
+Please find the registration link below. Stay tuned for updates about the event location. 
 
 We look forward to seeing you there!
