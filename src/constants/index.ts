@@ -42,7 +42,7 @@ export const CONFIG = {
   },
 
   DEFAULTS: {
-    EVENT_IMAGE: '/uploads/events/npp.jpg',
+    EVENT_IMAGE: '/uploads/events/ANS-badge-red.png',
   },
 
   CALENDAR: {
