@@ -1,8 +1,8 @@
 ---
 title: "Speaker from Academia with Dr. Dean Wang, TOSU"
 date: 2026-03-31
-time: "TBD"
-location: "TBD"
+time: "5:00 PM - 6:30 PM"
+location: "Scott Laboratory E525"
 image: "/uploads/events/TheOhioStateUniversity.jpg"
 summary: "Join us for our Seminar from Academia series with Dr. Dean Wang, Nuclear Engineering faculty at The Ohio State University!"
 tags:
@@ -11,7 +11,7 @@ tags:
   - academia
   - research
 registrationRequired: false
-featured: false
+featured: true
 draft: false
 ---
 
