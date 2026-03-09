@@ -10,7 +10,8 @@ tags:
   - nuclear
   - academia
   - research
-registrationRequired: false
+registrationLink: "https://forms.gle/Jd5Fu5kq2cmn64FE7"
+registrationRequired: true
 featured: true
 draft: false
 ---
