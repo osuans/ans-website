@@ -3,7 +3,7 @@ title: "ANS OpenMC Workshop with Jacob Stonehill"
 date: 2026-03-25
 time: "6:00 PM - 8:00 PM"
 location: "Scott Laboratory E100"
-image: "/uploads/events/ans-openmc-workshop-with-jacob-stonehill/event-1773096792578.png"
+image: "/uploads/events/ans-openmc-workshop-with-jacob-stonehill/event-1773097058860.png"
 summary: "Join us for an OpenMC workshop led by Jacob Stonehill, a Ph.D. student in Nuclear Engineering at OSU, on March 25th from 6:00 PM to 8:00 PM (location TBD). The workshop will cover OpenMC's capabilities and include hands-on sessions, making it ideal for students and professionals interested in nuclear engineering and radiation transport. Stay tuned for registration details, and we hope to see you there!"
 tags:
   - workshop
