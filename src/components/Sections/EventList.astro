@@ -1,29 +1,32 @@
 ---
-import { getCollection } from "astro:content";
 import Card from "../UI/Card.astro";
 import Button from "../UI/Button.astro";
-import { formatDate, isTodayOrFuture } from "../../utils/dateUtils";
+import { formatDate } from "../../utils/dateUtils";
 import { CONFIG } from "../../constants";
 
+interface EventItem {
+  title: string;
+  slug: string;
+  date: string;
+  time?: string;
+  location: string;
+  summary: string;
+  imageUrl?: string;
+  featured?: boolean;
+}
+
 export interface Props {
+  events: EventItem[];
   count?: number;
   showViewAll?: boolean;
 }
 
-const { count = 3, showViewAll = true } = Astro.props;
+const { events: allEvents, count = 3, showViewAll = true } = Astro.props;
 
-// Get all non-draft events
-const allEvents = await getCollection("events", ({ data }) => !data.draft);
-
-// Filter to upcoming events only (events stay upcoming through the day of the event)
-const upcomingEvents = allEvents
-  .filter(event => isTodayOrFuture(event.data.date))
-  .sort((a, b) => new Date(a.data.date).getTime() - new Date(b.data.date).getTime());
-
-// Try featured events first, fall back to upcoming events
-const featuredEvents = upcomingEvents.filter(event => event.data.featured);
+// Try featured events first, fall back to all passed events
+const featuredEvents = allEvents.filter((event: EventItem) => event.featured);
 const hasFeatured = featuredEvents.length > 0;
-const events = (hasFeatured ? featuredEvents : upcomingEvents).slice(0, count);
+const events = (hasFeatured ? featuredEvents : allEvents).slice(0, count);
 
 const sectionTitle = hasFeatured ? "Featured Events" : "Upcoming Events";
 const sectionDescription = hasFeatured
@@ -39,15 +42,15 @@ const sectionDescription = hasFeatured
         {sectionDescription}
       </p>
     </div>
-    
+
     <div class="flex flex-wrap justify-center gap-8">
       {events.map((event) => (
         <div class="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.34rem)] max-w-md">
         <Card
-          title={event.data.title}
+          title={event.title}
           image={{
-            src: event.data.image || CONFIG.DEFAULTS.EVENT_IMAGE,
-            alt: event.data.title
+            src: event.imageUrl || CONFIG.DEFAULTS.EVENT_IMAGE,
+            alt: event.title
           }}
           href={`/events/${event.slug}`}
         >
@@ -55,19 +58,19 @@ const sectionDescription = hasFeatured
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
-            <span>{formatDate(event.data.date)}</span>
+            <span>{formatDate(new Date(event.date))}</span>
           </div>
-          
+
           <div class="mb-3 flex items-center text-gray-600">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
-            <span>{event.data.location}</span>
+            <span>{event.location}</span>
           </div>
-          
-          <p class="text-gray-700 mb-4">{event.data.summary}</p>
-          
+
+          <p class="text-gray-700 mb-4">{event.summary}</p>
+
           <p class="text-primary-600 font-medium group-hover:underline group-hover:text-primary-700">
             Learn More →
           </p>
@@ -75,7 +78,7 @@ const sectionDescription = hasFeatured
         </div>
       ))}
     </div>
-    
+
     {showViewAll && events.length > 0 && (
       <div class="mt-12 text-center">
         <Button href="/events" variant="outline">

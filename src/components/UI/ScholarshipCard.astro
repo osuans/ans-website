@@ -7,8 +7,8 @@ import { CONFIG } from '../../constants';
 interface Props {
   name: string;
   type: 'scholarship' | 'fellowship' | 'internship';
-  amount: number;
-  deadline: Date;
+  amount: string;
+  deadline: Date | string;
   description: string;
   slug: string;
   showTypeBadge?: boolean;
@@ -17,6 +17,7 @@ interface Props {
 const { name, type, amount, deadline, description, slug, showTypeBadge = false } = Astro.props;
 
 const typeLabel = capitalize(type);
+const deadlineDate = typeof deadline === 'string' ? new Date(deadline) : deadline;
 ---
 
 <Card title={name} href={`/scholarships/${slug}`}>
@@ -29,11 +30,11 @@ const typeLabel = capitalize(type);
   )}
   <div class="mb-3 flex items-center text-gray-600">
     <span class="font-bold">Amount:</span>
-    <span class="ml-2">${amount.toLocaleString()}</span>
+    <span class="ml-2">{amount}</span>
   </div>
   <div class="mb-3 flex items-center text-gray-600">
     <span class="font-bold">Deadline:</span>
-    <span class="ml-2">{formatDate(deadline)}</span>
+    <span class="ml-2">{formatDate(deadlineDate)}</span>
   </div>
   <p class="text-gray-700 mb-4">{description.substring(0, CONFIG.PAGINATION.DESCRIPTION_PREVIEW_LENGTH)}...</p>
     <p class="text-primary-600 font-medium group-hover:underline group-hover:text-primary-700">

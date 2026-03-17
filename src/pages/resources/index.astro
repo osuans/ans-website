@@ -2,31 +2,32 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageHeader from "../../components/Sections/PageHeader.astro";
 import ScholarshipCard from "../../components/UI/ScholarshipCard.astro";
-import { getCollection } from "astro:content";
+import { sanityClient } from "../../lib/sanity";
 import { CONFIG } from "../../constants";
 
-// Get all scholarships
-const allScholarships = await getCollection("scholarships");
+const allResources = await sanityClient.fetch(
+  `*[_type == "resource" && !draft] | order(deadline asc) {
+    name, "slug": slug.current, type, amount, deadline, description,
+    "imageUrl": image.asset->url
+  }`
+);
 
-// Sort scholarships by deadline
-const sortedScholarships = allScholarships.sort((a, b) => new Date(a.data.deadline).getTime() - new Date(b.data.deadline).getTime());
-
-// Group by type
-const scholarships = sortedScholarships.filter(s => s.data.type === 'scholarship');
-const fellowships = sortedScholarships.filter(s => s.data.type === 'fellowship');
-const internships = sortedScholarships.filter(s => s.data.type === 'internship');
+const sortedScholarships = allResources;
+const scholarships = allResources.filter((s: any) => s.type === 'scholarship');
+const fellowships = allResources.filter((s: any) => s.type === 'fellowship');
+const internships = allResources.filter((s: any) => s.type === 'internship');
 ---
 
 <BaseLayout
   title="Scholarships & Resources - American Nuclear Society at OSU"
   description="Explore scholarships, fellowships, and other resources available to students."
 >
-  <PageHeader 
-    title="Scholarships & Resources" 
+  <PageHeader
+    title="Scholarships & Resources"
     subtitle="Financial opportunities for students in nuclear science and engineering"
     backgroundImage="/uploads/connect.jpg"
   />
-  
+
   <section class="py-16">
     <div class="container">
       <!-- Tabs -->
@@ -48,16 +49,15 @@ const internships = sortedScholarships.filter(s => s.data.type === 'internship')
       <!-- All Resources -->
       <div class="tab-content" data-content="all">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="all-items-grid">
-          {sortedScholarships.map((item, index) => (
+          {sortedScholarships.map((item: any, index: number) => (
             <div class="all-item" data-index={index}>
               <ScholarshipCard
-                name={item.data.name}
-                type={item.data.type}
-                amount={item.data.amount}
-                deadline={item.data.deadline}
-                description={item.data.description}
+                name={item.name}
+                type={item.type}
+                amount={item.amount}
+                deadline={item.deadline}
+                description={item.description}
                 slug={item.slug}
-
                 showTypeBadge={true}
               />
             </div>
@@ -78,45 +78,42 @@ const internships = sortedScholarships.filter(s => s.data.type === 'internship')
 
       <!-- Scholarships Only -->
       <div class="tab-content hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-content="scholarship">
-        {scholarships.map((item) => (
+        {scholarships.map((item: any) => (
           <ScholarshipCard
-            name={item.data.name}
-            type={item.data.type}
-            amount={item.data.amount}
-            deadline={item.data.deadline}
-            description={item.data.description}
+            name={item.name}
+            type={item.type}
+            amount={item.amount}
+            deadline={item.deadline}
+            description={item.description}
             slug={item.slug}
-            applicationUrl={item.data.applicationUrl}
           />
         ))}
       </div>
 
       <!-- Fellowships Only -->
       <div class="tab-content hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-content="fellowship">
-        {fellowships.map((item) => (
+        {fellowships.map((item: any) => (
           <ScholarshipCard
-            name={item.data.name}
-            type={item.data.type}
-            amount={item.data.amount}
-            deadline={item.data.deadline}
-            description={item.data.description}
+            name={item.name}
+            type={item.type}
+            amount={item.amount}
+            deadline={item.deadline}
+            description={item.description}
             slug={item.slug}
-            applicationUrl={item.data.applicationUrl}
           />
         ))}
       </div>
 
       <!-- Internships Only -->
       <div class="tab-content hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-content="internship">
-        {internships.map((item) => (
+        {internships.map((item: any) => (
           <ScholarshipCard
-            name={item.data.name}
-            type={item.data.type}
-            amount={item.data.amount}
-            deadline={item.data.deadline}
-            description={item.data.description}
+            name={item.name}
+            type={item.type}
+            amount={item.amount}
+            deadline={item.deadline}
+            description={item.description}
             slug={item.slug}
-            applicationUrl={item.data.applicationUrl}
           />
         ))}
       </div>
@@ -129,95 +126,67 @@ const internships = sortedScholarships.filter(s => s.data.type === 'internship')
     let currentPage = 1;
     let totalPages = 1;
 
-    // Initialize pagination
     function initPagination() {
       const allItems = document.querySelectorAll('.all-item');
       totalPages = Math.ceil(allItems.length / ITEMS_PER_PAGE);
-
       if (totalPages <= 1) {
         document.getElementById('pagination-controls').style.display = 'none';
         return;
       }
-
       renderPagination();
       showPage(1);
     }
 
-    // Show specific page
     function showPage(page) {
       currentPage = page;
       const allItems = document.querySelectorAll('.all-item');
       const start = (page - 1) * ITEMS_PER_PAGE;
       const end = start + ITEMS_PER_PAGE;
-
       allItems.forEach((item, index) => {
-        if (index >= start && index < end) {
-          item.style.display = 'block';
-        } else {
-          item.style.display = 'none';
-        }
+        item.style.display = (index >= start && index < end) ? 'block' : 'none';
       });
-
       renderPagination();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Render pagination controls
     function renderPagination() {
       const pageNumbersContainer = document.getElementById('page-numbers');
       const prevButton = document.getElementById('prev-page');
       const nextButton = document.getElementById('next-page');
-
-      // Clear existing page numbers
       pageNumbersContainer.innerHTML = '';
-
-      // Add page number buttons
       for (let i = 1; i <= totalPages; i++) {
         const button = document.createElement('button');
         button.textContent = i;
         button.className = `px-4 py-2 border rounded-md ${
-          i === currentPage
-            ? 'bg-primary-600 text-white border-primary-600'
-            : 'border-gray-300 hover:bg-gray-50'
+          i === currentPage ? 'bg-primary-600 text-white border-primary-600' : 'border-gray-300 hover:bg-gray-50'
         }`;
         button.addEventListener('click', () => showPage(i));
         pageNumbersContainer.appendChild(button);
       }
-
-      // Update prev/next buttons
       prevButton.disabled = currentPage === 1;
       nextButton.disabled = currentPage === totalPages;
     }
 
-    // Prev/Next button handlers
     document.getElementById('prev-page').addEventListener('click', () => {
       if (currentPage > 1) showPage(currentPage - 1);
     });
-
     document.getElementById('next-page').addEventListener('click', () => {
       if (currentPage < totalPages) showPage(currentPage + 1);
     });
 
-    // Tab switching
     document.querySelectorAll('.tab-button').forEach(button => {
       button.addEventListener('click', () => {
         const tab = button.getAttribute('data-tab');
-
-        // Update button styles
         document.querySelectorAll('.tab-button').forEach(btn => {
           btn.classList.remove('border-primary-600', 'text-primary-600');
           btn.classList.add('border-transparent', 'text-gray-700');
         });
         button.classList.remove('border-transparent', 'text-gray-700');
         button.classList.add('border-primary-600', 'text-primary-600');
-
-        // Update content visibility
         document.querySelectorAll('.tab-content').forEach(content => {
           content.classList.add('hidden');
         });
         document.querySelector(`[data-content="${tab}"]`)?.classList.remove('hidden');
-
-        // Show/hide pagination controls
         const paginationControls = document.getElementById('pagination-controls');
         if (tab === 'all') {
           paginationControls.style.display = totalPages > 1 ? 'flex' : 'none';
@@ -227,7 +196,6 @@ const internships = sortedScholarships.filter(s => s.data.type === 'internship')
       });
     });
 
-    // Initialize on page load
     initPagination();
   </script>
 </BaseLayout>

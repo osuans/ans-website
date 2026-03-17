@@ -2,6 +2,13 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHeader from "../components/Sections/PageHeader.astro";
 import StaffList from "../components/Sections/StaffList.astro";
+import { sanityClient } from "../lib/sanity";
+
+const staff = await sanityClient.fetch(
+  `*[_type == "staffMember" && !draft] | order(order asc) {
+    name, title, bio, "imageUrl": image.asset->url
+  }`
+);
 ---
 
 <BaseLayout
@@ -15,7 +22,7 @@ import StaffList from "../components/Sections/StaffList.astro";
   />
 
   <!-- Staff List -->
-  <StaffList />
+  <StaffList staff={staff} />
 
   <!-- Contact Staff CTA -->
   <section class="py-16 bg-gray-50">
@@ -25,7 +32,7 @@ import StaffList from "../components/Sections/StaffList.astro";
           Stay Connected with ANS at OSU!
         </h2>
         <p class="text-xl text-gray-600 mb-8">
-          Don’t miss out on what’s happening in ANS at OSU! Stay connected for
+          Don't miss out on what's happening in ANS at OSU! Stay connected for
           event updates, meetings, and ways to get involved throughout the
           semester.
         </p>

@@ -2,21 +2,29 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageHeader from "../../components/Sections/PageHeader.astro";
 import EventCard from "../../components/UI/EventCard.astro";
-import { getCollection } from "astro:content";
+import { sanityClient } from "../../lib/sanity";
 import { isTodayOrFuture, isPastDate, groupEventsBySemester } from "../../utils/dateUtils";
 import { CONFIG } from "../../constants";
 
-// Get all non-draft events
-const allEvents = await getCollection("events", ({ data }) => !data.draft);
+const allEvents = await sanityClient.fetch(
+  `*[_type == "event" && !draft] {
+    title, "slug": slug.current, date, endDate, time, location,
+    summary, tags, registrationLink, registrationRequired, featured,
+    "imageUrl": image.asset->url
+  }`
+);
 
-// Separate upcoming and past events (events stay upcoming through the day of the event)
-const upcomingEvents = allEvents.filter(event => isTodayOrFuture(event.data.date))
-                            .sort((a, b) => new Date(a.data.date).getTime() - new Date(b.data.date).getTime());
+const upcomingEvents = allEvents
+  .filter((event: any) => isTodayOrFuture(new Date(event.date)))
+  .sort((a: any, b: any) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
-const pastEvents = allEvents.filter(event => isPastDate(event.data.date))
-                        .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+const pastEvents = allEvents
+  .filter((event: any) => isPastDate(new Date(event.date)))
+  .sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
-const groupedPastEvents = groupEventsBySemester(pastEvents);
+const groupedPastEvents = groupEventsBySemester(
+  pastEvents.map((e: any) => ({ data: { ...e, date: new Date(e.date) }, slug: e.slug }))
+);
 ---
 
 <BaseLayout
@@ -59,16 +67,16 @@ const groupedPastEvents = groupEventsBySemester(pastEvents);
           Explore our upcoming technical seminars, networking events, and professional development opportunities
         </p>
       </div>
-      
+
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {upcomingEvents.map((event) => (
+        {upcomingEvents.map((event: any) => (
           <EventCard
-            title={event.data.title}
-            image={event.data.image || CONFIG.DEFAULTS.EVENT_IMAGE}
-            date={event.data.date}
-            time={event.data.time}
-            location={event.data.location}
-            summary={event.data.summary}
+            title={event.title}
+            image={event.imageUrl || CONFIG.DEFAULTS.EVENT_IMAGE}
+            date={event.date}
+            time={event.time}
+            location={event.location}
+            summary={event.summary}
             slug={event.slug}
             variant="upcoming"
           />
@@ -76,7 +84,7 @@ const groupedPastEvents = groupEventsBySemester(pastEvents);
       </div>
     </div>
   </section>
-  
+
   <!-- Past Events -->
   <section class="py-16 bg-gray-50">
     <div class="container">
@@ -96,10 +104,10 @@ const groupedPastEvents = groupEventsBySemester(pastEvents);
               </button>
               <div class="accordion-content p-4 bg-white rounded-b-lg hidden">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                  {events.map((event) => (
+                  {(events as any[]).map((event: any) => (
                     <EventCard
                       title={event.data.title}
-                      image={event.data.image || CONFIG.DEFAULTS.EVENT_IMAGE}
+                      image={event.data.imageUrl || CONFIG.DEFAULTS.EVENT_IMAGE}
                       date={event.data.date}
                       time={event.data.time}
                       location={event.data.location}
@@ -121,7 +129,7 @@ const groupedPastEvents = groupEventsBySemester(pastEvents);
       )}
     </div>
   </section>
-  
+
 </BaseLayout>
 
 <script>

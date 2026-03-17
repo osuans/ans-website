@@ -1,0 +1,16 @@
+---
+import StudioPage from "../../components/Studio";
+export const prerender = false;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>ANS at OSU — Studio</title>
+  </head>
+  <body style="margin: 0; height: 100vh;">
+    <StudioPage client:only="react" />
+  </body>
+</html>
