@@ -19,7 +19,10 @@ Migrate all content (resources, events, staff) from local Astro content collecti
 
 ### Dependencies
 
-Install: `sanity`, `@sanity/client`, `@sanity/image-url`, `@sanity/vision`
+Install: `sanity`, `@sanity/client`, `@sanity/image-url`, `@sanity/vision`, `@astrojs/react`, `react`, `react-dom`, `@portabletext/react`
+
+- `@astrojs/react` is required because Sanity Studio is a React application
+- `@portabletext/react` is required to render Sanity's portable text (block content) for event body content
 
 ### Configuration Files
 
@@ -39,6 +42,8 @@ Install: `sanity`, `@sanity/client`, `@sanity/image-url`, `@sanity/vision`
 
 Embedded at `/studio` via a catch-all Astro route (`src/pages/studio/[...index].astro`) that renders the Sanity Studio React app. This replaces the entire `/admin` section.
 
+**Astro config change:** Add `react()` integration to `astro.config.mjs` to support the React-based Studio and portable text renderer.
+
 ## 3. Sanity Schemas
 
 ### Resource (`resource`)
@@ -54,7 +59,8 @@ Embedded at `/studio` via a catch-all Astro route (`src/pages/studio/[...index].
 | description     | text              | Required                                    |
 | eligibility     | array of strings  | Required, min 1                             |
 | applicationUrl  | url               | Optional                                    |
-| image           | image             | Optional, with hotspot                      |
+| image           | image             | Optional, with hotspot. New field — existing resources have no images, seeded as empty |
+| draft           | boolean           | Default: false. Allows hiding without deleting |
 | order           | number            | For manual sorting                          |
 
 ### Event (`event`)
@@ -95,18 +101,20 @@ Embedded at `/studio` via a catch-all Astro route (`src/pages/studio/[...index].
 
 | Page                            | Current Source                    | New Source          |
 |---------------------------------|----------------------------------|---------------------|
+| `src/pages/index.astro`          | Via `EventList` component        | Sanity GROQ query (passed as prop to EventList) |
 | `src/pages/resources/index.astro` | `getCollection("scholarships")`  | Sanity GROQ query   |
-| `src/pages/scholarships/[slug].astro` | `getCollection("scholarships")` | Sanity GROQ query |
+| `src/pages/scholarships/[slug].astro` | `getCollection("scholarships")` | Sanity GROQ query. Remove `prerender = true` and `getStaticPaths()`, switch to SSR slug-based fetch. Drop `$` prefix and `.toLocaleString()` from amount display. |
 | `src/pages/events/index.astro`  | `getCollection("events")`        | Sanity GROQ query   |
-| `src/pages/events/[slug].astro` | `getEntry("events", slug)`       | Sanity GROQ query   |
-| `src/pages/staff.astro`         | Via `StaffList` component        | Sanity GROQ query   |
+| `src/pages/events/[slug].astro` | `getEntry("events", slug)`       | Sanity GROQ query. Event body rendered via `@portabletext/react` instead of Astro's `<Content />` |
+| `src/pages/staff.astro`         | Via `StaffList` component        | Sanity GROQ query (passed as prop to StaffList) |
 
 ### Components to Update
 
 | Component                                  | Change                                          |
 |--------------------------------------------|-------------------------------------------------|
-| `src/components/UI/ScholarshipCard.astro`  | `amount: number` → `amount: string`, render as-is |
+| `src/components/UI/ScholarshipCard.astro`  | `amount: number` → `amount: string`, drop `$` prefix and `.toLocaleString()`, render string as-is |
 | `src/components/Sections/StaffList.astro`  | Accept staff data as prop instead of `getCollection` |
+| `src/components/Sections/EventList.astro`  | Accept events data as prop instead of `getCollection`, use Sanity image URLs |
 | `src/components/UI/EventCard.astro` (if exists) | Use Sanity image URLs |
 
 ### Image Handling
@@ -153,9 +161,13 @@ Embedded at `/studio` via a catch-all Astro route (`src/pages/studio/[...index].
 - `src/content/staff/` — all 10 markdown files + .gitkeep
 - `src/content/config.ts` — remove entirely (no more local collections)
 
-### Domain/Validation (replaced by Sanity validation)
+### Entire `src/core/` directory (replaced by Sanity validation)
 - `src/core/entities/Scholarship.ts`
+- `src/core/entities/Event.ts`
+- `src/core/entities/types.ts`
 - `src/core/validation/scholarship.schema.ts`
+- `src/core/validation/event.schema.ts`
+- `src/core/validation/index.ts`
 
 ## 6. Content Seeding
 
@@ -170,8 +182,8 @@ A one-time migration script (`scripts/seed-sanity.ts`) will read the markdown fi
 
 ## 7. What Stays Unchanged
 
-- `astro.config.mjs` — only needs Sanity Studio integration added
-- All non-content pages (home, about-us, join, etc.) — only update data-fetching calls
+- `astro.config.mjs` — add `react()` integration for Studio + portable text
+- Non-content pages (about-us, join) — no changes needed (they link to content pages but don't fetch data directly)
 - Existing page layouts and styling
 - URL structure (`/resources`, `/scholarships/[slug]`, `/events/[slug]`, `/staff`)
 - Utility functions not tied to admin CRUD (dateUtils, stringHelpers, slugify, etc.)
@@ -197,3 +209,11 @@ A one-time migration script (`scripts/seed-sanity.ts`) will read the markdown fi
   name, title, bio, "imageUrl": image.asset->url
 }
 ```
+
+## 9. Error Handling
+
+Since pages are SSR (not static), Sanity being unreachable at request time is a real concern:
+
+- Use `useCdn: true` in the Sanity client config — this serves from Sanity's CDN cache and is highly available
+- If a GROQ query returns null for a detail page (e.g., invalid slug), return a 404
+- If Sanity is unreachable, let the page return a 500 — Vercel will show its error page. No custom fallback needed for an org website of this size
