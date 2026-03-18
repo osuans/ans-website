@@ -11,14 +11,20 @@ import { CONFIG } from "../../constants";
 const { slug } = Astro.params;
 if (!slug) return new Response("Not found", { status: 404 });
 
-const entry = await sanityClient.fetch(
-  `*[_type == "event" && slug.current == $slug && !draft][0] {
-    title, "slug": slug.current, date, endDate, time, location,
-    summary, body, tags, registrationLink, registrationRequired, featured,
-    "imageUrl": image.asset->url
-  }`,
-  { slug }
-);
+let entry;
+try {
+  entry = await sanityClient.fetch(
+    `*[_type == "event" && slug.current == $slug && !draft][0] {
+      title, "slug": slug.current, date, endDate, time, location,
+      summary, body, tags, registrationLink, registrationRequired, featured,
+      "imageUrl": image.asset->url
+    }`,
+    { slug }
+  );
+} catch (error) {
+  console.error("Failed to fetch event:", error);
+  return new Response("Server error", { status: 500 });
+}
 
 if (!entry) return new Response("Event not found", { status: 404 });
 

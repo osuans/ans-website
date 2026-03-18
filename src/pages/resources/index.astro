@@ -5,17 +5,31 @@ import ScholarshipCard from "../../components/UI/ScholarshipCard.astro";
 import { sanityClient } from "../../lib/sanity";
 import { CONFIG } from "../../constants";
 
-const allResources = await sanityClient.fetch(
-  `*[_type == "resource" && !draft] | order(deadline asc) {
-    name, "slug": slug.current, type, amount, deadline, description,
-    "imageUrl": image.asset->url
-  }`
-);
+interface Resource {
+  name: string;
+  slug: string;
+  type: 'scholarship' | 'fellowship' | 'internship';
+  amount: string;
+  deadline: string;
+  description: string;
+  imageUrl?: string;
+}
 
-const sortedScholarships = allResources;
-const scholarships = allResources.filter((s: any) => s.type === 'scholarship');
-const fellowships = allResources.filter((s: any) => s.type === 'fellowship');
-const internships = allResources.filter((s: any) => s.type === 'internship');
+let allResources: Resource[] = [];
+try {
+  allResources = await sanityClient.fetch(
+    `*[_type == "resource" && !draft] | order(deadline asc) {
+      name, "slug": slug.current, type, amount, deadline, description,
+      "imageUrl": image.asset->url
+    }`
+  );
+} catch (error) {
+  console.error("Failed to fetch resources:", error);
+}
+
+const scholarships = allResources.filter((s) => s.type === 'scholarship');
+const fellowships = allResources.filter((s) => s.type === 'fellowship');
+const internships = allResources.filter((s) => s.type === 'internship');
 ---
 
 <BaseLayout
@@ -33,7 +47,7 @@ const internships = allResources.filter((s: any) => s.type === 'internship');
       <!-- Tabs -->
       <div class="flex justify-center mb-8 border-b border-gray-200">
         <button class="tab-button px-6 py-3 font-medium text-gray-700 hover:text-primary-600 border-b-2 border-primary-600" data-tab="all">
-          All ({sortedScholarships.length})
+          All ({allResources.length})
         </button>
         <button class="tab-button px-6 py-3 font-medium text-gray-700 hover:text-primary-600 border-b-2 border-transparent" data-tab="scholarship">
           Scholarships ({scholarships.length})
@@ -49,7 +63,7 @@ const internships = allResources.filter((s: any) => s.type === 'internship');
       <!-- All Resources -->
       <div class="tab-content" data-content="all">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="all-items-grid">
-          {sortedScholarships.map((item: any, index: number) => (
+          {allResources.map((item, index) => (
             <div class="all-item" data-index={index}>
               <ScholarshipCard
                 name={item.name}
@@ -78,7 +92,7 @@ const internships = allResources.filter((s: any) => s.type === 'internship');
 
       <!-- Scholarships Only -->
       <div class="tab-content hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-content="scholarship">
-        {scholarships.map((item: any) => (
+        {scholarships.map((item) => (
           <ScholarshipCard
             name={item.name}
             type={item.type}
@@ -92,7 +106,7 @@ const internships = allResources.filter((s: any) => s.type === 'internship');
 
       <!-- Fellowships Only -->
       <div class="tab-content hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-content="fellowship">
-        {fellowships.map((item: any) => (
+        {fellowships.map((item) => (
           <ScholarshipCard
             name={item.name}
             type={item.type}
@@ -106,7 +120,7 @@ const internships = allResources.filter((s: any) => s.type === 'internship');
 
       <!-- Internships Only -->
       <div class="tab-content hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-content="internship">
-        {internships.map((item: any) => (
+        {internships.map((item) => (
           <ScholarshipCard
             name={item.name}
             type={item.type}

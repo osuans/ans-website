@@ -4,11 +4,23 @@ import PageHeader from "../components/Sections/PageHeader.astro";
 import StaffList from "../components/Sections/StaffList.astro";
 import { sanityClient } from "../lib/sanity";
 
-const staff = await sanityClient.fetch(
-  `*[_type == "staffMember" && !draft] | order(order asc) {
-    name, title, bio, "imageUrl": image.asset->url
-  }`
-);
+interface StaffMember {
+  name: string;
+  title: string;
+  bio?: string;
+  imageUrl?: string;
+}
+
+let staff: StaffMember[] = [];
+try {
+  staff = await sanityClient.fetch(
+    `*[_type == "staffMember" && !draft] | order(order asc) {
+      name, title, bio, "imageUrl": image.asset->url
+    }`
+  );
+} catch (error) {
+  console.error("Failed to fetch staff:", error);
+}
 ---
 
 <BaseLayout

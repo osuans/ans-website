@@ -6,13 +6,19 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 const { slug } = Astro.params;
 if (!slug) return new Response("Not found", { status: 404 });
 
-const scholarship = await sanityClient.fetch(
-  `*[_type == "resource" && slug.current == $slug && !draft][0] {
-    name, "slug": slug.current, type, amount, frequency, deadline,
-    description, eligibility, applicationUrl, "imageUrl": image.asset->url
-  }`,
-  { slug }
-);
+let scholarship;
+try {
+  scholarship = await sanityClient.fetch(
+    `*[_type == "resource" && slug.current == $slug && !draft][0] {
+      name, "slug": slug.current, type, amount, frequency, deadline,
+      description, eligibility, applicationUrl, "imageUrl": image.asset->url
+    }`,
+    { slug }
+  );
+} catch (error) {
+  console.error("Failed to fetch resource:", error);
+  return new Response("Server error", { status: 500 });
+}
 
 if (!scholarship) return new Response("Not found", { status: 404 });
 ---

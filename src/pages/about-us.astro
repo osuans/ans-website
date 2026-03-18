@@ -3,6 +3,25 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHeader from "../components/Sections/PageHeader.astro";
 import StaffList from "../components/Sections/StaffList.astro";
 import FeatureCard from "../components/UI/FeatureCard.astro";
+import { sanityClient } from "../lib/sanity";
+
+interface StaffMember {
+  name: string;
+  title: string;
+  bio?: string;
+  imageUrl?: string;
+}
+
+let staffPreview: StaffMember[] = [];
+try {
+  staffPreview = await sanityClient.fetch(
+    `*[_type == "staffMember" && !draft] | order(order asc) [0...3] {
+      name, title, bio, "imageUrl": image.asset->url
+    }`
+  );
+} catch (error) {
+  console.error("Failed to fetch staff preview:", error);
+}
 ---
 
 <BaseLayout
@@ -130,7 +149,7 @@ import FeatureCard from "../components/UI/FeatureCard.astro";
       </div>
 
       <!-- Show limited staff preview -->
-      <StaffList showAll={false} limit={3} />
+      <StaffList staff={staffPreview} />
 
       <div class="mt-12 text-center">
         <a

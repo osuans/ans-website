@@ -6,24 +6,44 @@ import { sanityClient } from "../../lib/sanity";
 import { isTodayOrFuture, isPastDate, groupEventsBySemester } from "../../utils/dateUtils";
 import { CONFIG } from "../../constants";
 
-const allEvents = await sanityClient.fetch(
-  `*[_type == "event" && !draft] {
-    title, "slug": slug.current, date, endDate, time, location,
-    summary, tags, registrationLink, registrationRequired, featured,
-    "imageUrl": image.asset->url
-  }`
-);
+interface SanityEvent {
+  title: string;
+  slug: string;
+  date: string;
+  endDate?: string;
+  time?: string;
+  location: string;
+  summary: string;
+  tags?: string[];
+  registrationLink?: string;
+  registrationRequired?: boolean;
+  featured?: boolean;
+  imageUrl?: string;
+}
+
+let allEvents: SanityEvent[] = [];
+try {
+  allEvents = await sanityClient.fetch(
+    `*[_type == "event" && !draft] {
+      title, "slug": slug.current, date, endDate, time, location,
+      summary, tags, registrationLink, registrationRequired, featured,
+      "imageUrl": image.asset->url
+    }`
+  );
+} catch (error) {
+  console.error("Failed to fetch events:", error);
+}
 
 const upcomingEvents = allEvents
-  .filter((event: any) => isTodayOrFuture(new Date(event.date)))
-  .sort((a: any, b: any) => new Date(a.date).getTime() - new Date(b.date).getTime());
+  .filter((event) => isTodayOrFuture(new Date(event.date)))
+  .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
 const pastEvents = allEvents
-  .filter((event: any) => isPastDate(new Date(event.date)))
-  .sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  .filter((event) => isPastDate(new Date(event.date)))
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
 const groupedPastEvents = groupEventsBySemester(
-  pastEvents.map((e: any) => ({ data: { ...e, date: new Date(e.date) }, slug: e.slug }))
+  pastEvents.map((e) => ({ data: { ...e, date: new Date(e.date) }, slug: e.slug }))
 );
 ---
 
@@ -69,7 +89,7 @@ const groupedPastEvents = groupEventsBySemester(
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {upcomingEvents.map((event: any) => (
+        {upcomingEvents.map((event) => (
           <EventCard
             title={event.title}
             image={event.imageUrl || CONFIG.DEFAULTS.EVENT_IMAGE}
@@ -104,7 +124,7 @@ const groupedPastEvents = groupEventsBySemester(
               </button>
               <div class="accordion-content p-4 bg-white rounded-b-lg hidden">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                  {(events as any[]).map((event: any) => (
+                  {(events as { data: SanityEvent & { date: Date }; slug: string }[]).map((event) => (
                     <EventCard
                       title={event.data.title}
                       image={event.data.imageUrl || CONFIG.DEFAULTS.EVENT_IMAGE}
