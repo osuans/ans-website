@@ -19,11 +19,14 @@ interface SanityEvent {
 
 let upcomingEvents: SanityEvent[] = [];
 try {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
   upcomingEvents = await sanityClient.fetch(
-    `*[_type == "event" && draft != true && date >= now()] | order(date asc) {
+    `*[_type == "event" && draft != true && date >= $today] | order(date asc) {
       title, "slug": slug.current, date, time, location, summary, featured,
       "imageUrl": image.asset->url
-    }`
+    }`,
+    { today: today.toISOString() }
   );
 } catch (error) {
   console.error("Failed to fetch upcoming events:", error);
