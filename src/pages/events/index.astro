@@ -4,6 +4,7 @@ import PageHeader from "../../components/Sections/PageHeader.astro";
 import EventCard from "../../components/UI/EventCard.astro";
 import { sanityClient } from "../../lib/sanity";
 import { isTodayOrFuture, isPastDate, groupEventsBySemester } from "../../utils/dateUtils";
+import { parseISO } from "date-fns";
 import { CONFIG } from "../../constants";
 
 interface SanityEvent {
@@ -35,15 +36,15 @@ try {
 }
 
 const upcomingEvents = allEvents
-  .filter((event) => isTodayOrFuture(new Date(event.date)))
+  .filter((event) => isTodayOrFuture(event.date))
   .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
 const pastEvents = allEvents
-  .filter((event) => isPastDate(new Date(event.date)))
+  .filter((event) => isPastDate(event.date))
   .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
 const groupedPastEvents = groupEventsBySemester(
-  pastEvents.map((e) => ({ data: { ...e, date: new Date(e.date) }, slug: e.slug }))
+  pastEvents.map((e) => ({ data: { ...e, date: parseISO(e.date) }, slug: e.slug }))
 );
 ---
 

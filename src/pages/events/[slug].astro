@@ -4,7 +4,8 @@ import PostLayout from "../../layouts/PostLayout.astro";
 import Button from "../../components/UI/Button.astro";
 import PortableText from "../../components/PortableText";
 import { sanityClient } from "../../lib/sanity";
-import { formatDate } from "../../utils/dateUtils";
+import { formatDate, isFutureDate } from "../../utils/dateUtils";
+import { parseISO } from "date-fns";
 import PageHeader from "../../components/Sections/PageHeader.astro";
 import { CONFIG } from "../../constants";
 
@@ -28,9 +29,9 @@ try {
 
 if (!entry) return new Response("Event not found", { status: 404 });
 
-const formattedDate = formatDate(new Date(entry.date));
-const formattedEndDate = entry.endDate ? formatDate(new Date(entry.endDate)) : null;
-const isFutureEvent = new Date(entry.date) > new Date();
+const formattedDate = formatDate(entry.date);
+const formattedEndDate = entry.endDate ? formatDate(entry.endDate) : null;
+const isFutureEvent = isFutureDate(entry.date);
 const eventImage = entry.imageUrl || CONFIG.DEFAULTS.EVENT_IMAGE;
 ---
 
@@ -44,7 +45,7 @@ const eventImage = entry.imageUrl || CONFIG.DEFAULTS.EVENT_IMAGE;
     title={entry.title}
     image={{ url: eventImage, alt: entry.title }}
     backgroundImage={eventImage}
-    date={new Date(entry.date)}
+    date={parseISO(entry.date)}
     tags={entry.tags}
   >
     <!-- Event Details -->
