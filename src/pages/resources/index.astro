@@ -18,7 +18,7 @@ interface Resource {
 let allResources: Resource[] = [];
 try {
   allResources = await sanityClient.fetch(
-    `*[_type == "resource" && !draft] | order(deadline asc) {
+    `*[_type == "resource" && draft != true] | order(deadline asc) {
       name, "slug": slug.current, type, amount, deadline, description,
       "imageUrl": image.asset->url
     }`

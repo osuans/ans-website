@@ -15,7 +15,7 @@ if (!slug) return new Response("Not found", { status: 404 });
 let entry;
 try {
   entry = await sanityClient.fetch(
-    `*[_type == "event" && slug.current == $slug && !draft][0] {
+    `*[_type == "event" && slug.current == $slug && draft != true][0] {
       title, "slug": slug.current, date, endDate, time, location,
       summary, body, tags, registrationLink, registrationRequired, featured,
       "imageUrl": image.asset->url

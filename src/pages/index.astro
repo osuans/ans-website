@@ -20,7 +20,7 @@ interface SanityEvent {
 let upcomingEvents: SanityEvent[] = [];
 try {
   upcomingEvents = await sanityClient.fetch(
-    `*[_type == "event" && !draft && date >= now()] | order(date asc) {
+    `*[_type == "event" && draft != true && date >= now()] | order(date asc) {
       title, "slug": slug.current, date, time, location, summary, featured,
       "imageUrl": image.asset->url
     }`

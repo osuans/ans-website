@@ -15,7 +15,7 @@ interface StaffMember {
 let staffPreview: StaffMember[] = [];
 try {
   staffPreview = await sanityClient.fetch(
-    `*[_type == "staffMember" && !draft] | order(order asc) [0...3] {
+    `*[_type == "staffMember" && draft != true] | order(order asc) [0...3] {
       name, title, bio, "imageUrl": image.asset->url
     }`
   );

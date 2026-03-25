@@ -25,7 +25,7 @@ interface SanityEvent {
 let allEvents: SanityEvent[] = [];
 try {
   allEvents = await sanityClient.fetch(
-    `*[_type == "event" && !draft] {
+    `*[_type == "event" && draft != true] {
       title, "slug": slug.current, date, endDate, time, location,
       summary, tags, registrationLink, registrationRequired, featured,
       "imageUrl": image.asset->url

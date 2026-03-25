@@ -9,7 +9,7 @@ if (!slug) return new Response("Not found", { status: 404 });
 let scholarship;
 try {
   scholarship = await sanityClient.fetch(
-    `*[_type == "resource" && slug.current == $slug && !draft][0] {
+    `*[_type == "resource" && slug.current == $slug && draft != true][0] {
       name, "slug": slug.current, type, amount, frequency, deadline,
       description, eligibility, applicationUrl, "imageUrl": image.asset->url
     }`,
