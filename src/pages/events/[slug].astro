@@ -6,7 +6,6 @@ import PortableText from "../../components/PortableText";
 import { sanityClient } from "../../lib/sanity";
 import { formatDate, isFutureDate } from "../../utils/dateUtils";
 import { parseISO } from "date-fns";
-import PageHeader from "../../components/Sections/PageHeader.astro";
 import { CONFIG } from "../../constants";
 
 const { slug } = Astro.params;
@@ -31,7 +30,7 @@ if (!entry) return new Response("Event not found", { status: 404 });
 
 const formattedDate = formatDate(entry.date);
 const formattedEndDate = entry.endDate ? formatDate(entry.endDate) : null;
-const isFutureEvent = isFutureDate(entry.date);
+const isFutureEvent = isFutureDate(entry.endDate || entry.date);
 const eventImage = entry.imageUrl || CONFIG.DEFAULTS.EVENT_IMAGE;
 ---
 
@@ -83,10 +82,10 @@ const eventImage = entry.imageUrl || CONFIG.DEFAULTS.EVENT_IMAGE;
       </div>
 
       {
-        isFutureEvent && entry.registrationRequired && (
+        isFutureEvent && (entry.registrationRequired || entry.registrationLink) && (
           <div class="mt-3 pt-6 border-t border-gray-200">
             <h3 class="text-lg font-bold mb-2 mt-0">Registration</h3>
-            <p class="mb-4">Registration is required for this event.</p>
+            {entry.registrationRequired && <p class="mb-4">Registration is required for this event.</p>}
 
             {entry.registrationLink ? (
               <Button href={entry.registrationLink} target="_blank" variant="outline">

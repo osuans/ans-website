@@ -26,9 +26,10 @@ const {
   summaryLength
 } = Astro.props;
 
-const dateObj = typeof date === 'string' ? new Date(date) : date;
 const isPast = variant === 'past';
-const truncatedSummary = summaryLength ? `${summary.substring(0, summaryLength)}...` : summary;
+const truncatedSummary = summaryLength && summary.length > summaryLength
+  ? `${summary.substring(0, summaryLength)}...`
+  : summary;
 const iconSize = isPast ? 'h-4 w-4' : 'h-5 w-5';
 const textSize = isPast ? 'text-sm' : '';
 const marginBottom = isPast ? 'mb-2' : 'mb-3';
@@ -44,7 +45,7 @@ const marginBottom = isPast ? 'mb-2' : 'mb-3';
     <svg xmlns="http://www.w3.org/2000/svg" class={`${iconSize} mr-2`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
     </svg>
-    <span>{formatDate(dateObj)}</span>
+    <span>{formatDate(date)}</span>
   </div>
 
   {time && (

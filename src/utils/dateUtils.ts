@@ -25,7 +25,7 @@ export type Semester = 'Fall' | 'Spring' | 'Summer';
 export type SemesterKey = `${Semester} ${number}`;
 
 /**
- * Event-like object with date property (for grouping)
+ * @deprecated No longer used — `groupEventsBySemester` now accepts a date accessor.
  */
 export interface EventWithDate {
   data: {
@@ -80,10 +80,10 @@ export function formatDate(date: DateInput | null | undefined, formatStr: string
 }
 
 /**
- * Checks if a date is in the future
+ * Checks if a date is today or in the future (inclusive of the current day)
  *
  * @param date - The date to check
- * @returns True if the date is in the future, false otherwise
+ * @returns True if the date is today or later, false otherwise
  *
  * @example
  * ```ts
@@ -95,26 +95,13 @@ export function isFutureDate(date: DateInput | null | undefined): boolean {
   const dateObj = toDateObject(date);
   if (!dateObj) return false;
 
-  const tomorrow = new Date();
-  tomorrow.setHours(0, 0, 0, 0);
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  return dateObj >= tomorrow;
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return dateObj >= today;
 }
 
-/**
- * Checks if a date is today or in the future (not yet archived)
- *
- * @param date - The date to check
- * @returns True if the date is today or later
- */
-export function isTodayOrFuture(date: DateInput | null | undefined): boolean {
-  const dateObj = toDateObject(date);
-  if (!dateObj) return false;
-
-  const startOfToday = new Date();
-  startOfToday.setHours(0, 0, 0, 0);
-  return dateObj >= startOfToday;
-}
+/** @deprecated Identical to {@link isFutureDate} — use that instead. */
+export const isTodayOrFuture = isFutureDate;
 
 /**
  * Checks if a date is in the past (before today)
@@ -160,15 +147,10 @@ export function isToday(date: DateInput | null | undefined): boolean {
  * @returns Semester name ('Fall', 'Spring', or 'Summer')
  */
 export function getSemester(date: Date): Semester {
-  const month = getMonth(date); // 0-indexed
-
-  if (month >= 7 && month <= 11) {
-    return 'Fall';
-  } else if (month >= 0 && month <= 4) {
-    return 'Spring';
-  } else {
-    return 'Summer';
-  }
+  const month = getMonth(date);
+  if (month >= 7) return 'Fall';   // Aug–Dec
+  if (month >= 5) return 'Summer'; // Jun–Jul
+  return 'Spring';                 // Jan–May
 }
 
 /**
@@ -186,40 +168,32 @@ export function getSemesterKey(date: Date): SemesterKey {
 /**
  * Groups events by academic semester
  *
- * @param events - Array of events with date property
+ * @param events - Array of events
+ * @param getDate - Accessor that extracts a Date from each event
  * @returns Object mapping semester keys to event arrays
  *
  * @example
  * ```ts
  * const events = [
- *   { data: { date: new Date('2024-09-01'), title: 'Event 1' } },
- *   { data: { date: new Date('2024-10-15'), title: 'Event 2' } },
- *   { data: { date: new Date('2025-01-20'), title: 'Event 3' } },
+ *   { date: '2024-09-01', title: 'Event 1' },
+ *   { date: '2024-10-15', title: 'Event 2' },
+ *   { date: '2025-01-20', title: 'Event 3' },
  * ];
  *
- * groupEventsBySemester(events);
- * // Returns:
- * // {
- * //   'Fall 2024': [Event 1, Event 2],
- * //   'Spring 2025': [Event 3]
- * // }
+ * groupEventsBySemester(events, (e) => new Date(e.date));
+ * // => { 'Fall 2024': [Event 1, Event 2], 'Spring 2025': [Event 3] }
  * ```
  */
-export function groupEventsBySemester<T extends EventWithDate>(
-  events: T[]
+export function groupEventsBySemester<T>(
+  events: T[],
+  getDate: (event: T) => Date
 ): Record<string, T[]> {
-  return events.reduce((acc, event) => {
-    const date = event.data.date;
-    const semesterKey = getSemesterKey(date);
-
-    if (!acc[semesterKey]) {
-      acc[semesterKey] = [];
-    }
-
-    acc[semesterKey].push(event);
-
-    return acc;
-  }, {} as Record<string, T[]>);
+  const groups: Record<string, T[]> = {};
+  for (const event of events) {
+    const key = getSemesterKey(getDate(event));
+    (groups[key] ??= []).push(event);
+  }
+  return groups;
 }
 
 /**

@@ -3,7 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageHeader from "../../components/Sections/PageHeader.astro";
 import EventCard from "../../components/UI/EventCard.astro";
 import { sanityClient } from "../../lib/sanity";
-import { isTodayOrFuture, isPastDate, groupEventsBySemester } from "../../utils/dateUtils";
+import { isFutureDate, isPastDate, compareDates, groupEventsBySemester } from "../../utils/dateUtils";
 import { parseISO } from "date-fns";
 import { CONFIG } from "../../constants";
 
@@ -36,15 +36,16 @@ try {
 }
 
 const upcomingEvents = allEvents
-  .filter((event) => isTodayOrFuture(event.date))
-  .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+  .filter((event) => isFutureDate(event.date))
+  .sort((a, b) => compareDates(a.date, b.date));
 
 const pastEvents = allEvents
   .filter((event) => isPastDate(event.date))
-  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  .sort((a, b) => compareDates(a.date, b.date, 'desc'));
 
 const groupedPastEvents = groupEventsBySemester(
-  pastEvents.map((e) => ({ data: { ...e, date: parseISO(e.date) }, slug: e.slug }))
+  pastEvents,
+  (e) => parseISO(e.date)
 );
 ---
 
@@ -125,14 +126,14 @@ const groupedPastEvents = groupEventsBySemester(
               </button>
               <div class="accordion-content p-4 bg-white rounded-b-lg hidden">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                  {(events as { data: SanityEvent & { date: Date }; slug: string }[]).map((event) => (
+                  {events.map((event) => (
                     <EventCard
-                      title={event.data.title}
-                      image={event.data.imageUrl || CONFIG.DEFAULTS.EVENT_IMAGE}
-                      date={event.data.date}
-                      time={event.data.time}
-                      location={event.data.location}
-                      summary={event.data.summary}
+                      title={event.title}
+                      image={event.imageUrl || CONFIG.DEFAULTS.EVENT_IMAGE}
+                      date={event.date}
+                      time={event.time}
+                      location={event.location}
+                      summary={event.summary}
                       slug={event.slug}
                       variant="past"
                       summaryLength={80}
