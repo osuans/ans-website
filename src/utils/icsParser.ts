@@ -140,8 +140,9 @@ export async function fetchCalendarEvents(
 
     // Filter to future events only
     if (futureOnly) {
-      const now = new Date();
-      events = events.filter(event => event.startDate >= now);
+      const startOfToday = new Date();
+      startOfToday.setHours(0, 0, 0, 0);
+      events = events.filter(event => event.endDate >= startOfToday);
     }
 
     // Sort by start date (ascending)
