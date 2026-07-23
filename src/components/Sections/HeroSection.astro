@@ -14,7 +14,7 @@ export interface Props {
 const {
   title = "The American Nuclear Society at OSU",
   subtitle = "Empowering the next generation of nuclear professionals",
-  backgroundImage = "/uploads/npp.jpg",
+  backgroundImage = "/uploads/npp.webp",
     ctaText="Join Us",
     ctaLink="/join",
     secondaryCtaText="Events",
@@ -22,10 +22,19 @@ const {
 } = Astro.props;
 ---
 
-<section
-  class="relative min-h-[70vh] flex items-center bg-cover pt-30"
-  style={`background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${backgroundImage}); background-position: center 20%;`}
->
+<section class="relative min-h-[70vh] flex items-center pt-30 overflow-hidden">
+  <img
+    src={backgroundImage}
+    alt=""
+    aria-hidden="true"
+    width="1920"
+    height="1280"
+    fetchpriority="high"
+    decoding="async"
+    class="absolute inset-0 -z-20 w-full h-full object-cover"
+    style="object-position: center 20%;"
+  />
+  <div class="absolute inset-0 -z-10 bg-black/60"></div>
 
   <div class="container">
     <div class="max-w-3xl text-white">
