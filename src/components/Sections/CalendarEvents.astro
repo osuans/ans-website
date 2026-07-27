@@ -12,19 +12,27 @@ import Button from '../UI/Button.astro';
 export interface Props {
   count?: number;
   showSubscribeButton?: boolean;
+  /**
+   * Pre-fetched events. Pass these when the page can start the calendar request
+   * alongside its other data, so this component's render doesn't serialise
+   * another round trip in front of the first byte.
+   */
+  events?: CalendarEvent[];
 }
 
-const { count = 3, showSubscribeButton = true } = Astro.props;
+const { count = 3, showSubscribeButton = true, events } = Astro.props;
 
-// Fetch calendar events server-side
-let calendarEvents: CalendarEvent[] = [];
-try {
-  calendarEvents = await fetchCalendarEvents(CONFIG.CALENDAR.FETCH_URL, {
-    limit: count,
-    futureOnly: true,
-  });
-} catch (error) {
-  console.error('Failed to load calendar events:', error);
+// Fetch calendar events server-side unless the page already did it for us
+let calendarEvents: CalendarEvent[] = events ?? [];
+if (!events) {
+  try {
+    calendarEvents = await fetchCalendarEvents(CONFIG.CALENDAR.FETCH_URL, {
+      limit: count,
+      futureOnly: true,
+    });
+  } catch (error) {
+    console.error('Failed to load calendar events:', error);
+  }
 }
 
 // Format date for display

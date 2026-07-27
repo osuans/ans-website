@@ -3,6 +3,8 @@ import "../assets/styles/global.css";
 import Seo from "../components/UI/Seo.astro";
 import Header from "../components/Global/Header.astro";
 import Footer from "../components/Global/Footer.astro";
+import bodyFont from "../assets/fonts/source-sans-pro-latin-400.woff2?url";
+import headingFont from "../assets/fonts/playfair-display-latin-700.woff2?url";
 
 export interface Props {
   title?: string;
@@ -13,6 +15,15 @@ export interface Props {
   };
   type?: "website" | "article";
   canonicalUrl?: string;
+  /**
+   * LCP image to preload, so it starts downloading with the HTML instead of
+   * after the browser has parsed its way down to the `<img>`.
+   */
+  preloadImage?: {
+    src: string;
+    srcSet?: string;
+    sizes?: string;
+  };
 }
 
 const {
@@ -24,7 +35,24 @@ const {
   },
   type = "website",
   canonicalUrl,
+  preloadImage,
 } = Astro.props;
+
+/**
+ * Serve these pages from Vercel's edge cache.
+ *
+ * Every render performs server-side fetches (Sanity, and the Outlook calendar
+ * feed on the homepage), which put roughly a second of network latency in front
+ * of the first byte. The content is identical for all visitors, so the CDN can
+ * absorb that: `s-maxage` gives a warm cache for five minutes and
+ * `stale-while-revalidate` keeps serving instantly for a day while a refresh
+ * happens in the background. `max-age=0` keeps browsers revalidating, so an
+ * editor's Sanity change still shows up on reload.
+ */
+Astro.response.headers.set(
+  "Cache-Control",
+  "public, max-age=0, s-maxage=300, stale-while-revalidate=86400"
+);
 ---
 
 <!doctype html>
@@ -35,12 +63,22 @@ const {
     <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="generator" content={Astro.generator} />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600&display=swap"
-    />
+    {/* Fonts are self-hosted (see global.css). Preloading the two faces used
+        above the fold starts them alongside the stylesheet rather than after
+        it, so text settles in its final face before first paint. */}
+    <link rel="preload" as="font" type="font/woff2" href={bodyFont} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={headingFont} crossorigin />
+
+    {preloadImage && (
+      <link
+        rel="preload"
+        as="image"
+        href={preloadImage.src}
+        imagesrcset={preloadImage.srcSet}
+        imagesizes={preloadImage.sizes}
+        fetchpriority="high"
+      />
+    )}
 
     <Seo
       title={title}

@@ -5,6 +5,9 @@ import EventList from "../components/Sections/EventList.astro";
 import CalendarEvents from "../components/Sections/CalendarEvents.astro";
 import Button from "../components/UI/Button.astro";
 import { sanityClient } from "../lib/sanity";
+import { fetchCalendarEvents, type CalendarEvent } from "../utils/icsParser";
+import { CONFIG } from "../constants";
+import { heroImage } from "../lib/heroImage";
 
 interface SanityEvent {
   title: string;
@@ -17,27 +20,41 @@ interface SanityEvent {
   imageUrl?: string;
 }
 
-let upcomingEvents: SanityEvent[] = [];
-try {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  upcomingEvents = await sanityClient.fetch(
-    `*[_type == "event" && draft != true && date >= $today] | order(date asc) {
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+
+// Kick both requests off together. CalendarEvents can fetch its own data, but
+// doing so renders it after the Sanity query resolves, so the two round trips
+// stack up in front of the first byte instead of overlapping.
+const [upcomingEvents, calendarEvents] = await Promise.all([
+  sanityClient
+    .fetch<SanityEvent[]>(
+      `*[_type == "event" && draft != true && date >= $today] | order(date asc) {
       title, "slug": slug.current, date, time, location, summary, featured,
       "imageUrl": image.asset->url
     }`,
-    { today: today.toISOString() }
-  );
-} catch (error) {
-  console.error("Failed to fetch upcoming events:", error);
-}
+      { today: today.toISOString() }
+    )
+    .catch((error) => {
+      console.error("Failed to fetch upcoming events:", error);
+      return [] as SanityEvent[];
+    }),
+  fetchCalendarEvents(CONFIG.CALENDAR.FETCH_URL, {
+    limit: 3,
+    futureOnly: true,
+  }).catch((error) => {
+    console.error("Failed to load calendar events:", error);
+    return [] as CalendarEvent[];
+  }),
+]);
 ---
 
-<BaseLayout>
+<BaseLayout
+  preloadImage={heroImage}
+>
   <HeroSection
     title="American Nuclear Society at Ohio State"
     subtitle="Advancing nuclear science education, research, and professional development"
-    backgroundImage="/uploads/npp.webp"
     ctaText="Become a Member"
     ctaLink="/join"
     secondaryCtaText="Upcoming Events"
@@ -87,7 +104,7 @@ try {
   <EventList events={upcomingEvents} />
 
   <!-- Calendar Events from Outlook -->
-  <CalendarEvents count={3} />
+  <CalendarEvents events={calendarEvents} />
 
   <!-- Call to Action -->
   <section

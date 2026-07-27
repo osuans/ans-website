@@ -32,9 +32,12 @@ module.exports = {
           950: '#1a1a1a', // near-true black
         },
       },
+      // The *-Fallback families are metric-matched aliases for Arial/Georgia
+      // defined in global.css, so text laid out before the webfont arrives
+      // occupies the same space and the swap causes no layout shift.
       fontFamily: {
-        serif: ['"Playfair Display"', 'Georgia', 'serif'],
-        sans: ['"Source Sans Pro"', 'system-ui', 'sans-serif'],
+        serif: ['"Playfair Display"', '"Playfair Display Fallback"', 'Georgia', 'serif'],
+        sans: ['"Source Sans Pro"', '"Source Sans Pro Fallback"', 'system-ui', 'sans-serif'],
         display: ['"Montserrat"', 'sans-serif'],
       },
     },

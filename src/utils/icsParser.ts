@@ -118,8 +118,43 @@ export function parseICS(icsContent: string): CalendarEvent[] {
   return events;
 }
 
+/** How long a fetched calendar stays fresh before it is refetched. */
+const CACHE_TTL_MS = 10 * 60 * 1000;
+
+/** Give up on a slow calendar feed rather than holding up the whole page. */
+const FETCH_TIMEOUT_MS = 3000;
+
+interface CacheEntry {
+  events: CalendarEvent[];
+  expiresAt: number;
+}
+
 /**
- * Fetch and parse ICS calendar from URL
+ * The Outlook feed reliably takes ~750ms to answer, which used to be paid on
+ * every single render. These caches keep that off the critical path: `cache`
+ * serves warm results for the TTL, and `inFlight` collapses concurrent renders
+ * onto a single request instead of stampeding the feed.
+ */
+const cache = new Map<string, CacheEntry>();
+const inFlight = new Map<string, Promise<CalendarEvent[]>>();
+
+async function fetchAndParse(icsUrl: string): Promise<CalendarEvent[]> {
+  const response = await fetch(icsUrl, {
+    signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch calendar: ${response.status}`);
+  }
+
+  return parseICS(await response.text());
+}
+
+/**
+ * Fetch and parse ICS calendar from URL.
+ *
+ * Results are cached per URL, so `limit`/`futureOnly` are applied to the cached
+ * event list rather than baked into the cache key.
  */
 export async function fetchCalendarEvents(
   icsUrl: string,
@@ -127,35 +162,58 @@ export async function fetchCalendarEvents(
 ): Promise<CalendarEvent[]> {
   const { limit = 10, futureOnly = true } = options;
 
+  let events: CalendarEvent[];
   try {
-    const response = await fetch(icsUrl);
+    const cached = cache.get(icsUrl);
 
-    if (!response.ok) {
-      console.error(`Failed to fetch calendar: ${response.status}`);
-      return [];
+    if (cached && cached.expiresAt > Date.now()) {
+      events = cached.events;
+    } else {
+      let pending = inFlight.get(icsUrl);
+
+      if (!pending) {
+        pending = fetchAndParse(icsUrl)
+          .then((parsed) => {
+            cache.set(icsUrl, { events: parsed, expiresAt: Date.now() + CACHE_TTL_MS });
+            return parsed;
+          })
+          .finally(() => {
+            inFlight.delete(icsUrl);
+          });
+        inFlight.set(icsUrl, pending);
+      }
+
+      try {
+        events = await pending;
+      } catch (error) {
+        // Serve stale data rather than an empty calendar when the feed is down.
+        if (cached) {
+          console.error('Calendar refresh failed, serving stale entries:', error);
+          events = cached.events;
+        } else {
+          throw error;
+        }
+      }
     }
-
-    const icsContent = await response.text();
-    let events = parseICS(icsContent);
-
-    // Filter to future events only
-    if (futureOnly) {
-      const startOfToday = new Date();
-      startOfToday.setHours(0, 0, 0, 0);
-      events = events.filter(event => event.endDate >= startOfToday);
-    }
-
-    // Sort by start date (ascending)
-    events.sort((a, b) => a.startDate.getTime() - b.startDate.getTime());
-
-    // Limit results
-    if (limit > 0) {
-      events = events.slice(0, limit);
-    }
-
-    return events;
   } catch (error) {
     console.error('Error fetching calendar events:', error);
     return [];
   }
+
+  // Filter to future events only
+  if (futureOnly) {
+    const startOfToday = new Date();
+    startOfToday.setHours(0, 0, 0, 0);
+    events = events.filter(event => event.endDate >= startOfToday);
+  }
+
+  // Sort by start date (ascending), without mutating the cached array
+  events = [...events].sort((a, b) => a.startDate.getTime() - b.startDate.getTime());
+
+  // Limit results
+  if (limit > 0) {
+    events = events.slice(0, limit);
+  }
+
+  return events;
 }

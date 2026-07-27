@@ -1,10 +1,10 @@
 ---
 import Button from "../UI/Button.astro";
+import { heroImage } from "../../lib/heroImage";
 
 export interface Props {
   title?: string;
   subtitle?: string;
-  backgroundImage?: string;
   ctaText?: string;
   ctaLink?: string;
   secondaryCtaText?: string;
@@ -14,7 +14,6 @@ export interface Props {
 const {
   title = "The American Nuclear Society at OSU",
   subtitle = "Empowering the next generation of nuclear professionals",
-  backgroundImage = "/uploads/npp.webp",
     ctaText="Join Us",
     ctaLink="/join",
     secondaryCtaText="Events",
@@ -24,11 +23,13 @@ const {
 
 <section class="relative min-h-[70vh] flex items-center pt-30 overflow-hidden">
   <img
-    src={backgroundImage}
+    src={heroImage.src}
+    srcset={heroImage.srcSet}
+    sizes={heroImage.sizes}
     alt=""
     aria-hidden="true"
-    width="1920"
-    height="1280"
+    width={heroImage.width}
+    height={heroImage.height}
     fetchpriority="high"
     decoding="async"
     class="absolute inset-0 -z-20 w-full h-full object-cover"
