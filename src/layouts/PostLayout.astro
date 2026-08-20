@@ -22,10 +22,12 @@ const {
   image,
   date,
   author,
-  tags = [],
+  tags,
   type = "",
   backgroundImage,
 } = Astro.props;
+
+const safeTags = tags ?? [];
 
 let pageTitle = title;
 if (type === "event") {
@@ -102,9 +104,9 @@ const formattedDate = date ? formatDate(date) : null;
       }
 
       {
-        tags.length > 0 && (
+        safeTags.length > 0 && (
           <div class="flex flex-wrap gap-2 mb-4">
-            {tags.map((tag) => (
+            {safeTags.map((tag) => (
               <span class="px-3 py-1 text-xs font-medium text-primary-700 bg-primary-100 rounded-full">
                 {tag}
               </span>
