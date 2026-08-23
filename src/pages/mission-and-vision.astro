@@ -1,0 +1,61 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "../components/Sections/PageHeader.astro";
+import DocumentViewer from "../components/UI/DocumentViewer.astro";
+import BylawsRules from "../components/Sections/BylawsRules.astro";
+---
+
+<BaseLayout
+  title="Mission and Vision | ANS at OSU"
+  description="The mission and vision of the American Nuclear Society Student Section at The Ohio State University, along with our Constitution, Bylaws, and Rules."
+>
+  <PageHeader
+    title="Mission and Vision"
+    subtitle="What we stand for, and the governing documents behind it"
+    backgroundImage="/uploads/ans.webp"
+  />
+
+  <!-- Mission & Vision -->
+  <section class="py-16">
+    <div class="container">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">Our Mission</h2>
+        <p class="text-xl text-gray-700 mb-12">
+          The American Nuclear Society Student Section at The Ohio State
+          University is dedicated to promoting academic excellence,
+          professional development, and public understanding of nuclear
+          science and engineering. We provide students with meaningful
+          opportunities for research collaboration, community outreach, and
+          industry engagement.
+        </p>
+
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">Our Vision</h2>
+        <p class="text-xl text-gray-700">
+          To be the premier student community at Ohio State for advancing
+          nuclear science and technology, preparing our members to lead the
+          next generation of nuclear professionals and grow public
+          understanding of the field.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Governing Documents -->
+  <section class="py-16 bg-gray-50">
+    <div class="container">
+      <div class="max-w-3xl mx-auto text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">
+          Constitution, Bylaws &amp; Rules
+        </h2>
+        <p class="text-xl text-gray-600">
+          Our governing documents, viewable below.
+        </p>
+      </div>
+
+      <div class="max-w-4xl mx-auto space-y-8">
+        <DocumentViewer title="Constitution" />
+        <BylawsRules />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

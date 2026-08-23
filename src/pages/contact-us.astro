@@ -5,11 +5,11 @@ import Button from "../components/UI/Button.astro";
 ---
 
 <BaseLayout
-  title="Contact ANS at OSU | Join American Nuclear Society Ohio State Chapter"
+  title="Contact Us | Contact American Nuclear Society Ohio State Chapter"
   description="Contact ANS OSU - the American Nuclear Society student chapter at Ohio State University. Get in touch about membership, events, research opportunities, and nuclear engineering at OSU."
 >
-  <PageHeader 
-    title="Connect With Us" 
+  <PageHeader
+    title="Contact Us"
     subtitle="Reach out to learn more about events, membership, or collaboration."
     backgroundImage="/uploads/connect.webp"
   />
@@ -20,8 +20,12 @@ import Button from "../components/UI/Button.astro";
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
         <!-- Contact Form -->
         <div>
-          <h2 class="text-3xl font-bold mb-6">Send Us a Message</h2>
-          
+          <h2 class="text-3xl font-bold mb-2">ANS General Interest Form</h2>
+          <p class="text-gray-600 mb-6">
+            Fill out the form below to connect with us, ask a question, or let
+            us know you're interested in joining ANS.
+          </p>
+
           <form id="contact-form" action="https://formsubmit.co/ENG-ansstudentchapter@osu.edu" method="POST" class="space-y-6">
             <div>
               <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>

@@ -1,0 +1,427 @@
+---
+interface Section {
+  id: string;
+  title: string;
+  bylaws: string;
+  rules: string;
+}
+
+const sections: Section[] = [
+  {
+    id: "b1",
+    title: "B1/R1 — Name",
+    bylaws: `<p>1. The official name of this organization shall be The Ohio State University Student Section of the AMERICAN NUCLEAR SOCIETY, Incorporated, hereinafter referred to as the Section and Society, respectively. The Ohio State University is hereinafter referred to as the Host Institution.</p>`,
+    rules: `<p>1. The name of the organization shall be: American Nuclear Society Student Section at The Ohio State University</p>`,
+  },
+  {
+    id: "b2",
+    title: "B2/R2 — Objectives",
+    bylaws: `
+      <p>1. The objectives of the Section shall be consistent with the objectives of the Society as set forth in its Certificate of Incorporation and in Article B2 of its Bylaws and Rules, principally, "the advancement of science and engineering relating to the atomic nucleus, and of allied sciences and arts."</p>
+      <p>2. The Section shall undertake activities for the more active furtherance of the objectives within the academic community. These activities shall be identified in the Section Rules.</p>
+      <p>3. The Section is organized exclusively for educational and scientific purposes, including for these purposes, the making of distributions to organizations that qualify as exempt organizations under Section 501(c)(3) of the Internal Revenue Code of 1954 (or the corresponding provision of any future United States Revenue Law).</p>
+    `,
+    rules: `
+      <p>1. Section Objectives — For the more active furtherance of the objectives of the Society in its locality, the Section shall undertake:</p>
+      <ol class="list-[lower-alpha] pl-6 space-y-1">
+        <li>to provide students within the Host Institution community a means for professional development through its programs, and relationship with other Student Sections and the Society;</li>
+        <li>to contribute toward the development of nuclear science and technology at the Host Institution through activities in which student members and faculty may participate,</li>
+        <li>to serve as a focal point within the Host Institution community for interchange of information in the area of nuclear science and technology,</li>
+        <li>the promotion of beneficial and cordial relations with the members of nearby Local Sections, and</li>
+        <li>cooperation with the Society in the promotion and conduct of student conferences, mutually beneficial to the Society and the Section.</li>
+      </ol>
+    `,
+  },
+  {
+    id: "b3",
+    title: "B3/R3 — Obligations to the Society",
+    bylaws: `
+      <p>1. The activities of the Section and its members shall be governed by the provisions of these Bylaws, which shall be in accord with the provisions of the Certificate of Incorporation and the Bylaws and Rules of the Society. The Section shall conform to and abide by the rules and regulations of the Host Institution concerning the formation and operation of student organizations.</p>
+      <p>2. No action, obligation, or expression of a Section shall be considered an action, obligation, or expression of the Society as a whole. A statement to the effect that the Section assumes sole responsibility for the contents shall be imprinted on any publication regarding an action, obligation, or expression with respect to the Society.</p>
+      <p>3. The Section shall not have authority to act for or in the name of the Society without prior approval of the Board of Directors or the Executive Committee, provided, however, that the Section on local matters may represent the official position of the Section upon the approval of the Section Board of Governors and after consultation with the Chair of the Society's Public Policy Committee or the Executive Director/CEO (hereafter referred to as the Executive Director) of the Society.</p>
+      <p>4. The affairs of the Section shall be conducted in such manner that the Section shall be financially independent and shall not rely on support from the funds of the Society above the limit authorized by the Board of Directors for the Section. The Section may meet its financial obligations in accordance with the provisions in Article B5.</p>
+      <p>5. At least once per year, the Section shall file with the appropriate Society Headquarters (HQ) staff member a report of the activities and status of the Section, including an operating statement of income and expenses.</p>
+    `,
+    rules: `
+      <p>1. Semester Reporting Requirements: At the end of each semester, one performance report is expected:</p>
+      <ol class="list-[lower-alpha] pl-6 space-y-1">
+        <li>End-of-Semester Report covering:
+          <ol class="list-decimal pl-6 space-y-1">
+            <li>Summary of events hosted</li>
+            <li>Attendance statistics</li>
+            <li>Event documentation (photos)</li>
+            <li>Section financial status</li>
+            <li>Number of new members added to the Section</li>
+            <li>Member retention levels</li>
+            <li>Events with the highest and lowest attendance</li>
+            <li>Financial cost per event for cost-benefit analysis</li>
+            <li>Summary of discussions and plans for the following semester</li>
+          </ol>
+        </li>
+        <li>Report Submission:
+          <ol class="list-decimal pl-6 space-y-1">
+            <li>Reports shall be compiled by the Secretary with input from the Treasurer (financial data) and committee chairs (event data)</li>
+            <li>Reports shall be reviewed and approved by the Board of Governors before submission</li>
+            <li>Final approved reports shall be filed with Society Headquarters as required by Bylaw B3.5</li>
+          </ol>
+        </li>
+        <li>Report Distribution: Copies of semester reports shall be made available to the Section membership and may be used for:
+          <ol class="list-decimal pl-6 space-y-1">
+            <li>Strategic planning and improvement initiatives</li>
+            <li>Demonstrating the Section value to sponsors and stakeholders</li>
+            <li>Historical record keeping and knowledge transfer to future officers</li>
+          </ol>
+        </li>
+      </ol>
+    `,
+  },
+  {
+    id: "b4",
+    title: "B4/R4 — Territory and Membership",
+    bylaws: `
+      <p>1. Any member of the Society who is a graduate or undergraduate enrolled at the Host Institution shall be eligible for membership in the Section.</p>
+      <p>2. Non-student members of the Host Institution, who are members of the Society, may become members of the Section, but they shall be ineligible to vote or hold office.</p>
+      <p>3. Non-Society members may be eligible to become Section Participants if their association will result in the furtherance of the objectives of the Section as set forth in Article B2.</p>
+      <p>4. Section Participants whose qualifications for participating in Section activities have been approved by majority vote of the Section's Board of Governors shall be entitled, upon payment of a contribution or mailing fee as set by the Board of Governors under B5.1, to receive notices of and to attend meetings, and other privileges specifically granted by the Section.</p>
+      <p>5. Section Participants may be granted the right to vote on Section matters, as specified in the Section Rules.</p>
+      <p>6. Participants cannot hold Section offices of President or Vice President. Participants may be granted the right to hold other Officer or Executive Committee positions, with all Committee rights, in no more than one Section at any time, as specified in the Section Rules.</p>
+      <p>7. Participants shall be encouraged to apply for Society membership.</p>
+    `,
+    rules: `
+      <p>1. Non-Exclusion. This organization and its members shall not discriminate against any individual(s) for reasons of race, color, creed, religion, sexual orientation, national origin, sex, age, handicap, gender identity, or any veteran (foreign or domestic) status.</p>
+      <p>2. Organization Membership Requirements:</p>
+      <ol class="list-[lower-alpha] pl-6 space-y-1">
+        <li>Section Participants: Non-Society members who are graduate or undergraduate students at The Ohio State University studying and/or interested in the field of Nuclear Science and Engineering are eligible to become Participants. Section Participants may not hold the offices of President or Vice President.</li>
+        <li>Collective Reference: Society Members and Section Participants may be referred to collectively as the "membership" for purposes of meeting notifications, event invitations, and general communications.</li>
+      </ol>
+      <p>3. An active member shall be defined as one who has:</p>
+      <ol class="list-[lower-alpha] pl-6 space-y-1">
+        <li>Volunteered to be a part of the Section and maintain at least four (4) meetings attended per semester,</li>
+        <li>Met the membership requirements in Section 2 of R4, and</li>
+        <li>Maintain membership in good standing with the American Nuclear Society and selected the OSU Student Section as their preferred Section affiliation.</li>
+      </ol>
+      <p>4. Membership Process</p>
+      <ol class="list-[lower-alpha] pl-6 space-y-1">
+        <li>Membership does not include a selection process and is active upon request,</li>
+        <li>Persons interested in becoming a member should contact the section at <a class="text-primary-600 hover:underline" href="mailto:ENG-ansstudentchapter@osu.edu">ENG-ansstudentchapter@osu.edu</a> or any other forms of interest notification (e.g., direct message on social medias) by presenting their interest in becoming a member of the organization,</li>
+        <li>Society membership dues must be paid directly to the American Nuclear Society, with the OSU Student Section selected as the preferred Section affiliation,</li>
+        <li>Section Participants are encouraged to pursue Society membership for full benefits and voting rights.</li>
+      </ol>
+      <p>5. Faculty Advisor</p>
+      <ol class="list-[lower-alpha] pl-6 space-y-1">
+        <li>A faculty member of the Nuclear Engineering Program shall volunteer for the position.</li>
+        <li>The Faculty Advisor must be a Fellow, Member, or Emeritus member of the American Nuclear Society and a faculty member in the Nuclear Engineering Program at The Ohio State University.</li>
+        <li>The Faculty Advisor shall serve as a non-voting member of the Section, except in matters pertaining to the voluntary dissolution of the organization, wherein the advisor shall retain voting privileges.</li>
+        <li>The tenure of the Faculty Advisor shall remain in effect until such time as the Academic Advisor formally submits a request for removal from the position, or until a unanimous resolution is passed by the Board of Governors during a duly convened public meeting. The said meeting shall be specifically convened to consider the appointment or replacement of the current Faculty Advisor.</li>
+        <li>Replacement mechanisms are:
+          <ol class="list-decimal pl-6 space-y-1">
+            <li>The current Academic Advisor shall internally nominate a suitable substitute, who must be another faculty member from the Nuclear Program, or</li>
+            <li>The Board of Governors shall formally request that the faculty body of the Nuclear Program engage in discussion and deliberation regarding the appointment of a new Academic Advisor for the American Nuclear Society Student Section at The Ohio State University during the next scheduled Faculty Meeting.</li>
+          </ol>
+        </li>
+      </ol>
+      <p>6. Member Removal</p>
+      <ol class="list-[lower-alpha] pl-6 space-y-1">
+        <li>Members may be removed from the ANS at OSU internal member list organization upon their own request, or the Section may initiate the removal of a member by submitting to the ANS at OSU Board a written petition signed by no fewer than twenty percent (20%) of the Section membership. Causes for removal include, but are not limited to:
+          <ol class="list-decimal pl-6 space-y-1">
+            <li>Less than two (2) attendance per semester of the organization's events/meetings,</li>
+            <li>Gross misconduct,</li>
+            <li>Dereliction of duty,</li>
+            <li>Misappropriation of section funds, or</li>
+            <li>Any other actions contrary to the objectives of the society outlined in section R2.</li>
+          </ol>
+        </li>
+      </ol>
+      <p>7. Disciplinary Referral: If a student member of the Section acts in violation of the ANS Respectful Behavior Policy or otherwise in a manner that reflects poorly on the Section/Society, any member can refer that student to a Respectful Behavior Policy Official (RBPO), ANS staff member, or volunteers designated by the Responsible Society Official for review and potential disciplinary action, including possible suspension/termination of membership, or they may submit a written complaint to the Executive Director of the Society.</p>
+    `,
+  },
+  {
+    id: "b5",
+    title: "B5/R5 — Assessments and Contributions",
+    bylaws: `
+      <p>1. The Section shall have the right to levy special and reasonable assessments when authorized by affirmative vote of not fewer than two-thirds (2/3) of the members present at a regular meeting. Payment of such assessments shall not constitute a condition of Section membership.</p>
+      <p>2. The Section may also accept local non-compulsory financial contributions, but solicitation and acceptance of such contributions shall be limited to solicitation for those activities consistent with the objectives of the Society.</p>
+      <p>3. No part of the net earnings of the Section shall inure to the benefit of, or be distributable to, its members, officers, or other private persons, except that the Section shall be authorized and empowered to pay reasonable compensation for services rendered and to make payments and distributions in furtherance of the purposes set forth in this paragraph. No substantial part of the activities of the Section shall be the carrying on of propaganda, or otherwise attempting to influence legislation, and the Section shall not participate in, or intervene in (including the publishing or distribution of statements) any political campaign on behalf of any candidate for public office.</p>
+      <p>Notwithstanding any other provisions of these bylaws, the Section shall not carry on any other activities not permitted to be carried on (a) by an organization exempt from Federal income tax under section 501(c)(3) of the Internal Revenue Code of 1954 (or the corresponding provision of any future United States Internal Revenue Law) or (b) by an organization, contributions to which are deductible under Section 170(c)(2) of the Internal Revenue Code of 1954 (or the corresponding provision of any future United States Internal Revenue Law).</p>
+    `,
+    rules: `
+      <p>1. The Section may assess payment of a contribution or mailing fee as a requirement for becoming a Section Participant as set forth in Bylaw B4.4.</p>
+      <p>2. Fundraising Activities: The Section may engage in fundraising activities consistent with University policies and Society objectives, including but not limited to:</p>
+      <ol class="list-[lower-alpha] pl-6 space-y-1">
+        <li>Corporate sponsorships for events,</li>
+        <li>Grant applications for educational programs,</li>
+        <li>Donation from Alumni,</li>
+        <li>Fundraising events and activities, and</li>
+        <li>Sale of Section merchandise.</li>
+      </ol>
+      <p>3. Financial Management: All funds shall be managed according to University regulations and Society guidelines, with annual financial reporting required to Society Headquarters. The deadline for submitting the annual financial and activity report is set for April 30th each year.</p>
+    `,
+  },
+  {
+    id: "b6",
+    title: "B6/R6 — Officers",
+    bylaws: `<p>1. The Executive Committee of the Section shall include a President, Vice President, Communications Officer or Secretary, and a Treasurer. The President and Vice President shall be Student Members of the Society. The duties of the Communications Officer and Treasurer may be combined into a single office.</p>`,
+    rules: `
+      <p>1. Officer Positions and Terms — Including the officers specified in B6.1, the governance structure consists of:</p>
+      <ol class="list-[lower-alpha] pl-6 space-y-1">
+        <li>Core Officers (Elected):
+          <ol class="list-decimal pl-6 space-y-1">
+            <li>President</li>
+            <li>Vice President (designated President-Elect)</li>
+            <li>Treasurer</li>
+          </ol>
+        </li>
+        <li>Executive Officers (Appointed):
+          <ol class="list-decimal pl-6 space-y-1">
+            <li>Communications Officer or Secretary</li>
+            <li>Officers at Large</li>
+            <li>Webmaster</li>
+          </ol>
+        </li>
+        <li>Non-Voting Officer:
+          <ol class="list-decimal pl-6 space-y-1">
+            <li>Faculty Advisor (Academic Advisor)</li>
+          </ol>
+        </li>
+      </ol>
+      <p>2. Terms and Eligibility</p>
+      <ol class="list-[lower-alpha] pl-6 space-y-1">
+        <li>Officers shall hold office for one (1) year concurrently with the term of officers of the Society or until their successors are elected or appointed.</li>
+        <li>A member may hold a particular office for up to three (3) terms.</li>
+        <li>All officers, with the exception of the Faculty Advisor, must maintain a minimum cumulative grade point average of 3.0 for both graduate and undergraduate students.</li>
+        <li>President and Vice President must be graduate students enrolled in the Nuclear Program or engaged in research pertaining to nuclear engineering and must be members of the American Nuclear Society.</li>
+      </ol>
+      <p>3. Officer Responsibilities.</p>
+      <ol class="list-[lower-alpha] pl-6 space-y-1">
+        <li>The President shall have supervision over the affairs of the Section under the direction of the Board of Governors. The President shall preside at meetings and shall have the power to perform other duties as may be provided in this section or may be delegated to the office by the Board of Governors. The President shall be an ex officio member of all committees of the Section.</li>
+        <li>The Vice President at the time of the election shall be designated President-Elect. While serving, the Vice President shall perform the duties of the President in the President's absence or when the President is unable to serve, and such other duties as may be delegated to the office by the Board of Governors.</li>
+        <li>The Communications Officer or Secretary shall keep a record of the proceedings of the Section and shall have such other duties as may be assigned by the Board of Governors or points presented in this section. The Communications Officer or Secretary shall act as custodian of the Section Constitution. The Communications Officer or Secretary shall see that a notice of each Section meeting is provided to each member of the Section no less than ten (10) days before the date of that meeting. In the absence of the President and Vice President, the Communications Officer or Secretary shall preside at the meetings of the Section.</li>
+        <li>The Treasurer shall collect and disburse funds as authorized by the Board of Governors. The Treasurer shall deposit the funds of the Section in a repository approved by the Board of Governors, shall handle the financial accounting, shall present a financial report at Section meetings while in office, and shall submit the books of account to be audited when leaving office. The Treasurer shall be responsible for filing with the Society Treasurer, not later than February of each year, an annual financial report consisting of an operating statement of income and expenses. The Treasurer shall also have such other duties as may be assigned to the office by the Board of Governors. In the absence of the other officers, the Treasurer shall preside at meetings of the Section.</li>
+        <li>Officers at Large shall manage sub-committees as developed, report to the Vice President, and be appointed by the Board of Governors.</li>
+        <li>The Webmaster is directly appointed by the Board of Governors. The duties of the Webmaster are to maintain and update the Section website and platforms.</li>
+      </ol>
+    `,
+  },
+  {
+    id: "b7",
+    title: "B7/R7 — Board of Governors",
+    bylaws: `
+      <p>1. The Board of Governors shall be the governing body of the Section and shall have the power to act for the Section in all matters, subject to these Bylaws and to the Certificate of Incorporation and the Bylaws of the Society.</p>
+      <p>2. The Board of Governors shall include the elected Section Officers, the governors elected at large, and an Advisor who shall be a Fellow, Member, or Emeritus member of the Society. Selection of the Advisor by the Board of Governors shall be subject to the approval of the Host Institution. The Advisor shall be a non-voting member of the Board of Governors and shall serve as a liaison between the Section and the Society.</p>
+      <p>3. In order to provide for handling the affairs of the Section, the Board of Governors shall prepare and adopt, in connection with these Bylaws, suitable Rules. The procedure for amending the Section Rules shall be specified in the Rules, a necessary step in which shall be the review and endorsement by the Society's Bylaws and Rules Committee.</p>
+      <p>4. The Section may enter into cooperative agreements with local scientific and engineering societies, or with local units of such national societies, not contrary to the Certificate of Incorporation and the Bylaws and Rules of the Society.</p>
+      <p>5. The conduct of elections shall be specified in the Section Rules. The Rules shall also provide mechanisms for the filling of premature vacancies and for the removal of officers.</p>
+    `,
+    rules: `
+      <p>1. Composition of the Board of Governors:</p>
+      <ol class="list-[lower-alpha] pl-6 space-y-1">
+        <li>The Board of Governors consists of the Officers and the Faculty Advisor.</li>
+        <li>Eligibility Criteria:
+          <ol class="list-decimal pl-6 space-y-1">
+            <li>All student officers must maintain a minimum cumulative GPA of 3.0</li>
+            <li>Core Officers (President and Vice President) must be graduate students in the Nuclear Program or conducting nuclear engineering research, or members of the Board of Governors who have at least two years of governing experience, and members of the American Nuclear Society.</li>
+            <li>Faculty Advisor must be a Fellow, Member, or Emeritus member of the Society and a faculty member in the Nuclear Engineering Program</li>
+          </ol>
+        </li>
+      </ol>
+      <p>2. Elections and Eligibility:</p>
+      <ol class="list-[lower-alpha] pl-6 space-y-1">
+        <li>Core Officers: Elected by Section membership through secret ballot elections held physically at the host institution, announced at least thirty (30) days in advance by the Communications Officer or Secretary.</li>
+        <li>To be considered for these roles, the candidate must be an active member of the section for at least two (2) semesters. The annual election shall be held in September of each year.</li>
+        <li>Election Procedures:
+          <ol class="list-decimal pl-6 space-y-1">
+            <li>Minimum quorum: not fewer than twenty-five (25) qualified voters, or twenty percent (20%) of membership, whichever is less</li>
+            <li>Election requires one-half (1/2) plus one (1) vote of the present quorum</li>
+            <li>If no candidate achieves a majority, a runoff election between the two most-voted candidates within one (1) week</li>
+            <li>Tie-breaking by the current Board of Governors vote</li>
+            <li>One (1) month governance transition period following elections</li>
+            <li>Terms commence at the end of the transition period</li>
+          </ol>
+        </li>
+        <li>Executive Officers: Appointed by Core Officers through a simple majority vote (more than 50% of the Core Officers' votes). Should a candidate be rejected, they will be disqualified, and another candidate will be considered for the position. This appointment process takes place during the transition period and must be completed within two (2) weeks after the Core Officers assume their terms, with a majority vote from the Board of Governors.</li>
+        <li>Nominations: Prepared by the Nominating Committee appointed by the President at least one (1) month prior to the election, or accepted from the floor during the election meeting. All nominations require nominee consent.</li>
+      </ol>
+      <p>3. Governance Structure and Privileges</p>
+      <ol class="list-[lower-alpha] pl-6 space-y-1">
+        <li>All Board members have voting rights on Section matters, except the Faculty Advisor (voting only on dissolution matters).</li>
+        <li>Core Officers have additional privileges, including:
+          <ol class="list-decimal pl-6 space-y-1">
+            <li>Access to all financial accounts and records</li>
+            <li>Authority to sign contracts and agreements on behalf of the Section</li>
+            <li>Custody of official Section documents and archives</li>
+            <li>Final authority on emergency decisions between Board meetings</li>
+          </ol>
+        </li>
+        <li>Executive Officers have standard Board privileges:
+          <ol class="list-decimal pl-6 space-y-1">
+            <li>Voting rights on all Board matters</li>
+            <li>Committee assignment authority</li>
+            <li>Access to non-confidential Section records</li>
+            <li>Participation in all Board deliberations</li>
+          </ol>
+        </li>
+      </ol>
+      <p>4. Vacancies and Succession</p>
+      <ol class="list-[lower-alpha] pl-6 space-y-1">
+        <li>President vacancy: Vice President assumes presidency; the new President appoints a Vice President. The new appointments will serve until the next election.</li>
+        <li>Other Core Officer vacancies: the Board appoints an interim replacement. The President must call for a special election within eight (8) weeks of this appointment.</li>
+        <li>Executive Officer vacancy: The President shall appoint a replacement within two (2) weeks of the announcement of the vacancy.</li>
+        <li>Faculty Advisor vacancy: Replacement through mechanisms specified in the Constitution.</li>
+      </ol>
+    `,
+  },
+  {
+    id: "b8",
+    title: "B8/R8 — Meetings",
+    bylaws: `
+      <p>1. The Section shall hold no fewer than four (4) meetings each year.</p>
+      <p>2. The last meeting held before the end of the academic year is the Annual Meeting, at the end of which the newly elected officers shall take office.</p>
+    `,
+    rules: `
+      <p>1. Meeting Schedule — Call Meetings of the Board of Governors may be called at any time by the President, or at the request of any two (2) members of the Board of Governors.</p>
+      <p>2. Notification — A notice of each Section meeting shall be provided either in print or electronically to each voting and non-voting member by the Communications Officer not less than ten (10) days before the date of that meeting.</p>
+      <p>3. Quorum</p>
+      <ol class="list-[lower-alpha] pl-6 space-y-1">
+        <li>General Meetings: A quorum for the transaction of business shall consist of not fewer than twenty-five (25) qualified voters, or twenty percent (20%) of the membership, whichever is less.</li>
+        <li>Board Meetings: A majority of the Board of Governors shall constitute a quorum.</li>
+        <li>Election Meetings: Same quorum as general meetings; if insufficient quorum, postpone by one (1) week.</li>
+      </ol>
+    `,
+  },
+  {
+    id: "b9",
+    title: "B9/R9 — Committees",
+    bylaws: `<p>1. Standing and Special Committees of the Section shall be appointed by the President, subject to the approval of the Board of Governors. Standing committees shall be appointed to serve a term concurrent with the Officers of the Section.</p>`,
+    rules: `
+      <p>1. Committee Types — Committees shall be designated as either Special Committees or Standing Committees.</p>
+      <p>2. Special Committees — May be requested by any officer to assist the Section in performing a mission-driven function, while not in conflict with an existing Standing Committee. A three-fifths (3/5) majority vote of the Board of Governors is required to grant a request for a Special Committee. Any Special Committee established shall be subordinate to the requesting officer.</p>
+      <p>3. Standing Committees</p>
+      <ol class="list-[lower-alpha] pl-6 space-y-1">
+        <li>Required Standing Committees:
+          <ol class="list-decimal pl-6 space-y-1">
+            <li>Social Committee: Organizing social activities, team building, and bonding activities among faculty, staff, and students</li>
+            <li>Fundraising Committee: Organizing and implementing activities to raise funds for the Section's mission support</li>
+            <li>Internal Activities Committee: Maintaining the Section newsletter, monitoring Special Committees, and conducting general meetings</li>
+            <li>Membership Relations Committee: Increasing Section membership, welcoming new members, and representing member feedback to the Board</li>
+          </ol>
+        </li>
+      </ol>
+      <p>4. Reporting Structure:</p>
+      <ol class="list-[lower-alpha] pl-6 space-y-1">
+        <li>Standing Committees report to the Vice President on a schedule determined by the committee chairperson and the Vice President</li>
+        <li>Special Committees report to the coordinating officer on a schedule determined by the committee chairperson and the coordinating officer</li>
+      </ol>
+    `,
+  },
+  {
+    id: "b10",
+    title: "B10/R10 — Rules of Order",
+    bylaws: `<p>1. Rules contained in Robert's Rules of Order, current edition, shall be used in the conduct of meetings of the Board of Governors and shall be the authority on parliamentary procedures except as may otherwise be required by the laws of incorporation of the Society and the Bylaws and Rules of the Section and the Society.</p>`,
+    rules: `
+      <p>1. Board Voting Requirements — All measures voted on by the Board of Governors must pass with a two-thirds (2/3) majority, except for matters prescribed in Section R9.2, which require a three-fifths (3/5) majority.</p>
+      <p>2. Quorum for Board Meetings — A majority of the Board of Governors shall constitute a quorum at all Board of Governors meetings.</p>
+      <p>3. Absentee Voting — If a Board member is absent from a meeting with a known short-term absence, the member has two (2) weeks from notification to respond in writing (YES or NO) to all Board members via email.</p>
+      <p>4. Default Votes — If an absent Board member fails to respond within the time specified in Section R10.3, the vote will be considered an abstention.</p>
+    `,
+  },
+  {
+    id: "b11",
+    title: "B11/R11 — Amendments",
+    bylaws: `
+      <p>1. Amendments to these Standard Bylaws may be proposed by any Student Section, the Student Sections Committee, the Society Bylaws and Rules Committee, or the Society Board of Directors. Amendments must be of a nature that they can be applied equitably to all Student Sections, in keeping with the intent of the Standard Bylaws.</p>
+      <p>2. All proposed Bylaw amendments shall be forwarded to each Student Section for comment. Comments should be filed with the Student Sections Committee Chair no later than forty-five (45) days prior to the next ANS national meeting. Further detailed procedures for approval of amendments to the Standards Bylaws are in the ANS Rule R19.4.1.</p>
+      <p>3. The Student Sections Committee shall notify all Student Sections of approved amendments to the Standard Bylaws. Each Student Section shall be responsible for reviewing approved amendments to determine if corresponding changes to the Student Section's Rules are required.</p>
+    `,
+    rules: `
+      <p>1. Rules Amendment Process</p>
+      <ol class="list-[lower-alpha] pl-6 space-y-1">
+        <li>Proposal: Amendments to these Rules may be proposed at any Board meeting or during any regular Section meeting.</li>
+        <li>Comment Period: The Board shall allow a two (2)-week comment period before voting on proposed amendments.</li>
+        <li>Board Endorsement: Upon endorsement by at least two-thirds (2/3) of the Board of Governors, proposed Rules shall be submitted to the Society Bylaws and Rules Committee for review.</li>
+        <li>Society Review: The Committee shall provide comments for improving consistency and clarity in accordance with the intent of proposed amendments.</li>
+        <li>Final Vote: Once comments are resolved and endorsed by the Committee, the Board shall vote on proposed amendments, with a simple majority of quorum being sufficient for passage.</li>
+        <li>Membership Ratification: Any Board member may request presentation of proposed amendments to Section membership. A simple majority of not less than twenty-five percent (25%) of total voting membership shall be sufficient for passage.</li>
+        <li>Implementation: Approved amendments become effective upon the Secretary's filing of amended Rules with Society Headquarters.</li>
+        <li>Notification: The Secretary shall notify members of amendments as soon as possible after adoption via accessible media.</li>
+      </ol>
+    `,
+  },
+  {
+    id: "b12",
+    title: "B12/R12 — Dissolution",
+    bylaws: `<p>1. Upon the dissolution of the Section, assets shall be distributed first in accordance with the Articles of Incorporation of the Section. If no such Articles exist, or potential recipients are not named specifically, then the Society, an organization exempt under Section 501(c)(3) of the Internal Revenue Code, shall take possession of assets for one or more exempt purposes within the meaning of that Section of the Code or corresponding section of any future federal tax code, or they shall be distributed to the Federal government, or to a state or local government, for a public purpose.</p>`,
+    rules: `
+      <p>1. Dissolution Requirements</p>
+      <ol class="list-[lower-alpha] pl-6 space-y-1">
+        <li>Voluntary dissolution requires approval by:
+          <ol class="list-decimal pl-6 space-y-1">
+            <li>Four out of five Board of Governors members (Core Officers plus Executive Officers)</li>
+            <li>Three-fourths of the general membership</li>
+            <li>Faculty Advisor</li>
+          </ol>
+        </li>
+        <li>Debt Restriction: The Section cannot be dissolved while maintaining active debts with banks, vendors, contractors, or other creditors.</li>
+      </ol>
+      <p>2. Financial Clearance Process — Before dissolution proceedings may commence:</p>
+      <ol class="list-[lower-alpha] pl-6 space-y-1">
+        <li>Treasurer must prepare a comprehensive financial report detailing the complete financial status, including all assets, liabilities, outstanding debts, pending transactions, and financial obligations</li>
+        <li>If debts exist, the Treasurer must work to resolve all outstanding financial obligations</li>
+        <li>Board must review and accept the financial report confirming debt resolution before the dissolution vote</li>
+      </ol>
+      <p>3. Asset Distribution — Upon approved dissolution:</p>
+      <ol class="list-[lower-alpha] pl-6 space-y-1">
+        <li>Assets distributed per Articles of Incorporation or to Society as a 501(c)(3) organization</li>
+        <li>Financial holdings, records, and materials may be distributed to an approved interim storage facility or the National American Nuclear Society per applicable regulations</li>
+      </ol>
+      <p>4. Documentation Requirements — All dissolution proceedings must be fully documented and filed with the appropriate University and Society authorities in accordance with applicable regulations.</p>
+    `,
+  },
+];
+---
+
+<div class="bg-white rounded-lg shadow-sm border border-gray-200">
+  <div class="px-6 py-5 border-b border-gray-200">
+    <h3 class="text-xl font-bold">Bylaws and Rules</h3>
+    <p class="text-sm text-gray-500 mt-1">
+      Revised October 11, 2025 &middot; Approved by the Board October 13, 2025
+    </p>
+    <p class="text-gray-600 mt-3">
+      The Standard Bylaws (derived from the national ANS Bylaws and Rules, and
+      only amendable by the Society's Board of Governors) are shown alongside
+      the Section's own Rules, which this chapter develops and maintains. If
+      the two conflict, the Bylaws take precedence.
+    </p>
+  </div>
+
+  <nav aria-label="Bylaws and Rules sections" class="px-6 py-4 border-b border-gray-200 bg-gray-50">
+    <ul class="flex flex-wrap gap-x-4 gap-y-1 text-sm">
+      {sections.map((s) => (
+        <li>
+          <a href={`#${s.id}`} class="text-primary-600 hover:underline">{s.title}</a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+
+  <div class="divide-y divide-gray-200">
+    {sections.map((s) => (
+      <section id={s.id} class="px-6 py-8 scroll-mt-24">
+        <h4 class="text-lg font-bold mb-4">{s.title}</h4>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-wide text-gray-500 mb-2">
+              Standard Bylaws
+            </p>
+            <div class="prose prose-sm max-w-none text-gray-700 space-y-3" set:html={s.bylaws} />
+          </div>
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-wide text-gray-500 mb-2">
+              OSU Section Rules
+            </p>
+            <div class="prose prose-sm max-w-none text-gray-700 space-y-3" set:html={s.rules} />
+          </div>
+        </div>
+      </section>
+    ))}
+  </div>
+</div>
