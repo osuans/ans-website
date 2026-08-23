@@ -2,7 +2,6 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHeader from "../components/Sections/PageHeader.astro";
 import DocumentViewer from "../components/UI/DocumentViewer.astro";
-import BylawsRules from "../components/Sections/BylawsRules.astro";
 ---
 
 <BaseLayout
@@ -54,7 +53,7 @@ import BylawsRules from "../components/Sections/BylawsRules.astro";
 
       <div class="max-w-4xl mx-auto space-y-8">
         <DocumentViewer title="Constitution" />
-        <BylawsRules />
+        <DocumentViewer title="Bylaws and Rules" fileUrl="/uploads/bylaws-and-rules.pdf" />
       </div>
     </div>
   </section>
