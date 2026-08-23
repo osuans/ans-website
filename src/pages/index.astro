@@ -31,7 +31,7 @@ const [upcomingEvents, calendarEvents] = await Promise.all([
     .fetch<SanityEvent[]>(
       `*[_type == "event" && draft != true && date >= $today] | order(date asc) {
       title, "slug": slug.current, date, time, location, summary, featured,
-      "imageUrl": image.asset->url
+      "imageUrl": image.asset->url + "?w=800&auto=format&q=75"
     }`,
       { today: today.toISOString() }
     )

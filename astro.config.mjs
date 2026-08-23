@@ -23,4 +23,15 @@ export default defineConfig({
       wrap: true
     }
   },
+
+  vite: {
+    build: {
+      // Every page currently ships its own near-duplicate Tailwind bundle
+      // (full preflight repeated in each), because Vite's default per-chunk
+      // CSS splitting doesn't help a server-rendered site where each page is
+      // its own request anyway. One shared, deduplicated stylesheet cuts
+      // both the byte count and the render-blocking request count.
+      cssCodeSplit: false,
+    },
+  },
 });
