@@ -57,7 +57,37 @@ export const event = defineType({
       name: 'body',
       title: 'Body',
       type: 'array',
-      of: [{ type: 'block' }],
+      of: [
+        { type: 'block' },
+        {
+          type: 'object',
+          name: 'table',
+          title: 'Table',
+          description: 'The first row is the header.',
+          fields: [
+            defineField({
+              name: 'rows',
+              title: 'Rows',
+              type: 'array',
+              of: [
+                {
+                  type: 'object',
+                  name: 'tableRow',
+                  fields: [{ name: 'cells', title: 'Cells', type: 'array', of: [{ type: 'string' }] }],
+                  preview: {
+                    select: { cells: 'cells' },
+                    prepare: ({ cells }) => ({ title: (cells || []).join(' | ') }),
+                  },
+                },
+              ],
+            }),
+          ],
+          preview: {
+            select: { rows: 'rows' },
+            prepare: ({ rows }) => ({ title: 'Table', subtitle: rows?.[0]?.cells?.join(' | ') }),
+          },
+        },
+      ],
     }),
     defineField({
       name: 'tags',
