@@ -61,7 +61,7 @@ export const NSW = {
       date: 'Tuesday, October 20, 2026',
       time: '4:00 PM – 6:00 PM (catering from 3:45 PM)',
       location: 'Scott Laboratory N050, The Ohio State University',
-      registrationUrl: '',
+      registrationUrl: 'https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=NlYJ61IQlUiVKx_53x0RIdCQb8jqLuRNvqUp_jnX8HVUQThBQlBYVU1CV04yNDZHSE5TWThMUjlFSC4u',
       agenda: [
         { time: '3:45 PM', activity: 'Catering begins' },
         {
@@ -96,7 +96,7 @@ export const NSW = {
       date: '',
       time: '',
       location: '',
-      registrationUrl: '',
+      registrationUrl: 'https://buckeyemailosu.sharepoint.com/:l:/s/AmericanNuclearSocietyatOSU/JABBNrxGnxlPRJWsKJuYpaJcAdffSPviVnAfouR7nwZCI5c?nav=MDg0N2JjNWQtZjdmMS00NDMwLWIwOTAtMmEwZDJkOTVlZmYw',
       agenda: [],
       people: [],
       peopleNote: 'Panelists will be announced soon.',
