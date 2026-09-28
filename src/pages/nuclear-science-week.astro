@@ -1,0 +1,178 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "../components/Sections/PageHeader.astro";
+import Button from "../components/UI/Button.astro";
+import { NSW } from "../data/nuclearScienceWeek";
+
+const initials = (name: string) =>
+  name
+    .replace(/^(Prof\.|Dr\.)\s+/, "")
+    .split(/\s+/)
+    .map((part) => part[0])
+    .slice(0, 2)
+    .join("");
+---
+
+<BaseLayout
+  title="National Nuclear Science Week 2026 | ANS at OSU"
+  description="Join ANS at Ohio State for National Nuclear Science Week, October 19–23, 2026: high school outreach, the Ohio Nuclear Workforce Panel, and the National Laboratory Panel."
+>
+  <PageHeader
+    title={NSW.title}
+    subtitle={NSW.dates}
+    backgroundImage="/uploads/npp2.webp"
+  />
+
+  <!-- Intro + jump links -->
+  <section class="py-16">
+    <div class="container">
+      <div class="max-w-3xl mx-auto text-center">
+        <p class="text-xl text-gray-700 mb-8">{NSW.intro}</p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <Button href="#outreach" variant="outline">High School Outreach</Button>
+          {NSW.panels.map((panel) => (
+            <Button href={`#${panel.id}`} variant="outline">{panel.title}</Button>
+          ))}
+        </div>
+        <p class="mt-8 text-gray-600">
+          <strong class="text-gray-900">Registration is required</strong> to attend each panel.
+          Please register separately for every event you plan to attend.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- High School Outreach -->
+  <section id="outreach" class="py-16 bg-secondary-100 scroll-mt-24">
+    <div class="container">
+      <div class="max-w-3xl mx-auto">
+        <p class="text-primary-600 font-semibold uppercase tracking-wide mb-2">{NSW.outreach.date}</p>
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">High School Outreach</h2>
+        {NSW.outreach.description.map((paragraph) => (
+          <p class="text-lg text-gray-700 mb-4">{paragraph}</p>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Panels -->
+  {NSW.panels.map((panel, index) => (
+    <section id={panel.id} class={`py-16 scroll-mt-24 ${index % 2 === 1 ? "bg-secondary-100" : ""}`}>
+      <div class="container">
+        <div class="max-w-5xl mx-auto">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">{panel.title}</h2>
+          <p class="text-lg text-gray-700 mb-8 max-w-3xl">{panel.description}</p>
+
+          <!-- Details + registration -->
+          <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 mb-12">
+            <dl class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+              <div>
+                <dt class="text-sm font-semibold uppercase tracking-wide text-gray-500">Date</dt>
+                <dd class="text-lg text-gray-900 mt-1">{panel.date || "Coming soon"}</dd>
+              </div>
+              <div>
+                <dt class="text-sm font-semibold uppercase tracking-wide text-gray-500">Time</dt>
+                <dd class="text-lg text-gray-900 mt-1">{panel.time || "Coming soon"}</dd>
+              </div>
+              <div>
+                <dt class="text-sm font-semibold uppercase tracking-wide text-gray-500">Location</dt>
+                <dd class="text-lg text-gray-900 mt-1">{panel.location || "Coming soon"}</dd>
+              </div>
+            </dl>
+            <div class="border-t border-gray-200 pt-6 flex flex-col sm:flex-row sm:items-center gap-4">
+              <p class="text-gray-700 flex-1">
+                <strong class="text-primary-600">Registration is required to attend.</strong>
+                Space is limited, so please register in advance.
+              </p>
+              {panel.registrationUrl ? (
+                <Button href={panel.registrationUrl} target="_blank" variant="primary" size="lg">
+                  Register Now
+                </Button>
+              ) : (
+                <Button variant="outline" size="lg" disabled>
+                  Registration opening soon
+                </Button>
+              )}
+            </div>
+          </div>
+
+          <!-- Itinerary -->
+          {panel.agenda.length > 0 && (
+            <div class="mb-12">
+              <h3 class="text-2xl font-bold mb-4">Itinerary</h3>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                  <thead>
+                    <tr class="border-b-2 border-gray-300">
+                      <th class="py-3 pr-6 font-semibold text-gray-900 whitespace-nowrap">Time</th>
+                      <th class="py-3 font-semibold text-gray-900">Activity</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {panel.agenda.map((item) => (
+                      <tr class="border-b border-gray-200">
+                        <td class="py-3 pr-6 text-gray-900 font-medium whitespace-nowrap align-top">{item.time}</td>
+                        <td class="py-3 text-gray-700">{item.activity}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
+          <!-- Panel members -->
+          <h3 class="text-2xl font-bold mb-6">Panel Members</h3>
+          {panel.people.length > 0 && (
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {panel.people.map((person) => (
+                <div class="bg-white rounded-lg shadow p-5">
+                  <div class="flex items-center gap-4">
+                    {person.photo ? (
+                      <img
+                        src={person.photo}
+                        alt={person.name}
+                        loading="lazy"
+                        decoding="async"
+                        class="w-20 h-20 shrink-0 rounded-full object-cover object-[50%_20%]"
+                      />
+                    ) : (
+                      <div
+                        class="w-20 h-20 shrink-0 rounded-full bg-primary-50 border border-primary-100 flex items-center justify-center text-2xl font-serif font-bold text-primary-600"
+                        aria-hidden="true"
+                      >
+                        {initials(person.name)}
+                      </div>
+                    )}
+                    <div class="min-w-0">
+                      <p class="text-sm font-semibold uppercase tracking-wide text-primary-600 mb-1">{person.role}</p>
+                      <h4 class="text-xl font-semibold leading-tight mb-1">{person.name}</h4>
+                      <p class="text-gray-600">
+                        {person.title ? `${person.title}, ${person.organization}` : person.organization}
+                      </p>
+                    </div>
+                  </div>
+                  {person.bio && <p class="text-gray-700 mt-4">{person.bio}</p>}
+                </div>
+              ))}
+            </div>
+          )}
+          {panel.peopleNote && <p class="text-gray-600 mt-6">{panel.peopleNote}</p>}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <!-- Questions -->
+  <section class="py-16 bg-primary-50">
+    <div class="container">
+      <div class="max-w-2xl mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-4">Questions?</h2>
+        <p class="text-lg text-gray-700 mb-8">
+          Reach out to the ANS Student Section with any questions about Nuclear Science Week events.
+        </p>
+        <Button href="/contact-us" variant="primary">Contact Us</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
