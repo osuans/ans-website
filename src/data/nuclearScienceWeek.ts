@@ -22,6 +22,15 @@ export interface Person {
 export interface AgendaItem {
   time: string;
   activity: string;
+  /** Invitation-only item; shown with a "VIP only" badge. */
+  vipOnly?: boolean;
+}
+
+export interface Tour {
+  name: string;
+  location: string;
+  host: string;
+  guides?: string;
 }
 
 export interface Panel {
@@ -33,6 +42,9 @@ export interface Panel {
   location: string;
   registrationUrl: string;
   agenda: AgendaItem[];
+  /** Laboratory tour stops; omit if the event has no tours. */
+  tours?: Tour[];
+  toursIntro?: string;
   people: Person[];
   /** Shown under the people grid, e.g. for panelists still being confirmed. */
   peopleNote?: string;
@@ -59,10 +71,19 @@ export const NSW = {
       description:
         'Hosted with the Ohio Nuclear Alliance, this panel convenes leaders from across Ohio’s nuclear sector to discuss the state’s nuclear future and the workforce behind it, with voices from industry, the skilled trades, education, and state government.',
       date: 'Tuesday, October 20, 2026',
-      time: '4:00 PM – 6:00 PM (catering from 3:45 PM)',
+      time: '2:30 PM – 6:00 PM (panel begins at 4:00 PM)',
       location: 'Scott Laboratory N050, The Ohio State University',
       registrationUrl: 'https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=NlYJ61IQlUiVKx_53x0RIdCQb8jqLuRNvqUp_jnX8HVUQThBQlBYVU1CV04yNDZHSE5TWThMUjlFSC4u',
       agenda: [
+        {
+          time: '1:00 PM – 2:00 PM',
+          activity: 'Reactor tour for invited guests, including travel from main campus',
+          vipOnly: true,
+        },
+        {
+          time: '2:30 PM – 3:30 PM',
+          activity: 'Laboratory tours: three 20-minute stops, with every group rotating through all three',
+        },
         { time: '3:45 PM', activity: 'Catering begins' },
         {
           time: '4:00 PM – 4:10 PM',
@@ -72,6 +93,28 @@ export const NSW = {
         { time: '4:10 PM – 5:00 PM', activity: 'Moderated panel' },
         { time: '5:00 PM – 5:15 PM', activity: 'Audience Q&A' },
         { time: '5:15 PM – 6:00 PM', activity: 'Closing remarks and networking reception' },
+      ],
+      toursIntro:
+        'Before the panel, attendees tour three of Ohio State’s nuclear research facilities. Groups spend 20 minutes at each stop and rotate through all three.',
+      tours: [
+        {
+          name: 'Materials at Extremes (MATX)',
+          location: 'Scott Laboratory W075',
+          host: 'Prof. Calvin Stewart',
+          guides: 'Grant, Haven, and Daniel',
+        },
+        {
+          name: 'OSU NMR Facility',
+          location: 'CBEC 092',
+          host: 'Dr. Dan Conroy',
+          guides: 'Ella',
+        },
+        {
+          name: 'NuScale E2 SMR Simulator',
+          location: 'Scott Laboratory W273',
+          host: 'Prof. Carol Smidts',
+          guides: 'Vinicius',
+        },
       ],
       people: [
         { role: 'Moderator', name: 'Prof. Marat Khafizov', organization: 'The Ohio State University' },
@@ -101,5 +144,5 @@ export const NSW = {
       people: [],
       peopleNote: 'Panelists will be announced soon.',
     },
-  ] satisfies Panel[],
+  ] as Panel[],
 };

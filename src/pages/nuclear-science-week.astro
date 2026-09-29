@@ -112,12 +112,53 @@ const initials = (name: string) =>
                     {panel.agenda.map((item) => (
                       <tr class="border-b border-gray-200">
                         <td class="py-3 pr-6 text-gray-900 font-medium whitespace-nowrap align-top">{item.time}</td>
-                        <td class="py-3 text-gray-700">{item.activity}</td>
+                        <td class="py-3 text-gray-700">
+                          {item.vipOnly && (
+                            <span class="inline-block mr-2 px-2 py-0.5 rounded text-xs font-semibold uppercase tracking-wide bg-secondary-900 text-white align-middle">
+                              VIP only
+                            </span>
+                          )}
+                          {item.activity}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
+            </div>
+          )}
+
+          <!-- Laboratory tours -->
+          {panel.tours && panel.tours.length > 0 && (
+            <div class="mb-12">
+              <h3 class="text-2xl font-bold mb-2">Laboratory Tours</h3>
+              {panel.toursIntro && <p class="text-gray-700 mb-6">{panel.toursIntro}</p>}
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {panel.tours.map((tour) => (
+                  <div class="bg-white rounded-lg shadow p-5 border-t-4 border-primary-500">
+                    <h4 class="text-xl font-semibold leading-tight mb-3">{tour.name}</h4>
+                    <dl class="space-y-2 text-gray-700">
+                      <div>
+                        <dt class="text-sm font-semibold uppercase tracking-wide text-gray-500">Location</dt>
+                        <dd>{tour.location}</dd>
+                      </div>
+                      <div>
+                        <dt class="text-sm font-semibold uppercase tracking-wide text-gray-500">Host</dt>
+                        <dd>{tour.host}</dd>
+                      </div>
+                      {tour.guides && (
+                        <div>
+                          <dt class="text-sm font-semibold uppercase tracking-wide text-gray-500">ANS Guides</dt>
+                          <dd>{tour.guides}</dd>
+                        </div>
+                      )}
+                    </dl>
+                  </div>
+                ))}
+              </div>
+              <p class="text-sm text-gray-600 mt-4">
+                The reactor tour is a VIP tour for invited guests only. Laboratory tours are open to registered attendees.
+              </p>
             </div>
           )}
 
