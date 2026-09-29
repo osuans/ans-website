@@ -17,6 +17,8 @@ export interface Person {
   organization: string;
   photo?: string;
   bio?: string;
+  /** Shown under the bio as "Research interests: …". */
+  interests?: string;
 }
 
 export interface AgendaItem {
@@ -141,8 +143,32 @@ export const NSW = {
       location: '',
       registrationUrl: 'https://buckeyemailosu.sharepoint.com/:l:/s/AmericanNuclearSocietyatOSU/JABBNrxGnxlPRJWsKJuYpaJcAdffSPviVnAfouR7nwZCI5c?nav=MDg0N2JjNWQtZjdmMS00NDMwLWIwOTAtMmEwZDJkOTVlZmYw',
       agenda: [],
-      people: [],
-      peopleNote: 'Panelists will be announced soon.',
+      people: [
+        {
+          role: 'Panelist',
+          name: 'Dr. Bronson Lynn',
+          title: 'Scientist, Tritium Technology Division',
+          organization: 'Savannah River National Laboratory',
+          photo: '/uploads/nsw/bronson-lynn.webp',
+          bio: 'Bronson Lynn is a scientist in the Tritium Technology Division at Savannah River National Laboratory. He received his Ph.D. in Chemical Engineering from Clemson University in 2024. His research focuses on hydrogen isotope separation processes for the nuclear fusion fuel cycle and tritium interactions with fusion-relevant materials.',
+        },
+        {
+          role: 'Panelist',
+          name: 'Dr. Brandon Chung',
+          title: 'Group Leader, Nuclear Materials, Security, and Technology Group',
+          organization: 'Lawrence Livermore National Laboratory',
+          photo: '/uploads/nsw/brandon-chung.webp',
+          bio: 'Brandon Chung is a Group Leader for the Nuclear Materials, Security, and Technology Group in the Materials Science Division. Concurrently, he is an Associate Program Leader (APL) for Tritium Operations in Superblock. He specializes in the metallurgy and analytical chemistry of nuclear materials and tritium operations. In his current role, he is responsible for group performance and technical direction, strategic planning, technical road-mapping, and setting the R&D direction in materials science of nuclear materials. In addition to nuclear materials, he has worked on solid-state ionics and electrochemistry of ceramic ion conductors and development of electrochemical gas sensors. He earned his Ph.D. in Materials Science and Engineering in 1996 from the University of California at Los Angeles. From 1996 to 1999, he was at AlliedSignal Aerospace in both technical and project engineering roles on fuel cell development and oxygen generator projects for Mars In-Situ Resource Utilization programs. He joined LLNL in July of 1999, at which time he worked on the solid oxide fuel cell, hydrogen electrolyzer and electrochemical gas sensor projects. Since 2001, he has worked on physical and electronic properties of actinides.',
+          interests: 'Plutonium and Tritium Science, Nuclear Forensics, Solid State Chemistry and Electrochemistry, Correlated Electron Materials, Photoemission Spectroscopy and Surface Science, Fuel Cell, Electrochemical Gas Sensor, Solid State Ionics',
+        },
+        {
+          role: 'Panelist',
+          name: 'Dr. Kelly Truax',
+          organization: 'Pacific Northwest National Laboratory',
+          photo: '/uploads/nsw/kelly-truax.webp',
+          bio: 'Kelly Truax earned her Professional Geology Degree (B.S.) from Mississippi State University in 2019 followed by a M.S. and Ph.D. in Earth and Planetary Sciences from the University of Hawai‘i at Mānoa (2020; 2023). Her research spans environmental monitoring, radiation detection, and application of ML/AI. She has experience working with images, object detection, neural network training, and statistical methods to name a few. Skills extend to field sampling (water, soil, etc.), laser induced fluorescence, actinide and gas separations/analysis, and gamma-spectroscopy. Current work at Pacific Northwest National Laboratory (PNNL) explores AI/ML transferability, automated gamma spectra analysis, and multi-modal multi-model detection capabilities to find solutions that advance the field of nuclear forensics and improve operational processes.',
+        },
+      ],
     },
   ] as Panel[],
 };
