@@ -120,7 +120,7 @@ export const NSW = {
       ],
       people: [
         { role: 'Moderator', name: 'Prof. Marat Khafizov', organization: 'The Ohio State University' },
-        { role: 'Panelist', name: 'Matt Snider', organization: 'Centrus Energy' },
+        { role: 'Panelist', name: 'Justin Clark', organization: 'Centrus Energy' },
         { role: 'Panelist', name: 'Dr. Julie Blevins', organization: 'Dublin City Schools, Emerald Campus' },
         { role: 'Panelist', name: 'Joe Dillow', organization: 'International Brotherhood of Electrical Workers (IBEW)' },
         { role: 'Panelist', name: 'Andrew Conway', organization: 'Public Utilities Commission of Ohio' },
