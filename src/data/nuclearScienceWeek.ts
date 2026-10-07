@@ -42,6 +42,8 @@ export interface Panel {
   date: string;
   time: string;
   location: string;
+  /** Online meeting link for remote attendees; shown under the location. */
+  virtualUrl?: string;
   registrationUrl: string;
   agenda: AgendaItem[];
   /** Laboratory tour stops; omit if the event has no tours. */
@@ -138,9 +140,10 @@ export const NSW = {
       title: 'National Laboratory Panel',
       description:
         'Researchers from the U.S. national laboratories share their work and the paths that led them there, from graduate research to careers at the forefront of nuclear science and engineering.',
-      date: '',
-      time: '',
-      location: '',
+      date: 'Wednesday, October 21, 2026',
+      time: '6:00 PM – 8:00 PM',
+      location: 'Scott Laboratory E525, The Ohio State University',
+      virtualUrl: 'https://teams.microsoft.com/meet/25366922838781?p=k9KfE7dk1WhOdjXEgK',
       registrationUrl: 'https://buckeyemailosu.sharepoint.com/:l:/s/AmericanNuclearSocietyatOSU/JABBNrxGnxlPRJWsKJuYpaJcAdffSPviVnAfouR7nwZCI5c?nav=MDg0N2JjNWQtZjdmMS00NDMwLWIwOTAtMmEwZDJkOTVlZmYw',
       agenda: [],
       people: [

@@ -77,6 +77,13 @@ const initials = (name: string) =>
               <div>
                 <dt class="text-sm font-semibold uppercase tracking-wide text-gray-500">Location</dt>
                 <dd class="text-lg text-gray-900 mt-1">{panel.location || "Coming soon"}</dd>
+                {panel.virtualUrl && (
+                  <dd class="mt-1">
+                    <a href={panel.virtualUrl} target="_blank" rel="noopener noreferrer" class="text-primary-600 font-semibold hover:underline">
+                      Join virtually on Microsoft Teams
+                    </a>
+                  </dd>
+                )}
               </div>
             </dl>
             <div class="border-t border-gray-200 pt-6 flex flex-col sm:flex-row sm:items-center gap-4">
