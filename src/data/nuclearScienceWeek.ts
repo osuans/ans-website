@@ -125,7 +125,7 @@ export const NSW = {
         { role: 'Panelist', name: 'Justin Clark', organization: 'Centrus Energy' },
         { role: 'Panelist', name: 'Dr. Julie Blevins', organization: 'Dublin City Schools, Emerald Campus' },
         { role: 'Panelist', name: 'Joe Dillow', organization: 'International Brotherhood of Electrical Workers (IBEW)' },
-        { role: 'Panelist', name: 'Andrew Conway', organization: 'Public Utilities Commission of Ohio' },
+        { role: 'Panelist', name: 'Will Hinman', organization: 'Bowers Hinman Capitol Affairs' },
         { role: 'Speaker', name: 'Daniel Watts', organization: 'Centrus Energy' },
         {
           role: 'Recorded Address',
