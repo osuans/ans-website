@@ -7,6 +7,7 @@ import { sanityClient } from "../../lib/sanity";
 import { formatDate, isFutureDate } from "../../utils/dateUtils";
 import { parseISO } from "date-fns";
 import { CONFIG } from "../../constants";
+import { marked } from "marked";
 
 const { slug } = Astro.params;
 if (!slug) return new Response("Not found", { status: 404 });
@@ -32,6 +33,18 @@ const formattedDate = formatDate(entry.date);
 const formattedEndDate = entry.endDate ? formatDate(entry.endDate) : null;
 const isFutureEvent = isFutureDate(entry.endDate || entry.date);
 const eventImage = entry.imageUrl || CONFIG.DEFAULTS.EVENT_IMAGE;
+
+// Events migrated by scripts/seed-sanity.ts hold their original Markdown body
+// (tables, headings, <details> abstracts) as one unformatted span. Render that
+// as Markdown; bodies authored in the Studio go through Portable Text.
+const [firstBlock] = entry.body || [];
+const legacyMarkdown =
+  entry.body?.length === 1 &&
+  firstBlock._type === "block" &&
+  firstBlock.children?.length === 1 &&
+  !firstBlock.children[0].marks?.length
+    ? (marked.parse(firstBlock.children[0].text) as string)
+    : null;
 ---
 
 <BaseLayout
@@ -103,7 +116,7 @@ const eventImage = entry.imageUrl || CONFIG.DEFAULTS.EVENT_IMAGE;
 
     <!-- Event Content -->
     <article class="prose prose-lg max-w-none prose-headings:text-gray-900 prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-h4:text-lg prose-p:text-gray-700 prose-li:text-gray-700 prose-strong:text-gray-900 prose-a:text-primary-600 hover:prose-a:text-primary-700">
-      <PortableText client:load value={entry.body} />
+      {legacyMarkdown ? <Fragment set:html={legacyMarkdown} /> : <PortableText client:load value={entry.body} />}
     </article>
 
     <!-- Action Buttons -->
